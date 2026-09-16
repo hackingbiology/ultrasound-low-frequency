@@ -187,10 +187,362 @@ Wix site; `curl` with a browser UA returns fully-rendered text. `sitemap.xml` �
 
 # PART 2 — HARDWARE: THREE ARCHITECTURES
 
-*(Sections A, B and the calibration/instrumentation section are inserted below from the dedicated component research; section C from the human-scale/safety research.)*
+Order: **A** = adapted commercial bath; **B** = bare Langevin + custom low-power driver (**recommended**); **C** = multi-channel human bathtub; **D** = calibration, instrumentation, degassing, thermal and software, common to all three.
 
-<!--PART2A-->
-<!--PART2B-->
+⚠️ Sourcing caveat for the whole of Part 2: the session's 200-call web-search budget was exhausted by the parallel component research, so later work relied on direct URL/sitemap traversal, vendor sitemaps and open APIs (BIPM KCDB, Crossref, OpenAlex, GitHub). Several vendors (AliExpress, Alibaba, eBay, Mouser, analog.com, st.com, thorlabs, RS, uspto.report, justia) block scripted access entirely and their prices could not be verified; every such item is flagged.
+
+## Architecture A — adapted commercial ultrasonic bath
+
+### A.1 Who actually sells 32–35 kHz
+**No EU/US vendor sells 32.2–33 kHz off the shelf**, but **33 kHz is a genuine mass-produced Asian frequency** — it is the resonance of the standard 60 W bolted Langevin with a ~45–48 mm face (the dishwasher/washing-machine part), catalogued by at least three Chinese factories plus a whole Indian/Singaporean ecosystem.
+
+| Frequency | Vendors | Relevance |
+|---|---|---|
+| 25 kHz | Branson GCX, Crest, Blackstone-NEY, Elma xtra ST, Bandelin Technik | too low |
+| **30 kHz** | **Crest** push-pull transducers 240–720 W (in the POWERSONIC manual, not on the website) | closest Western |
+| **33 kHz** | **Yunyisonic (CN), OKS (CN), Granbo (CN, transducer only), Pulisonic (CN), Alstron (SG), Analab / Spire / Bionics / Trans-o-sonic / Athena (IN)** | **exact target** |
+| 35 kHz | Bandelin RK / DT / Super RK; Codyson CD-4831 | near |
+| 37 kHz | Elma (all lines) | near |
+| 40 kHz | Branson, Guyson, Bandelin smart ST, most Chinese benchtop, most own-brand | too high |
+| "on request" | **Guyson HS3** — "other frequencies available on request" | only Western custom route |
+
+### A.2 Western lab baths — specs, control, price (captured 2026-09-16)
+| Vendor / model | Freq | Tank | HF nom/peak W | Power adjust | Sweep | Degas | Pulse | Heater | External trigger | Price |
+|---|---|---|---|---|---|---|---|---|---|---|
+| **Bandelin Super RK 103 H** | 35 kHz | **4.0 L**, 240×140×150 | 140 / 560 | **none** | SweepTec, **not defeatable** | no | no | 200 W, 30–80 °C | none | **€1 319** net ([link](https://bandelin.com/en/shop/sonorex-ultrasonic-baths/sonorex-super-rk-ultrasonic-baths/sonorex-super-rk-103-h-ultrasonic-bath-with-heater/)) |
+| Bandelin RK 100 H | 35 | 3.0 L | 80 / 320 | none | always on | no | no | 140 W | none | €907 net |
+| **Bandelin DIGITEC DT 103 H** | 35 | 4.0 L | 140 / 560 | none | always on | **yes** | no | 200 W | none | €1 427–1 521 inc VAT |
+| **Bandelin DT 102 H-RC** | 35 | 3.0 L | 80 / 320 | none | always on | yes | no | 140 W | **IR remote; command set supplied free on request** | n/c |
+| Bandelin DIGIPLUS DL | 35 | — | — | **20–100 % in 10 % steps** | yes | yes | — | yes | none | **discontinued** — best used-market target |
+| **Bandelin smart ST 103 H** | **40** | 4.0 L | 140 / 560 | **10–100 %** | yes | yes | **interval 1–60 s** | 200 W | USB/Eth logging only | **€1 519** net |
+| **Elma Elmasonic P 60 H** | **37 / 80 switchable** | 5.75 L (4.3 working), 300×151×150 | 180 / 720 | **30–100 % in 10 % steps** | **selectable (defeatable)** | yes + auto-degas | "+20 % amplitude" | 400 W | none | **CHF 1 886 / USD 2 399** |
+| Elma P 30 H | 37/80 | 2.75 L | 120 / 480 | 30–100 % | yes | yes | yes | 200 W | none | CHF 1 410 |
+| Elma EASY 40H | 37 | 3.9 L | 120 / 480 | none | none | none | none | 200 W | none | cheapest Elma |
+| **Branson Bransonic CPX3800H** | 40 | 5.7 L | ~110 | **70 %/100 % only** | always on | yes ≤99 min | no | 180 W | none | **$1 487** |
+| Crest Powersonic P500 | 45 / 132 | 1.4–5.4 gal | 120 | 9 steps | D/H/T variants | yes | — | 400 W | none (benchtop) | quote |
+| Guyson GUK-15 | 40 | 15 L | 360 | adjustable | yes | yes | — | 500 W | undocumented | quote |
+| VWR / Fisher / Cole-Parmer own-brand | 35/37/40 | — | — | — | — | — | — | — | none | ⚠️ unverified (403/JS-only); Fisher simply resells Branson CPXH |
+
+Bandelin RK/DT 103 H is dimensionally perfect (4.0 L, 240×140×**150 mm** → the 7–10 cm standoff fits) and closest in frequency at 35 kHz — but has **zero power control, zero gating and non-defeatable sweep**. Elma P 60 H has the best control set of any lab bath but is 37 kHz with no external interface.
+
+### A.3 Asian 33 kHz — the actual frequency match
+**Yunyisonic (Shenzhen)** — the only turnkey 33 kHz benchtop line found. All SUS304, **0–100 % adjustable power**, sweep, pulse, degas, timer 1–9999 s, heater 20–80 °C, drain valve:
+
+| Model | Tank | Internal mm | Transducers | US power | Heater | Price |
+|---|---|---|---|---|---|---|
+| YL0203-33 | 3.2 L | 240×135×100 | 2 × 50 W | 0–100 W | 300 W | $182.45 |
+| ⭐ **YL0205-33** | **4.8 L** | **240×135×150** | 2 × 50 W | 0–100 W | 300 W | **$198.73** |
+| YL0304-33 | 4.5 L | 300×150×100 | 3 × 50 W | 0–150 W | 450 W | $210.35 |
+| YL0306-33 | 6.5 L | 300×150×150 | 3 × 50 W | 0–150 W | 450 W | $242.20 |
+| **YL0614-33** | 14 L | 300×240×**200** | 6 × 50 W | 0–300 W | 600 W | $340.67 |
+([source](https://www.yunyisonic.com/product/4-8l-100w-33khz-assisted-particle-dispersion-washing-burette/)) — 150 mm-deep tanks only just allow the 7–10 cm standoff; the 200 mm-deep YL0614-33 is comfortable at the cost of 14 L.
+
+**Indian / Singaporean 33 kHz**: Analab Scientific **AU33-x series "33 ± 3 kHz"** (₹28k–67k); Spire Automation SAII-US-4, 4 L / 150 W, "33 ± 3 kHz" (quote); Bionics Scientific BST/USC "33 kHz ± 3"; **Alstron ALT-33xxxx** — "standard models are equipped with an ultrasonic frequency of 33 kHz", has sweep, but nothing below 12 L; Athena Technology 33 ± 3 kHz on the chiller series only (₹65 500 for 10 L / 500 W); Trans-o-sonic 33/25 kHz industrial only. ⚠️ **"33 ± 3 kHz" means 30–36 kHz** — looser than the 32.2–33 kHz window; measure every unit on arrival. ⚠️ Drawell DW-300DTY contradicts itself (title 25/33/40/59, spec table 25/28/40/59) — do not trust. Oscar Ultrasonics, Toshcon, Labman, Enertech, Sonic India publish no frequency at all.
+
+### A.4 ⛔ The decisive caveat: a cleaning bath cannot be turned down to 4–8 kPa
+**Step 1 — what a bath produces.** Bandelin RK 103 H: 140 W nominal HF over a 240×140 mm floor (336 cm²) ⇒ at 50–70 % efficiency, **0.21–0.29 W/cm² ⇒ 78–93 kPa** plane-wave equivalent. Cross-check: cleaning baths *do* cavitate, and the measured inertial threshold in air-saturated water at 25–33 kHz is **196–253 kPa** (Blake threshold, Hong & Son 2022; Viciconte et al. 2025) — at standing-wave antinodes a bath exceeds that. **Tens to hundreds of kPa is the right order.**
+
+**Step 2 — the gap**: from 86 kPa you need **−20.6 dB to reach 8 kPa, −26.6 dB to reach 4 kPa** (from a more favourable 30 kPa at 7–10 cm: −11.5 / −17.5 dB).
+
+**Step 3 — what the dial gives**: power dials are labelled in electrical power and pressure ∝ √P, so 40 % = −4.0 dB, 30 % = −5.2 dB, 20 % = −7.0 dB, **10 % (the best in the market, Bandelin smart ST) = −10.0 dB**. ⇒ **You need 12–27 dB; the best dial gives 10 dB. Even optimistically you remain 6–16 dB hot, and blind without a hydrophone.**
+
+**Step 4 — is "power %" a burst chop?** Only two vendors answer in writing:
+- **Branson GCX** (verbatim): *"True variable power control makes the cavitational intensity **(not duty cycle)** infinitely and linearly variable from 20 % to 100 %."* → real amplitude control.
+- **Crest GTI/GPI**: closed-loop constant-power regulation with "amplitude limiting" indicator, **4–10 V external power setpoint**, and **duty cycle: 100 % continuous**.
+- **Elma**: the manual only says "can be set between 30 % and 100 % in steps of 10 %" — ⚠️ **mechanism never stated** (circumstantial: their Pulse mode is described as "an increase of the *amplitude*", their Degas as "specialized *modulation and clocking*").
+- **Branson CPXH**: "lower the *amplitude*… manipulating the output waveform" — hedged, two steps only.
+- **Chinese OKS** states outright that its generator "uses a **pulse width control**" — PWM of the half-bridge at the carrier: monotonic but uncalibrated, and it changes harmonic content.
+🔑 **If a bath's "%" were an audio-rate burst chop, the consequence is not envelope impurity — it is that the pressure *during* each burst is still 80+ kPa, i.e. cavitating.** You would be running a cavitating ~100 kPa field at low duty, not a 4 kPa field. That is the fatal failure mode.
+
+**Step 5 — mains modulation.** Every lab bath uses "double half-wave operating mode" (Bandelin's phrase) or "line modulated sine wave output" (Blackstone-NEY) — hence the universal 1:4 nominal:peak ratio. The carrier is **already amplitude-modulated at 100/120 Hz**; your 1.5 s gate would be a slow envelope on a fast one. Only **Crest** specifies 100 % continuous duty.
+
+**Step 6 — sweep.** Bandelin SweepTec is permanently on and not defeatable (RK/DT/smart ST); Branson CPXH sweep always on; Blackstone-NEY ±1 kHz at 25 kHz / ±2 kHz at 40 kHz. A ±1 kHz swept carrier is a ±3 % frequency smear on a protocol specified to 32.248 kHz. Only **Elma P (selectable), Branson GCX (user-set bandwidth and rate) and Crest** let you control it.
+
+**How much acoustic power you actually need** over that same 240×140 mm floor: **182 mW at 4 kPa, 726 mW at 8 kPa** — i.e. **under 2 % of one 60 W transducer**, 0.2–0.9 % of a 140 W bath, ≈0.4–1.5 W electrical, which into a 33 kHz Langevin (|Z| < 20 Ω at resonance) is **3–5.5 V rms**. You are not "turning a bath down"; you are asking it to run three orders of magnitude below design point.
+
+### A.5 Remote / enable inputs (for the 1.5 s gate)
+| Product | Interface | Confidence |
+|---|---|---|
+| ⭐ **Crest POWERSONIC GT/GTI/GPI/GPS** | 25-pin SUB-D: **ultrasonic enable = potential-free contact to GND (~5 V / 2 mA)**; external power setpoint **4–10 V** (40–100 %); power monitor 0–10 V out; error relay; panel lock ([manual](https://crest-ultrasonics.com/wp-content/uploads/2021/03/manual-powersonic-generators-gt-gti-gpi-gps.pdf)) | best documented ⚠️ line being "streamlined" — confirm current model keeps the I/O |
+| ⭐ **Branson GCX** | "OEM connection — external control ultrasonic on/off", 25-pin D-shell, RS-485, local/remote switch ([datasheet](https://www.branson.emerson.com/is/content/emerson/en/corporate/branson/documents/branson-gcx-ultrasonic-generator.pdf)) | excellent, but 25/40/80/120/170 kHz only |
+| Bandelin DT-xxx-RC | IR interface, command set free on request | only lab-bath-level interface; ⚠️ IR latency at 0.33 Hz gating unproven; drops to IP 23 |
+| Bandelin LG generators | RS-232 + "remote-control socket" | ⚠️ dry-contact capability unverified |
+| **OKS-QXDY generator (33 kHz!)** | "supports remote control connection and PLC system integration" | ⚠️ **electrical form undocumented** — the single biggest open question on the Asian route |
+| Bandelin smart ST | built-in interval 1–60 s in 1 s steps | ⚠️ 1 s integers ≠ 1.5 s, and it is 40 kHz |
+| Elma P/Select/EASY, Branson CPXH, Skymen, Granbo | **none** | mains switching only — **don't** (µC reboot + soft start every 3 s) |
+
+### A.6 Components: immersibles, generators, bare transducers
+| Item | Freq | Power | Price | MOQ |
+|---|---|---|---|---|
+| **OKS immersible plate** | 20/25/28/30/**33**/40/54/68/80/100/125/200 kHz | 300–3000 W | **$650** | 1 |
+| **OKS-QXDY generator** | **33 kHz standard option** | 300–3000 W | **$238** | 1 |
+| OKS-HJPCBDY driver PCB | 20/25/28/30/**33**/40…, sweep 23–40 kHz adjustable, auto frequency tracking | 300–3000 W | **$55** | 1 |
+| OKS-DLB600W driver board | 20–40 kHz (25/28/**33**/40) | 50–600 W | $140 | 1 |
+| PLS-WDLB2000W (Pulisonic) | 25–40 kHz incl. 33 | 2000 W | $230 | 1 |
+| ⭐ **OKS-QXHUNQ33K transducer** | **33 ± 0.5 kHz**, PZT-8, 48 mm face × 62 mm, Cs 4800 pF, Z ≤ 20 Ω | 60 W | **$7.50** | **1** |
+| Granbo GB4-5533-60W | **33 ± 0.5 kHz**, 55×56 mm, Cs 5000 pF | 60 W | $13 (1–49) / $6 (100+) | 10 |
+| Pulisonic 33 K dishwasher transducer | 33 kHz | 60 W | $6.80 | 1 |
+| Skymen / Granbo immersibles | 28 / 40 only | 300–2400 W | quote / $423–1 446 | — |
+| Bandelin Tauchschwinger T3169 | 25 / 40 | — | €3 771 inc VAT | — |
+⚠️ ±0.5 kHz = 32.5–33.5 kHz: brackets but does not guarantee 32.2–33 kHz — **buy 5–10 at $7.50 and bin them with a NanoVNA**, then drive at a *manually set* frequency rather than letting an auto-tracking generator hunt.
+
+### A.7 Verdict on Architecture A
+| Rank | Option | Cost | Risk |
+|---|---|---|---|
+| 1 ⭐ | **Bare 33 kHz Langevin ($7.50–13) + your own wideband amp + function generator** (→ Architecture B) | <€200 + amp | you build the matching network and characterise the field |
+| 2 | **Yunyisonic YL0205-33 ($199) / YL0614-33 ($341)** used as a *tank + bonded transducer + heater assembly*, stock generator replaced by your driver | $199–341 | stock generator is still 100–500× too hot; built-in "Pulse" period undocumented and almost certainly ≪1.5 s |
+| 3 | OKS 33 kHz immersible ($650) + QXDY generator ($238) | $888 | interface form unknown; 300 W minimum ≈ 400× target |
+| 4 | Crest POWERSONIC (30 kHz push-pull) + immersible | quote | best-documented control anywhere (dry contact, 4–10 V setpoint, 0–10 V readback, 100 % duty) but 30 ≠ 33 kHz, legacy line |
+| 5 | Guyson HS3 custom frequency | quote + NRE | only Western vendor advertising custom frequencies; interface undocumented |
+| 6 | Branson GCX (25 kHz) | quote | only written "amplitude, not duty cycle" guarantee + dedicated US on/off |
+| 7 | Bandelin RK/DT 103 H | €1 319 | perfect geometry, 35 kHz, available today — but no power control, no gate, sweep always on, mains-modulated. ⭐ **Buy one as the *positive control* for cavitation tests, not as the source** |
+
+## Architecture B — bare Langevin / PZT transducer + custom low-power driver (**the recommended route**)
+
+> Provenance note: the component agent could not find the ring/cone details in the papers it reached and flagged them as unverified. **They are verified** — see Part 1c: they are in the *Methods* of Tijore et al., *Bioeng Transl Med* 2025 (PMC11883105), and "135–275 V / 4–8 Pa" is on Figure S1A of the Aging Cell supplement (PMC12151899, file `ACEL-24-e70008-s001.docx`). Both files are in the scratchpad.
+
+### B.0 The two reference implementations to copy
+| | Sheetz/Singapore rig (BTM 2025) ✅ | Tijore IISc rig (2026) ✅ |
+|---|---|---|
+| Transducer | PZT4 rings **25×10×4 mm** and **16×8×4 mm** (Beijing Ultrasonic) + **aluminium cone** to ~5 cm, epoxy + silicone coated | **APC International Langevin, APC 90-4050** |
+| Mounting | glued to tank bottom | epoxy-bonded to a steel container on a 3D-printed XYZ platform |
+| Drive | "signal generator & amplifier" (unnamed), 200/300/400 V labels | **PiezoDrive PDU 210 ultrasonic driver** |
+| Tuning | not described | **impedance analyser** calibration |
+| Pressure measurement | Onda MCT-2000 cavitation meter (+HCT probe) | **FEL Communications hydrophone → Digilent 410-321 (Analog Discovery 2) USB scope** |
+| Water | degassed DI, 37 °C, tank in an incubator | **vacuum-degassed**, tank on a temperature-regulated metal stage |
+| Sample | 8 cm above transducer, parafilm-sealed dishes on a mesh | 3D-printed height-adjustable dish tray |
+
+🔧 The IISc rig is the one to clone: every element is a catalogue part, and they publish a pressure↔displacement calibration (1 kPa → 11 nm) you can check yourself.
+
+### B.1 Transducers — what you can actually buy
+⭐ **A stock 33 kHz Langevin exists and costs $8.50.** (Verified on live vendor pages, Sep 2026.)
+
+| Model | Freq | Power | Face Ø | Length | C₀ | Zm | Material | Price | URL |
+|---|---|---|---|---|---|---|---|---|---|
+| **BJC-3360T-48HS** | **33 ±1 kHz** | 60 W | **48 mm** | 58 mm | 3800 pF | 10–20 Ω | PZT-8 | **$8.50** | [bjultrasonic](https://www.bjultrasonic.com/shop/33khz-60w-ultrasonic-cleaning-transducer/) |
+| BJC-30100T-68H | 30 ±1 kHz | 100 W | 68 mm | 61 mm | 5200 pF | 10–20 Ω | PZT-8 | $13.50 (OOS) | [link](https://www.bjultrasonic.com/shop/30khz-100w-ultrasonic-cleaning-transducer/) |
+| BJC-2860T-59HS | 28 ±1 kHz | 60 W | 59 mm | 68 mm | 3800 pF | 10–20 Ω | PZT-4 | $7.00 | [link](https://www.bjultrasonic.com/shop/28khz-60w-ultrasonic-cleaning-transducer/) |
+| BJC-2560T | 25 ±1 kHz | 60 W | 59 mm | 77 mm | 5400 pF | 10–20 Ω | PZT-4 | $7.00 | [link](https://www.bjultrasonic.com/shop/25khz-60w-ultrasonic-cleaning-transducer/) |
+| Oksultrasonic 33 kHz | 33 kHz | — | — | — | — | — | — | $6.50, MOQ 1 | [made-in-china](https://oksultrasonic.en.made-in-china.com/product/WKvJzMtAXspS/China-Small-Ultrasonic-Transducer-for-Cleaning-28kHz-33kHz-40kHz-54kHz-120kHz.html) |
+| Granbo 33 kHz 60 W | 33 kHz | 60 W | — | — | — | — | — | $13/10 pc, $6/100 pc | [made-in-china](https://granbosonic.en.made-in-china.com/product/hURpqmrgFYWE/China-60W-Ultrasonic-Cleaning-Transducer-for-Efficient-Heavy-Duty-Applications-with-Efficient-33kHz-Frequency.html) |
+
+**33 kHz is a Chinese-catalogue frequency and is absent from every Western catalogue.** Western options:
+
+| Vendor | Nearest parts | Price | Notes |
+|---|---|---|---|
+| **Steminc** (Miami) | SMBLTD63F25H2 25 kHz $67.85; **SMBLTDF30H100 30 kHz $80.52** (C₀ 5 nF, Zm ≤25 Ω, Qm 1000); SMBLTD45F40H 40 kHz $47.49 | $46–81 | MOQ 1, but ⚠️ **$76–90 shipping for the first unit**, weekly batches, all sales NCNR ([catalogue](https://www.steminc.com/PZT/en/bolt-clamped-langevin), [shipping](https://www.steminc.com/PZT/en/shippinginfo)). **No 33 or 35 kHz** |
+| **APC International** | 28/40/50/80/120 kHz ultrasonic power transducers | ⚠️ quote-only | [page](https://www.americanpiezo.com/products-services/ultrasonic-power-transducers/). The exact part used by the Tijore lab, **APC 90-4050**, is a catalogue/quote item — ⚠️ I could not retrieve its datasheet (product URL 404s; site search is JS-only) |
+| Sinosonics | 35 kHz 300–500 W $170; 30 kHz 800 W $200 | $170–200 | over-powered by ~10⁴ for this use |
+| PI Ceramic, CTS/Meggitt, SinapTec | 20–80 kHz | RFQ only | |
+| ⛔ Hainertec | — | — | domain parked / 403 — unverifiable |
+
+**The exact PZT4 rings from the papers, in stock** ✅:
+
+| Part | OD×ID×T | C₀ | Radial f_r | Thickness f_t | Zm | Qm | Price |
+|---|---|---|---|---|---|---|---|
+| Ring 25×10×4 (PZT4/5/8 selectable) | 25 × 10 × 4 mm | 935 pF ±10 % | **66 kHz** | 512 kHz | ≤15 Ω | ≥800 | **$22 / pack** ([link](https://www.bjultrasonic.com/shop/5pcs-25104-ring-piezoelectric-ceramic/)) |
+| Ring 16×8×4 | 16 × 8 × 4 mm | 340 pF ±10 % | **96 kHz** | 512 kHz | ≤20 Ω | ≥800 | **$20 / pack** ([link](https://www.bjultrasonic.com/shop/5pcs-1684-ring-piezoelectric-ceramic/)) |
+| Cheaper equivalents | 25×10×4 | — | — | — | — | — | $4.00/pc [Sinosonics](https://www.sinosonics.com/shop/piezo-ceramic-ring-25mm/); $0.10–0.30/pc at 50+ [Shouguang Feitian](https://fttransducers.en.made-in-china.com/product/naDplkIyIArz/China-Factory-Direct-Different-Size-Piezoelectric-Ceramic-Rings-for-Ultrasonic-Cleaning.html) |
+
+⚠️ Pack size ambiguous (titles say 10 pc, slugs say `5pcs-`, shipping weight says 5) — confirm before paying.
+
+🔑 **Critical insight**: at 32.248 kHz these rings sit at **~½ their radial resonance and ~1/16 their thickness resonance** — they are quasi-static capacitive drivers. **The 33 kHz comes entirely from the half-wave longitudinal resonance of the bolted column** (steel back mass + rings + aluminium front mass/cone + preload bolt). You cannot buy "33 kHz rings"; ring size only sets C₀ and power handling (2× 25×10×4 ≈ 1.87 nF; 2× 16×8×4 ≈ 0.68 nF). Bolt preload (~20–30 MPa) is a design parameter and the most common DIY failure. ⚠️ Beware Steminc's "PZT-8 Ring 50 mm 33 kHz" (SMR5020T5811, $42.20) — that 33 kHz is the ring's free *radial* mode, not a transducer resonance.
+
+**Ordering to Italy**: Beijing Ultrasonic is a normal WooCommerce shop — MOQ 1, PayPal, ships in 48 h by DHL (≤10 days); custom parts 10–30 days; 1-year warranty. Budget **22 % Italian import VAT + ~€15 DHL handling**; ⚠️ freight quoted only at checkout (est. $35–60 for ~1.5 kg). Piezoceramics are RoHS-exempt and not dual-use controlled at these ratings.
+
+### B.2 Impedance, matching, and the aluminium cone
+**Butterworth–Van Dyke**: motional Rm–Lm–Cm ∥ static C₀. Measured anchors from the literature:
+- 30 kHz Langevin **radiating into water**: f_r 30.90 kHz, f_a 31.26 kHz, |Z|min **130.7 Ω**, |Z|max 13.59 kΩ, **η = 6.36 % CW / 8.43 % pulsed, 9.73 W acoustic at 200 Vpp** ([PMC9696829](https://pmc.ncbi.nlm.nih.gov/articles/PMC9696829/)).
+- 40 kHz underwater transducer BVD: C₀ 4.40 nF, R₁ 20.64 Ω, L₁ 139.5 mH, C₁ 448.8 pF ⇒ **Qm ≈ 854, BW ≈ 23 Hz** ([PMC11768801](https://pmc.ncbi.nlm.nih.gov/articles/PMC11768801/)).
+
+**Series inductor to tune out C₀**, L = 1/((2πf)²C₀) at 32.248 kHz:
+
+| C₀ | \|X_C₀\| | L |
+|---|---|---|
+| 0.68 nF (2× 16×8×4) | 7258 Ω | 35.8 mH |
+| 1.87 nF (2× 25×10×4) | 2639 Ω | 13.0 mH |
+| **3.8 nF (BJC-3360T)** | **1299 Ω** | **6.41 mH** |
+| 5.4 nF | 914 Ω | 4.5 mH |
+| 80 nF (20-element immersible pack) | 60 Ω | 0.29 mH |
+
+Why the series L, in order of importance at these power levels:
+1. ⭐ **Voltage step-up by Q-multiplication** — this explains "135–275 V": with X_C₀ = 1299 Ω and ~50 Ω of loss, Q ≈ 25, so a **24–48 V bus produces 135–275 V across the piezo with no HV supply**.
+2. **Harmonic suppression** — a series LC tuned at f₀ presents 2.67·X₀ at the 3rd harmonic; with Q = 20 the 3rd falls from 33 % to ~0.6 %.
+3. Cancelling reactive current — least important here (at resonance reactive current is only ~8 % of motional current).
+⚠️ Inductor Q sets the achievable step-up: at 32 kHz a 13 mH coil with Q = 30 adds 88 Ω of loss, Q = 100 adds 26 Ω. Use a ferrite pot/gapped E-core, **not** an iron-powder choke.
+
+**Measuring resonance** — ⭐ **NanoVNA-H/H4 (€50–90), S21 series-through**: O/S/L calibrate, DUT between CH0 and CH1, the S21 LOGMAG dip is f_r ([procedure](https://0x9900.com/measure-resonance-using-a-nanovna/)); within ~1 % of a lab impedance analyser. Cheap alternative: function generator + series sense resistor + scope. **Measure every unit** — a ±1 kHz vendor tolerance is 20–60 bandwidths wide.
+
+⚠️ **The under-appreciated risk: thermal drift.** Loaded Qm in water 100–500 ⇒ BW 65–320 Hz, while Langevin df/dT is typically −5 to −20 Hz/°C. A 5 °C rise moves you 0.2–0.9 bandwidths off resonance, so **an open-loop fixed-frequency drive will not hold constant pressure over a 30-minute exposure.** Mitigate by re-tuning from live current/phase, PLL tracking, deliberately lowering Q, or hydrophone monitoring throughout. Note the tension: commercial cleaning generators do track — but they also sweep ±0.5–2 kHz, which destroys the fixed-frequency protocol.
+
+**Gating is benign**: envelope τ = Q/(πf) ⇒ 1–8 ms, ring-up/down 5–42 ms, <3 % of the 1500 ms gate. Gate at a zero crossing with a 1–5 ms raised-cosine envelope.
+
+**What the cone really does** 🔧 (baffled-piston numbers):
+
+| Aperture | ka | R_r (norm.) | D₀ | DI | −6 dB half-angle |
+|---|---|---|---|---|---|
+| 16 mm | 1.09 | 0.49 | 2.44 | 3.9 dB | >90° (near-omni) |
+| 25 mm (bare ring) | 1.71 | 0.90 | 3.25 | 5.1 dB | >90° |
+| **50 mm (cone)** | **3.42** | **1.02** | **11.5** | **10.6 dB** | **40°** |
+| 100 mm | 6.84 | 0.99 | 47.2 | 16.7 dB | 19° |
+
+The cone **narrows** the beam, not widens it (the papers' wording is loose); its real functions are to enlarge the aperture, raise radiation resistance from 0.90 to 1.02 (⇒ ~4.5× more power radiated for the same face velocity) and act as a velocity transformer. At 7–10 cm a 40° half-angle already covers ~17 cm — enough to insonify a dish or a mouse. ⚠️ Adding a cone to a stock 33 kHz unit pulls f_r down by several kHz. 🔧 **Since the BJC-3360T already has a 48 mm face ≈ the papers' "~5 cm", consider skipping the cone entirely.**
+
+### B.3 Signal generation
+1.5 s ON at 32 248 Hz = **48 372 cycles exactly**; burst period 3.000 s; 600 repeats per session.
+
+| Model | Freq resolution / accuracy | Amplitude | 1.5 s on/off gating | Price |
+|---|---|---|---|---|
+| ⭐ **Siglent SDG1032X** | 1 µHz, ±25 ppm | 20 Vpp HiZ | ✅ best — N-cycle/gated, internal burst period 1 µs–1000 s, SCPI-scriptable | **$299–359** ([Saelig](https://www.saelig.com/product/sdg1032x.htm)) |
+| Rigol DG1022Z | 1 µHz, **±1 ppm** | 10 Vpp/50 Ω | ✅ N-cycle + internal period 1 µs–500 s (⚠️ "Gated" needs an external trigger) | $249 ([TestEquity](https://www.testequity.com/product/31530-1-DG1022Z)) |
+| FeelTech FY6900 | 1 µHz, ±20 ppm | ~24 Vpp | ⚠️ indirect — use CH2 at 0.333333 Hz as the trigger; **verify on a scope** | ~$70 |
+| JDS6600 / Koolertron | same DDS family | ~24 Vpp | ⚠️ same CH2-trigger architecture | €55–190 ⚠️ |
+
+**MCU / DDS alternatives** (frequency error vs the 65–320 Hz transducer bandwidth):
+
+| Source | Resolution / error at 32.248 kHz | Note |
+|---|---|---|
+| AD9833 (28-bit, 25 MHz) | 0.093 Hz step | ~0.65 Vpp out, needs gain, €3–8 ⚠️ (datasheet values from general knowledge — analog.com blocked) |
+| AD9850 / AD9851 (32-bit) | 0.029 / 0.042 Hz | €4–12 |
+| RP2040 NCO + DMA→DAC | 0.116 µHz at 500 kSa/s | ⭐ cleanest |
+| RP2040 PWM ÷3876 | 32 249.7 Hz = **+54 ppm** | ✅ adequate |
+| ESP32 ÷2481 / STM32F4 ÷5210 | −91 / −72 ppm | ✅ adequate |
+
+🔧 **Integer PWM division is good enough** — every modern MCU lands within ±3 Hz, and crystal tolerance (±30 ppm ≈ ±1 Hz) dominates. The problem with PWM is that it is a *square wave*, not that it is mistuned, and the tuned tank fixes that.
+
+### B.4 Amplifiers
+**Lab RF amps are the wrong tool** (50 Ω source into a capacitive load, 20–1000× overkill): E&I 240L (10 kHz–12 MHz, 40 W, ⚠️ ~$1.5–3 k used), AR 25A250A (25 W, **$5 995 used**, [AccuSource](https://accusrc.com/product-Amplifier-Research-25A250A-11450)). ⭐ The exception is the **Krohn-Hite 7500** (DC–1 MHz, 75 W, **140 Vrms open-circuit, 625 mA**, THD <0.05 %): **$2 370 new** ([DigiKey](https://www.digikey.com/en/products/detail/krohn-hite-corporation/7500/13283314)), **$1 495 used** ([AccuSource](https://accusrc.com/product-Krohn-Hite-7500-9480)) — a voltage-source output whose 140 Vrms brackets the "135–275 V" range.
+
+⭐ **Piezo-specific drivers are the sweet spot** (prices verified on piezodrive.com):
+
+| Model | Output | Bandwidth | Current | Fit at 33 kHz | Price |
+|---|---|---|---|---|---|
+| ⭐ **PiezoDrive PDm200** | +100 V to ±200 V | signal 200 kHz, **power BW 63 kHz @100 Vpp** | 300 mA | ✅✅ 200 Vpp into 4 nF = 166 mApp | **$330** |
+| PDu150 (3-ch) | −30…+150 V | power BW 80 kHz | 100 mA/ch | ✅ marginal at C₀ 4 nF | $413 |
+| MX200 | ±200 V | ⚠️ n/s | 1 A | ✅ most headroom | $545 |
+| **PDUS210** (what the Tijore lab uses, "PDU 210") | **0–800 Vpp**, sine only, isolated output, 210 W max, **20–200 kHz** (6 kHz–500 kHz with modification), USB/RS485 API, 4 DIO, single & continuous pulse generation, series **or parallel (anti-)resonance tracking**, 1 ms frequency update | — | 32 Ap-p max | 🎯 purpose-built; **variants**: -800 (282 Vrms, Zopt 400 Ω), **-400 (141 Vrms, Zopt 100 Ω)**, -200, -100, -50 | **$4 141** ([PiezoDrive](https://www.piezodrive.com/ultrasonic-drivers/), [specs](https://www.piezodrive.com/drivers/pdus210-ultrasonic-driver/)) |
+| ⚠️ Thorlabs MDT694B | 0–150 V | ⚠️ likely only a few kHz into capacitive loads → probably unusable | — | verify first | ~$1 200 ⚠️ |
+
+🔧 Note how well the **PDUS210-400 variant (400 Vpp / 141 Vrms, optimal load 100 Ω, 20–200 kHz)** matches both the "135–275 V" slide and the measured |Z|min ≈ 130 Ω of a 30 kHz Langevin in water. If you want to *be* the reference rig, this is the part — at 12× the price of the whole budget build.
+
+**Cheap path — can audio class-D pass 33 kHz? Yes** 🔧 (computed from TI datasheet filter values):
+
+| Output filter | f_c (differential) | \|H\| at 32.2 kHz (8 Ω) | Verdict |
+|---|---|---|---|
+| TPA3116: 10 µH + 680 nF | 43.2 kHz | +2.3 dB | ✅ passes as-is |
+| TPA3255: 10 µH + 1 µF | 35.6 kHz | +3.9 dB | ⚠️ on the knee |
+| TPA3251: 22 µH + 680 nF | 29.1 kHz | attenuated | ❌ |
+| **Modified 10 µH + 220 nF** | **75.9 kHz** | flat | ✅✅ one-component fix, still 29 dB rejection at 450 kHz |
+
+⚠️ **The real class-D gotcha is damping, not bandwidth**: filter Q = R√(C/L_eff) — 4 Ω speaker Q 0.89 (flat); Langevin at series resonance (~30 Ω) Q 6.7 (peaking, burst-edge ringing); at anti-resonance (~1 kΩ) **Q ≈ 224 → catastrophic peaking, oscillation or shutdown**. Fix with a Zobel (R ≈ √(L_eff/C) ≈ 4.5–6.7 Ω + 470 nF) or simply hang a 4–8 Ω power resistor across the transducer (wasting watts is irrelevant at 42 mW acoustic). Avoid Bluetooth/DSP boards (20 kHz anti-alias filters). Class-D outputs are floating BTL — awkward with a grounded hydrophone.
+
+🔧 **Class-AB is more defensible for a bioeffect experiment** (no output LC ⇒ no corner, no ringing, no 400 kHz switching residue near the hydrophone): **LM3886** GBWP 8 MHz, slew 19 V/µs ⇒ at A_v = 21 closed-loop BW ≈ 380 kHz, and 28 Vpk at 33 kHz needs only 5.8 V/µs — €12–25 a kit. TDA7293 swings ~90 Vpp but needs 9.3 V/µs against a 15 V/µs limit ⚠️.
+
+**Step-up transformer**: ⭐ hand-wound ferrite toroid (3C90/N87, ~20:180 turns) — €3, flat 5 kHz–300 kHz, 1:8 from 40 Vrms = 320 Vrms. ⚠️ 70/100 V line-audio transformers are only specified to 15–18 kHz (try, but measure). ❌ Never reverse a 50 Hz mains toroid.
+
+### B.5 Half/full-bridge direct drive
+- **Gate drivers**: ⭐ **UCC27714** (600 V, 4 A, 3.3 V logic, [datasheet](https://www.ti.com/lit/ds/symlink/ucc27714.pdf)) or **IR2104/IR2184** (single PWM input, built-in deadtime, and an **SD pin that doubles as the 1.5 s hardware gate**). Avoid bare IR2110 (no deadtime).
+- **MOSFETs**: ⭐⭐ low-voltage devices + transformer (IRF540N/IRFZ44N from 24–48 V into 1:8) beat a 400 V bus; at 33 kHz and a few watts, switching loss is irrelevant, so optimise for gate charge and safety. If you must go HV, use modern superjunction (STP12NM50N, IPP60R125P6), not IRF740 (no margin on 400 V) or IRFP460 (huge Qg).
+- **DC bus needed for 135–275 Vrms** (full bridge, fundamental RMS = 0.900·V_dc):
+
+| Target | Untuned | Series-L tuned, Q≈10 | 1:8 transformer |
+|---|---|---|---|
+| 135 Vrms | 150 V | **~15 V** | ~19 V |
+| 275 Vrms | 306 V | **~31 V** | ~38 V |
+
+🔧 **A 48 V bus covers the entire range — there is no reason to put 300–400 V on a bench for a 42 mW experiment.**
+- **Square-wave harmonics**: 3rd at 33.3 % (−9.5 dB), 5th at 20 %, THD 48.3 %. This matters because your result will be attributed to "33 kHz" while ~11 % of the power is at 99 kHz; harmonics can excite spurious radial/flexural modes; and they inflate the measured peak pressure in a flattering direction. Series L + the transducer's own narrowband resonance cuts the 3rd to ~0.6 %. **Verify with an FFT.** (But note: the patent explicitly contemplates exploiting rectangular-wave harmonics — so *document* the waveform rather than assuming which is "correct".)
+- ⚠️ **Skip AliExpress "ultrasonic cleaner driver boards"**: trimmers cover only ±2–5 kHz around nominal (a 40 kHz board will never reach 33 kHz) and most auto-track frequency, destroying the one variable you are controlling. ⛔ Marketplace prices unverifiable (AliExpress/Alibaba CAPTCHA, eBay 403).
+
+### B.6 Potting and waterproofing
+⭐ **Acoustic matching is a non-issue at 33 kHz** 🔧 — λ = 44.8 mm, λ/4 = 11.2 mm, so a proper matching layer would be a **19 mm slab**, not a coating. Three-layer transmission Al→coating→water:
+
+| Coating | 1 mm | 2 mm | 3 mm | 5 mm |
+|---|---|---|---|---|
+| bare Al/water | T = 0.2903 | | | |
+| epoxy (Z 2.85) | +0.01 dB | +0.06 dB | +0.14 dB | +0.40 dB |
+| filled epoxy (Z 4.75) | +0.02 | +0.08 | +0.19 | +0.53 dB |
+| polyurethane (Z 1.80) | +0.01 | +0.06 | +0.15 | +0.40 dB |
+| silicone (Z 1.08) | −0.13 | −0.48 | −0.94 | −1.86 dB |
+
+2 mm of epoxy at 33 kHz is only **9° of phase**. ⭐ **Mass loading beats impedance mismatch**: 3 mm of epoxy over a 50 cm² face adds ~18 g to the vibrating tip and pulls f_r down — so **pot first, then measure f_r, then set the generator.** Reference impedances (MRayl, from [Onda's tables](https://www.ondacorp.com/wp-content/uploads/2020/09/Liquids.pdf)): water 1.48 (20 °C) / 1.51 (35 °C); Sylgard 184 1.08; RTV-60 1.41; **sonar PU (Ren RP-64xx) 1.54–1.63** (why PU is the hydrophone-window material); unfilled epoxy 2.85; filled epoxy 3.1–4.7; PMMA 3.26; aluminium 17.33; PZT-4 ~34.5 ⚠️.
+
+| Product | Why | Price |
+|---|---|---|
+| ⭐ **Loctite EA E-30CL** | best default — 10 500 cP flows void-free, clear (inspectable), 19.7 kV/mm | ~$25–35 / 50 mL |
+| Loctite EA E-120HP | toughened, 25 kV/mm, but ⚠️ 1000 h salt fog → 45 % of initial strength; an adhesive, not an immersion barrier | $24.46 / 50 mL |
+| ⭐ **Conathane EN-9** | TDS names it for "cable and connector potting… watertight electrical connectors"; PU hydrolytic stability | ⚠️ quote |
+| Smooth-On ReoFlex 40 | SG 1.02 ⇒ Z ≈ 1.7 MRayl, 1500 cP, no degassing needed | trial 0.91 kg |
+| West System 105/206 | cheapest per kg, EU stock; ⚠️ no water-absorption or dielectric data published | ~€37/kg |
+| Araldite 2011 | best EU high-street structural epoxy | €25–40 / 50 mL |
+| Sylgard 184 | Z 1.08 (closest to water) but ⚠️ €279 / 1.1 kg at Farnell IT | €279 |
+
+⚠️ Uralite 3140 **no longer exists** (discontinued Hexcel/Ren name); 3M Scotchcast 2130/2131 are **polyurethane, not epoxy**, and discontinued/obsolete.
+**Two silicone traps**: (1) **acetoxy RTV releases acetic acid — corrosive to aluminium and piezo electrodes**; use neutral-cure or addition-cure PDMS. (2) Addition-cure PDMS is **inhibited by amines** — amine-cured epoxy leaves Sylgard permanently tacky (test on a coupon), and unfilled PDMS has **no adhesion** to aluminium or cured epoxy without a silane primer, so unprimed silicone over epoxy creates a water path and is worse than nothing. ⭐ Correct order: **epoxy underneath as structure + dielectric; a thin silicone skin on top only**.
+**Cable entry**: ⭐ Blue Robotics potted penetrator **$5–6**, or **WetLink compression penetrator $13–17, 1000 m rated, re-openable** ([link](https://bluerobotics.com/store/cables-connectors/penetrators/wlp-vp/)). ⚠️ SubConn is quote-only and rated only 300 V. ⚠️ **IP68 ≠ permanently submerged** (1 m/30 min mated test). The failure nobody warns about: **multi-conductor cable wicks water inside the jacket, past any gland, for metres**. ⭐ Best answer for a tank rig: **zero connectors in the water** — one continuous cable from the transducer over the rim to a dry driver.
+
+**"Generators encased in epoxy within the baths"** — ⚠️ don't. Heat is survivable, but 600 gate cycles/session against a 50–80 ppm/K CTE cracks rigid epoxy and a crack is a water path to a live node; electrolytics cannot vent; there is **zero serviceability** (fatal for a project that needs iterative retuning); and any void becomes a partial-discharge site at 275 V/33 kHz. Every commercial immersible puts **only transducers** in the sealed box and the generator in a rack outside.
+
+### B.7 Immersible transducer packs — the wrong purchase
+| Vendor | Freq | Power | Plate | Price | Generator |
+|---|---|---|---|---|---|
+| Beijing Ultrasonic 300 W | 25/28/40 kHz ("other freq: contact us") | 5 × 60 W | 200×200×100 | **$400** | separate |
+| Beijing Ultrasonic 600 W | same | 10 × 60 W | 500×350×100 | $625 | separate |
+| Beijing Ultrasonic 1200 W | same | 20 × 60 W | 500×400×100 | $958 | separate |
+| Yunyisonic | 28/40 kHz | 300–2400 W | SUS304 | $398–2012 | bundled at top end |
+| Crest, Blackstone-NEY, Elma, Bandelin, Telsonic, Tovatech | — | — | — | ⚠️ quote only | separate |
+
+⚠️ **33 kHz packs are essentially unobtainable off the shelf.** And electrically they are the wrong load:
+
+| N elements | C₀ total | \|X_C₀\| @33 kHz | R_r parallel | L to tune | V for 3 W | I for 3 W |
+|---|---|---|---|---|---|---|
+| 1 | 4.0 nF | 1206 Ω | 15 Ω | 5.8 mH | 6.7 V | 0.45 A |
+| 5 (300 W) | 20 nF | 241 Ω | 3.0 Ω | 1.16 mH | 3.0 V | 1.00 A |
+| **20 (1200 W)** | **80 nF** | **60 Ω** | **0.75 Ω** | 291 µH | **1.5 V** | **2.00 A** |
+
+⚠️ A 1200 W pack presents **0.75 Ω** — at 200 V you would be asking for 53 kW and destroy it in under a second; and 80 nF at 200 V draws **3.3 A of purely reactive current** while delivering milliwatts. Any custom pack driver must be low-voltage/high-current, the opposite of the reference design. ⚠️ No vendor states whether a matching inductor is inside — **measure with an LCR meter before connecting anything**. ⭐ Buy the $8.50 BJC-3360T instead.
+
+### B.8 Independent physics check by the component agent 🔧 (complements Part 3)
+The plane-wave-at-the-face model **understates** the required power, because 4 kPa is specified at 7–10 cm in the far field (Rayleigh distance of a 5 cm aperture at 33 kHz is only 13.6 mm). Using the baffled-piston far-field relation p(r) = ρc·u₀·k·a²/(2r):
+
+| Model | 4 kPa | 8 kPa |
+|---|---|---|
+| A. plane wave at the 5 cm face | 11 mW | 42 mW |
+| **B. far-field piston, measured at 7 cm** | **29 mW** | **116 mW** |
+| **B. far-field piston, measured at 10 cm** | **59 mW** | **236 mW** |
+| C. reverberant 4 L beaker, Q = 50 | 59 mW | 237 mW |
+| C. reverberant 4 L beaker, Q = 200 | 15 mW | 59 mW |
+
+Three independent models converge on **tens to a couple of hundred mW acoustic**. With the **measured** 6.4 % electroacoustic efficiency of a real 30 kHz Langevin radiating into water (not the 20–50 % typical of MHz transducers): **0.3–4 W electrical**, ≤5 W with margin. Scaling the same measured device linearly in voltage gives **64 Vpp for 4 kPa and 129 Vpp for 8 kPa** — which brackets the reported "135–275 V" and suggests that figure is a transducer voltage at/near anti-resonance, not evidence of high power.
+
+Beaker modal analysis: **~173 modes below 32.2 kHz, 62 Hz spacing**; at Q ≤ 50 the modal bandwidth (645 Hz) overlaps ~10 modes ⇒ genuinely diffuse field. Sustaining power P = ωE/Q:
+
+| Vessel | 4 kPa, Q = 50 | 4 kPa, Q = 200 | 8 kPa, Q = 50 |
+|---|---|---|---|
+| 4 L beaker | 59 mW ac / 0.85 W el | 15 mW / 0.21 W | 237 mW / 3.4 W |
+| **Bathtub 200 L** | **3.0 W ac / 42 W el** | 0.74 W / 10.6 W | 11.8 W / 169 W |
+
+⇒ a bathtub with 10–12 transducers lands at **~1–10 W electrical each** — exactly the duty point of a cheap Langevin, and an independent rationale for the multi-transducer bathtub architecture.
+
+### B.9 Three costed builds ⭐
+| Build | Contents | Cost |
+|---|---|---|
+| **Budget** | FY6900 (€70) + LM3886/TDA7293 class-AB kit (€20) + ±25–35 V linear PSU (€25) + hand-wound 1:8 ferrite toroid (€8) + series L (€10) + passives/enclosure (€17) — no output LC, so no corner or ringing problem | **~€150** |
+| ⭐ **Recommended** | **Siglent SDG1032X (€300) + PiezoDrive PDm200 (€305)** + cabling (€35): natively covers 135–275 V at 33 kHz with current to spare, correct hardware 1.5 s gating, no transformer, no HV bench hazard, fully citable in a methods section | **~€640** |
+| **Lab-grade** | SDG1032X or DG1022Z + used **Krohn-Hite 7500 ($1 495)** + HV probe + dummy load | **~€1 600** |
+| *(reference-identical)* | SDG-class generator + **PiezoDrive PDUS210-400 ($4 141)** + APC Langevin — i.e. literally the Tijore-lab rig | ~€4 500 |
+
+Whole-system BOM including transducer, VNA, potting and hydrophone: **minimum ~$312 / mid ~$2 631 / lab-grade ~$15 400** (the last dominated by an Onda HCT + MCT-2000, ⚠️ quote-only, est. $8 k).
+
+### B.10 Recommended path ⭐
+1. Buy **2× BJC-3360T-48HS ($8.50 ea)** + **10× 25×10×4 PZT4 rings ($22)** + **10× 16×8×4 PZT4 ($20)** — ~$59 of goods, PayPal, DHL, ~10 days. Path A (finished 33 kHz unit) is the working instrument; Path B (build the stack from the papers' exact rings) is the fidelity build.
+2. **Measure |Z| vs f on a NanoVNA before anything else** — that one measurement decides between "11 Vpp into 15 Ω" and "275 V into 1 kΩ", i.e. between the €150 and the €1 600 tier.
+3. Consider **skipping the cone** (48 mm face ≈ the papers' ~5 cm; a cone detunes by kHz).
+4. Drive: SDG1032X + PDm200 (€640) if you want it citable; FY6900 + LM3886 + 6.4 mH series L (€150) if you want it cheap.
+5. **Plan for thermal drift** — the biggest threat to a constant 30-minute dose.
+6. **Degas and verify with a DO meter** (target < ~4 mg/L O₂ vs ~9 mg/L saturation; €30–80 aquarium meter).
+7. Human bathtub exposure: **battery-powered SELV or not at all** (see section C).
+
 ## Architecture C — multi-channel array "bathtub" (8–16 channels), human immersion
 
 > ⚠️ All IEC clause numbers and limit values in this section are **recalled domain knowledge, not re-verified against the standards' text** in this session (the session's web-search budget ran out). Buy and read IEC 60601-1, 60601-2-5 and IEC 60364-7-701/702 before designing to them (~€300–900 total).
@@ -323,6 +675,143 @@ Intensity 🔧: I = p_rms²/ρc → **4 kPa peak = 0.53 mW/cm² I_SPPA (0.27 mW/
 7. Full fault injection: cut the SELV conductor in the water; short the bus to water; fail a temperature sensor; hang the drive host.
 
 
+## Section D — calibration, instrumentation, degassing, thermal, software (applies to all three architectures)
+
+### D.1 What the source lab's instrument actually is ✅
+**Onda MCT-2000 is a benchtop *cavitation meter*** (digitiser + spectrum analyser, 232×113×215 mm), not a hydrophone. It reads out **F₀, direct-field pressure P₀ (kPa), stable cavitation P_S and transient cavitation P_T**, with the probe being a separate **HCT-0320** cleaning-tank hydrophone (Teflon shaft 270 × 3 mm, **useful range 20 kHz–1.2 MHz**, max 70 °C, pH 4–12, 1.5 m cable with **NPL-traceable calibration stored in the LEMO connector**). The cheaper **MCT-1200** reads F₀ + P_TOT only, and its datasheet states **"Total Pressure, P_TOT (kPa or unitless) * — *kPa units require self-calibration to absolute reference"**, with a **1–60 s time-averaging interval** ([HCT/MCT-1200 datasheet](https://ondasonics.com/wp-content/uploads/2023/10/Onda_HCT-0320_MCT-1200_DataSheet.pdf), [HCT/MCT-2000 datasheet](https://www.ondacorp.com/wp-content/uploads/2020/07/Onda_HCT-0320_MCT-2000_DataSheet.pdf), [product page](https://www.ondacorp.com/cleaning-tank-hydrophones/)). ⚠️ **"HCT-0310" does not exist** in Onda documentation — the cleaning-tank line is HCT-**0320**. Both meters are quote-only (⚠️ est. ~$8 k for HCT+MCT-2000).
+
+🔑 Consequences for interpreting "4 kPa": it is a **time-averaged, broadband total pressure** from a cleaning-tank meter, not a calibrated peak-negative pressure — and if the self-calibration step was skipped it is in arbitrary units, which fits the paper's mV-scaled field map. ⚠️ Worth emailing the authors: the MCT outputs kPa, yet Figure S1B is in mV, so either they read the HCT raw on a scope or used a second sensor.
+
+### D.2 Hydrophone selection — the counter-intuitive rule
+Conversion: **M[V/Pa] = 10^(M_dB/20) × 10⁶**; 4 kPa = **192.0 dB re 1 µPa**, 8 kPa = **198.1 dB**.
+
+| Hydrophone | Sensitivity | µV/Pa | @4 kPa | @8 kPa | Verdict |
+|---|---|---|---|---|---|
+| **B&K 8103 / Teledyne RESON TC4013** | −211 dB | 28.2 | **113 mV** | 225 mV | ⭐ reference choice |
+| **Aquarian AS-1 / S1n** | −208 dB | 39.8 | **159 mV** | 319 mV | ⭐ best value |
+| **Cetacean CR3** | −207 dB | 44.7 | 179 mV | 357 mV | ⭐ factory spot-cal per unit |
+| B&K 8104 / 8105 | −205 dB | 56.2 | 225 mV | 450 mV | ✅ |
+| RESON TC4033 / TC4034 | −203 / −218 dB | 70.8 / 12.6 | 283 / 50 mV | 566 / 101 mV | ✅ |
+| RESON TC4037 | −193 dB | 224 | 896 mV | 1.79 V | ✅ but 36 mm ≈ λ/1.3 — bulky |
+| Benthowave BII-7181 | −221 dB | 8.9 | 36 mV | 71 mV | ✅ |
+| **RESON TC4038** | −228 dB | 4.0 | 16 mV | 32 mV | ❌ **trap — range starts at 50 kHz** |
+| Onda HNR-0500 needle | −258 dB | 0.126 | 0.5 mV | 1.0 mV | ❌ needs LNA, **no valid calibration at 33 kHz** |
+| Aquarian H2a | −180 dB LF, ≈−220 dB at 100 kHz (a 40 dB slide), ±4 dB only 20 Hz–4 kHz | — | 4.0 V | 8.0 V | ❌ clips; value at 32 kHz mid-slope and unspecified |
+| Aquarian H2d (XLR) | −165 dB | 5623 | **22.5 V** | 45 V | ❌ gross clip |
+| B&K 8106, RESON TC4014/4032/4035, Cetacean C57/icListen HF | preamplified | — | — | — | ❌ **all clip at 1.0–2.5 kPa** |
+
+> ⭐ **Rule 1: buy passive, not "smart."** The entire preamplified/digital hydrophone market is built for ocean ambient noise and saturates 1–2 orders of magnitude below 192–198 dB re 1 µPa.
+> ⭐ **Rule 2: a normal oscilloscope is entirely sufficient.** A passive hydrophone straight into a 1 MΩ input gives **113–450 mV**; at 50 mV/div an 8-bit scope resolves ~1 % of signal. **No preamplifier is required or wanted.**
+> ⭐ **Rule 3: medical needle/membrane/fibre-optic hydrophones genuinely do not work at 32 kHz** — not electrically but *acoustically*: with λ = 46.6 mm ≫ element and shaft, diffraction and edge waves from the shaft dominate ([PMC10079648](https://pmc.ncbi.nlm.nih.gov/articles/PMC10079648/)). Onda's medical-line calibrations start at 1 MHz; Precision Acoustics' ISO 17025 accreditation is **1–40 MHz only** and they refer low-frequency customers to NPL.
+
+**Published prices** (almost everything else is quote-only): Aquarian **AS-1 $413** (10+: $330), **S1n $379**, H2d $229, PA6 preamp $75, IEPE1 $80; Precision Acoustics needle systems "from £2 943 + VAT" (2021 list). ⚠️ Aquarian units are **not individually calibrated** — the vendor explicitly warns that any given AS-1, especially with long cable, can deviate from published specs.
+
+**Inferring the paper's sensor from "<20 mV … ~180 mV"**: if 180 mV ↔ 4 kPa ⇒ **45.0 µV/Pa = −206.9 dB**, i.e. Cetacean CR3 (−207) / Aquarian AS-1 (−208) / B&K 8104–8105 (−205) class; if 180 mV ↔ 8 kPa ⇒ 22.5 µV/Pa = −213 dB ≈ B&K 8103 / TC4013. **Either way the implied sensitivity is 22–45 µV/Pa — the standard passive underwater-hydrophone class — and the "4 Pa" reading would require 45 V/Pa, which does not exist.** The "<20 mV" floor then corresponds to ~440 Pa. 🔑 **This is independent confirmation that the working pressure is kPa, not Pa.**
+
+### D.3 DIY hydrophones
+Your application is the easy case: a bare PZT-5H tube/disc potted in polyurethane lands at **−190 to −215 dB (20–300 µV/Pa)** ⇒ **80 mV–1.2 V at 4 kPa**, and self-noise (the usual DIY killer) is irrelevant 60–80 dB above where it matters. Keep the element small so its radial resonance stays far above 33 kHz.
+
+| Resource | What it gives |
+|---|---|
+| *Low-Cost Hydrophone for Passive Acoustic Monitoring of Dolphin Vocalizations*, Remote Sensing 15(7):1946 (2023), OA | full build + calibration — [10.3390/rs15071946](https://doi.org/10.3390/rs15071946) |
+| *Construction, calibration and field test of a home-made low-cost hydrophone system* | the canonical DIY paper — [10.1121/1.3573502](https://doi.org/10.1121/1.3573502), [10.1121/1.3508712](https://doi.org/10.1121/1.3508712) |
+| *Validación de hidrófonos de bajo costo* (2025, OA) | independent validation vs references — [ojs.inidep.edu.ar](https://ojs.inidep.edu.ar/index.php/mafis/article/download/436/522) |
+| *Development of a PVDF needle-type hydrophone*, IEEE INDUSCON 2018 | [10.1109/induscon.2018.8627232](https://doi.org/10.1109/induscon.2018.8627232) |
+| *Broadband Reference PVDF Membrane Hydrophone*, IEEE IUS 2006 | [10.1109/ultsym.2006.147](https://doi.org/10.1109/ultsym.2006.147) |
+| *Calibration and performance of a high-temperature cavitometer*, Sens. Actuators A 2016, OA | **calibrating a cavitation sensor in the tens-of-kHz band — directly on point** ([PDF](https://www.sciencedirect.com/science/article/pii/S0924424716300243/pdf)) |
+| [Supermagnum/piezoelectric](https://github.com/Supermagnum/piezoelectric), /hydrophone, /piezo-balanced | piezo buffers/preamps, PZT-5H tube recommendations, op-amp choices, LSK389B balanced PCB, build photos |
+| [mo-seph/PiezoPreamp](https://github.com/mo-seph/PiezoPreamp), htarold/piezo-agc-preamp | preamp schematics, AGC |
+| ⭐ [SamC873/FUSF_Hydrophone_Scanner](https://github.com/SamC873/FUSF_Hydrophone_Scanner) | **Focused Ultrasound Foundation's open-source 3-axis tank scanner** — the field-mapping rig this project needs |
+
+**Uncertainty**: uncalibrated DIY ±3–6 dB (factor 1.4–2 in pressure); comparison-calibrated in your own tank ±1–2 dB; national lab ±0.5 dB. ⚠️ **Your spec window (4→8 kPa) is only 6 dB wide, so ±3 dB DIY uncertainty cannot distinguish 4 from 8 kPa. Calibration is not optional.**
+
+### D.4 Where you can actually get a 32 kHz calibration
+Queried against the **BIPM KCDB** (recognised CMCs), not marketing copy — **only two national labs in the world hold a CMC at 32.2 kHz**:
+
+| Lab | Range | Method | Uncertainty (k=2) |
+|---|---|---|---|
+| **NPL (UK)** | **2 kHz – 500 kHz** | three-transducer spherical-wave reciprocity | **0.5 dB** |
+| **NPL (UK)** | 2 kHz – 1 MHz | comparison with reference hydrophone, IEC 60565 | 0.7 dB |
+| VNIIFTRI (RU) | 3.15 kHz – 200 kHz | IEC 60565 reciprocity | 0.6 dB |
+
+**PTB, NIST, KRISS, NIM, NRC, INRIM, CENAM, INMETRO, NPLI, UME all start at ≥0.5–1 MHz** (medical-ultrasound oriented). It is specifically NPL's *underwater acoustics* division that covers this band. Commercially, **Onda calibrates 0.03 kHz – 60 MHz per IEC 62127** — the only commercial lab verified to span 32.2 kHz. ⚠️ No calibration price could be obtained from anyone. ⭐ **Path: buy one calibrated passive reference, then comparison-calibrate DIY units in your own tank by substitution.**
+
+### D.5 Oscilloscopes and DAQ
+| Device | BW | Max SR | Bits | Memory | Streaming | Price | Verdict |
+|---|---|---|---|---|---|---|---|
+| ⭐ **Siglent SDS804X HD** | 70 MHz | 2 GSa/s | **12** | 100 Mpts | ✗ | **€409** | best bench buy; HW 2 Mpt FFT, 70 µV rms front end |
+| Rigol DHO804 | 70 MHz | 1.25 GSa/s | 12 | 25 Mpts | ✗ | €417 | equivalent class |
+| Rigol DS1054Z | 50 MHz | 1 GSa/s | 8 | 24 Mpts | ✗ | €427 | 8-bit — needs external filtering for cavitation work |
+| Siglent SDS1104X-E | 100 MHz | 1 GSa/s | 8 | 14 Mpts | ✗ | €511 | |
+| Hantek DSO2D10 | 100 MHz | 1 GSa/s | 8 | 8 Mpts | ✗ | ~$180–230 | fine for pressure reading only |
+| ⭐ **PicoScope 2206B** | 50 MHz | 500 MS/s | 8 (→12 enh.) | 32 MS | **9.6 MS/s gap-free (31 via SDK)** | **€463** | only true broadband streaming at this price |
+| ⭐ **Digilent Analog Discovery 3** | 9 MHz (30+ with BNC) | 125 MS/s | **14** | 32 kpts/ch | record ~10 MS/s RAM | **$379 / €469** | scriptable (Python SDK) — ideal for gated capture; **the Tijore lab uses the older AD2 (Digilent 410-321)** |
+| NI USB-6212 | — | 400 kS/s | 16 | — | DMA to disk | $300–600 used | covers f/2…6f, no broadband |
+| ❌ NI USB-6009 | — | 48 kS/s | 14 | — | — | $250–400 | **Nyquist 24 kHz — 32.2 kHz aliases to 15.8 kHz. Do not use** |
+| ❌ ADS1256 / MCP3008 | — | 30 kSPS / ~50 kSPS | 24 / 10 | — | — | $40 / $4 | below or barely at the fundamental |
+| ⭐ **192 kHz audio interface** (Scarlett 2i2, MOTU M2) | — | 192 kHz | 24 (>100 dB DR) | — | unlimited | €180–220 | best dynamic range per euro; captures 16.1 / 32.2 / 48.3 / 64.4 / 80.5 kHz. ⚠️ AA filter often rolls off 40–60 kHz, AC-coupled, uncalibrated absolute level |
+
+**Adequacy**: (a) reading 4 kPa at 33 kHz — anything except the three ❌ rows; (b) subharmonic 16.1 kHz + ultraharmonics 48.3/80.5 kHz — needs ≥250 kS/s and **≥12 bit or external notch/HPF** (8 bits ≈ 48 dB SFDR, and the subharmonic sits 40–60 dB down); (c) broadband cavitation noise to ~1 MHz — PicoScope streaming, AD3 record mode, or snapshot mode on any bench scope. 🔧 **You don't need 30 min of continuous broadband capture** — take a 200 ms snapshot at 5 MS/s every 10 s phase-locked to the ON window (180 snapshots ≈ 360 MB); both PicoSDK and WaveForms script this in Python. ⭐ Best pairing: **SDS804X HD (€409) for field mapping + AD3 ($379) or PicoScope 2206B (€463) for scripted passive cavitation detection ≈ €800–880.**
+
+### D.6 Cavitation detection
+**Is 4–8 kPa safe?** Yes, with margin — *if* you degas:
+
+| Source | Condition | Threshold | Margin at 4–8 kPa |
+|---|---|---|---|
+| Hong & Son, *Ultrason. Sonochem.* 2022 ([10.1016/j.ultsonch.2022.105932](https://doi.org/10.1016/j.ultsonch.2022.105932)) | Blake threshold, 500 nm nucleus, 1 atm | **196 kPa** | **25–49×** |
+| same, literature survey | air-saturated water, 0.02–4.8 MHz | 20–620 kPa (lowest at lowest f) | ⚠️ **only 2.5–5×** at the bottom end |
+| same | degassed, 2.5 nm nuclei | 25.9–27.4 MPa | 3 000–6 000× |
+| Viciconte et al., *Phys. Fluids* 37, 012104 (2025) ⚠️ paywalled | **25 kHz, air-saturated tap water** | **≈253 kPa** | 32–63× |
+| same | **25 kHz, degassed** | **≈659 kPa** | 82–165× |
+| Galloway, *JASA* 26 (1954) | ~27 kHz | 1 atm (air-sat) → hundreds of atm (degassed) | — |
+| Blake, large-nucleus limit | — | floor ≈ 100 kPa | 12.5–25× |
+
+🔑 **The weak link is not inertial cavitation but *stable* cavitation of pre-existing bubbles**, which happens far below the Blake threshold: at 32.2 kHz the **Minnaert resonant bubble is ~100 µm radius** (R·f ≈ 3.26 m·Hz) — exactly what nucleates on a plastic mesh, a dish wall or a heater element. **Degassing, pre-wetting every surface and avoiding gas entrainment matter more than the pressure margin.** (MI, formally MHz-only, would read 0.022.)
+
+**Method literature**: Neppiras *JASA* 1968 ([10.1121/1.1970448](https://doi.org/10.1121/1.1970448)) and *Phys. Rep.* 61 (1980) for the subharmonic; Morton/ter Haar/Stratford/Hill *UMB* 1983 ([10.1016/0301-5629(83)90008-x](https://doi.org/10.1016/0301-5629%2883%2990008-x)) linking f/2 to biological damage; **Hodnett & Zeqiri 1997** ([10.1016/S1350-4177(97)00042-4](https://doi.org/10.1016/S1350-4177%2897%2900042-4)) for the NPL broadband-integrated-noise metric; **Frohly et al. *JASA* 108 (2000)** ([10.1121/1.1312360](https://doi.org/10.1121/1.1312360)) — a direct template for a 20 kHz-class PCD; Zeqiri et al. *IEEE TUFFC* 50 (2003) parts [I](https://doi.org/10.1109/TUFFC.2003.1244751)/[II](https://doi.org/10.1109/TUFFC.2003.1244752); Johansen/Song/Prentice 2018 ([10.1016/j.ultsonch.2018.01.007](https://doi.org/10.1016/j.ultsonch.2018.01.007)) on *building* a PCD; Yasui 2023 ([10.1016/j.ultsonch.2022.106276](https://doi.org/10.1016/j.ultsonch.2022.106276)) on what broadband noise physically is. ⭐ **BS EN IEC 63001 — "Measurement of cavitation noise in ultrasonic baths and ultrasonic reactors"** is the closest thing to a standard method for exactly this problem (⚠️ edition year unverified, IEC/ANSI webstores 403) — **buy it** (~€200).
+
+**Recipe** 🔧: second receiver off-axis, ≥1 λ (~50 mm) from the transducer face → **high-pass 40–100 kHz or twin-T notch at 32.2 kHz BEFORE the amplifier** (the fundamental is 40–70 dB above what you are looking for and will saturate any front end) → ≥20 ms records (≤50 Hz bins) at ≥2.5 MS/s, Hann window, 10–50 averages → metrics: subharmonic 16.1 kHz, ultraharmonics 48.3/80.5/112.7 kHz (the classic precursor to inertial collapse), and broadband "inertial cavitation dose" (RMS with harmonic/ultraharmonic bins excised, integrated 100 kHz–1 MHz and over time). **Record a transducer-off floor and a sub-threshold reference first** — the claim is "no elevation above baseline at 4–8 kPa", which requires a baseline.
+
+**Hardware**: ⭐ a **bare 27 mm piezo disc potted in epoxy/silicone + coax (€1–5)** is the best cheap PCD (uncalibrated but the question is relative); DIY front end = 2-pole Sallen-Key HPF at 80–100 kHz or twin-T notch + OPA1656/OPA827, gain 40–60 dB (€15–40); Aquarian AS-1 doubles as primary sensor; Precision Acoustics needles are ❌ for measuring 32 kHz but ✅ as 0.5–15 MHz PCD receivers (£1 225–1 355, 2021 list); Sonic Concepts Y-102/Y-107 is the commercial gold standard (quote).
+
+**Cheap qualitative negative controls** (all should be **negative** at 4–8 kPa): **aluminium-foil erosion** (Saikova et al., *Molecules* 2026, [10.3390/molecules31081291](https://doi.org/10.3390/molecules31081291)) ~€1; **sonochemiluminescence with luminol** (McMurray & Wilson, *J. Phys. Chem. A* 103:3955 (1999), [10.1021/jp984503r](https://doi.org/10.1021/jp984503r); mapping practice in Garcia-Vargas et al. 2025, [10.1016/j.ultsonch.2025.107395](https://doi.org/10.1016/j.ultsonch.2025.107395)) ~€20 + a DSLR long exposure; **KI (Weissler) dosimetry** ~€20. ⭐ Run the **positive** control in a €40 cleaner to prove the test works — this is where a cheap bath earns its keep.
+
+### D.7 Degassing
+Henry's law sets the budget: to reach ≤20 % saturation you only need **≤0.2 atm ≈ 20 kPa absolute**, and water-vapour pressure is the floor (3.17 kPa at 25 °C, 5.63 kPa at 35 °C). ⇒ **a cheap 1/4 HP single-stage pump is entirely sufficient; a two-stage 0.1 Pa pump buys nothing.** Spend the difference on a bigger chamber and a stirrer — agitation and surface renewal set the rate.
+
+| Option | Achievable DO | Price | Notes |
+|---|---|---|---|
+| ⭐ **VEVOR 3-gal chamber + 3.5 CFM 1/4 HP single-stage** | 2–3 mg/L in one cycle, <2 mg/L in two | **$136.30** ([Home Depot](https://www.homedepot.com/p/VEVOR-3-Gallon-Vacuum-Chamber-and-3-5-CFM-Pump-Kit-Stainless-Steel-Chamber-Single-Stage-Vacuum-Pump-Degassing-Chamber-Kit-ZKBZKTTZDJ14OVZFDV1/333961504)) | claimed 5 Pa, realistically 20–50 Pa — irrelevant |
+| Water aspirator / venturi on a tap | ~2–3 kPa | €15–30 | ✅ adequate given the vapour-pressure floor |
+| ⭐ **Boil 5 min + cool sealed** | **<2 mg/L** (Precision Acoustics guidance) | **~€0** | cheapest reliable route; **must cool sealed with minimal headspace** or it re-gasses; improves sterility |
+| Helium sparging | displaces N₂/O₂, does not reduce total dissolved gas | €200–400 | He raises the cavitation threshold — good; follow with a brief vacuum step |
+| Membrane contactor (Liqui-Cel MiniModule, IDEX Degasi) | 2–4 ppm | ~$300–4 000 ⚠️ | best for continuous recirculation (and the only option at bathtub scale) |
+| Bath "degas" mode | partial | €40–200 | ⚠️ **it works by cavitating** — fine as pre-treatment in a *separate* vessel, **never** in the acoustic tank (quantified in Asakura & Yasuda 2022, [10.1016/j.ultsonch.2021.105890](https://doi.org/10.1016/j.ultsonch.2021.105890)) |
+
+**Procedure**: fill → pull to ~3–5 kPa absolute (gauge ≈ −29 inHg) → it effervesces then simmers → **hold 20–30 min with a stirrer bar** → break vacuum slowly → **siphon, don't pour**.
+
+**DO meters**: ⭐ Milwaukee MW600 galvanic ±1.5 % ~$250; ⭐ DFRobot Gravity SEN0237-A analog/Arduino $169 (⚠️ accuracy not specified, ~±0.5–1 mg/L after 2-point cal); Hanna HI9147 ±1 % $690; Apera DO850 optical ~$699; Atlas Scientific EZO DO kit $319–337; YSI ProODO ~$1 500–2 200 ⚠️.
+
+**Targets**: air-saturated freshwater is 9.09 mg/L at 20 °C, 8.26 at 25 °C, **7.07 at 35 °C**. Vendor practice: Precision Acoustics ≤2.5 ppm, FUS Instruments <2 mg/L, Onda AQUAS-10 ≤4 ppm; ⚠️ **IEC/TR 62781** ("conditioning of water for ultrasonic measurements") is the governing document but its full text could not be obtained (IEC/ANSI/GlobalSpec all 403) and it is guidance, not a numeric limit. ⭐ **Recommended target DO ≤ 2 mg/L (≈24 % sat at 25 °C); stretch ≤1 mg/L. Measure at the start AND end of every run** — DO rises during a run from surface re-absorption, and the heater accelerates it.
+
+### D.8 Heating and thermostat
+🔑 **Architectural decision first: do not put a circulator, impeller or bubbler in the acoustic tank** — flow causes sample advection, microstreaming (which confounds the very mechanism under study), surface entrainment that destroys your degassing, and a moving scatterer field. ⭐ **Put the 4 L acoustic tank inside a larger outer bath** held at ~33.5 °C by a sous-vide or lab circulator: zero moving water in the acoustic path, and 4 L has ~16.7 kJ/K of thermal mass so 30 min of drift is small.
+
+| Device | Accuracy | Price | Use |
+|---|---|---|---|
+| ⭐ **Inkbird ITC-308 + any dumb heater** | ±1 °C spec, **±0.3–0.5 °C after offset calibration** | $36–56 | best value; small NTC probe = low scatter |
+| ⭐ **Inkbird ISV-100W sous-vide** | **±0.1 °C over 8 h** (independent test) | $126 | outer bath only |
+| Eheim Jäger TruTemp 100 W | ±0.5 °C, 18–34 °C | $32.95 | cheap; glass body is a strong scatterer — keep off-axis, switch off during acquisition |
+| Julabo CORIO / LAUDA Alpha A | ±0.03–0.05 °C | €822–978 | gold standard, outer bath |
+
+**Logging**: ⭐ **PT100/PT1000 + MAX31865** (Class A ±0.15 °C, ±0.05 °C after 1-point offset; 3 × 30 mm probe; $14.95 + $14.95) — smallest metal probe; DS18B20 (±0.5 °C, 6 × 50 mm SS, $9.95) has ka ≈ 0.4 and its hollow air-filled tube behaves closer to pressure-release, which is worse; type-K is acoustically smallest but ±2 °C is useless in a 3 °C window; fibre-optic/thin-wire thermistors (€300+) are the acoustically invisible "proper" answer. **Placement: ≥2 cm laterally from the sample and entirely out of the transducer→sample column**; verify by mapping with the probe in and out (<5 % change at the sample plane). Better: log the **outer** bath continuously and the acoustic tank only during the 1.5 s OFF windows.
+
+### D.9 Software and open-format practice 🔧
+- **Firmware**: MicroPython/CircuitPython or Arduino on an RP2040 for the 1.5 s gate + session timer + interlocks; expose a serial command set; log every gate edge with a timestamp.
+- **Field mapping**: [FUSF_Hydrophone_Scanner](https://github.com/SamC873/FUSF_Hydrophone_Scanner), or a converted 3D printer (Ender-class) running Marlin/GRBL with the hydrophone on the extruder mount; drive it with `pyserial` G-code and trigger a Digilent AD3 or PicoScope capture at each point. Save raw waveforms (not just peak values) as HDF5/NPZ + a CSV index; publish the scan grid, tank geometry, fill level and water temperature with every map.
+- **Analysis**: Python (numpy/scipy) — per-point peak, RMS, FFT magnitude at f₀, harmonic ratios, subharmonic/ultraharmonic/broadband cavitation metrics; store calibration constants (V/Pa, cable capacitance, date, reference used) in the dataset metadata.
+- **Data publication**: raw + processed data, scan scripts and firmware in one repo under an open licence; report the pressure metric explicitly (peak vs RMS vs time-averaged-total) — the ambiguity in the source literature is precisely what this project should not repeat.
+
 ---
 
 # PART 3 — PHYSICS SANITY CHECKS 🔧
@@ -385,3 +874,52 @@ Sensitivity conversion: M[V/Pa] = 10^(M_dB/20) with M_dB in dB re 1 V/µPa, then
 4. Degas, and **measure** dissolved O₂ — the whole safety and reproducibility argument rests on nuclei-free water.
 5. Log water temperature (32–37 °C across the papers — itself an uncontrolled variable).
 6. Consider that the inventors think **harmonic content may matter** (patent: rectangular wave, 2×–7× harmonics): record the drive waveform, don't assume a pure sine.
+
+---
+
+# PART 4 — SYNTHESIS: WHAT TO BUILD, AND WHAT IS STILL UNKNOWN
+
+## 4.1 The minimum honest replication (bench scale, no humans) 🔧
+| Function | Item | Cost |
+|---|---|---|
+| Source | 5–10 × 33 ± 0.5 kHz 60 W Langevin (OKS-QXHUNQ33K $7.50 / Granbo / BJC-3360T-48HS $8.50), binned on a NanoVNA | **$40–90** |
+| *(fidelity variant)* | PZT4 rings 25×10×4 + 16×8×4 from Beijing Ultrasonic ($42) + machined aluminium cone + bolt/back mass | +$42 + machining |
+| Tank | 4 L glass beaker + 13 cm × 15.2 cm plastic cylinder + plastic mesh (as in the paper), or a Yunyisonic YL0205-33 shell ($199) | €20–199 |
+| Drive | Siglent SDG1032X (€300) + PiezoDrive PDm200 (€330) — or FY6900 + LM3886 + 6.4 mH series L (€150) | €150–640 |
+| Gate | MCU (RP2040) driving the amplifier enable, 1.5 s / 1.5 s, 600 cycles, logged | €10 |
+| Tuning | NanoVNA-H4 | €50–90 |
+| Pressure | Aquarian AS-1 ($413) → **calibrated by Onda or NPL at 32.2 kHz** | $413 + cal |
+| Acquisition | Siglent SDS804X HD (€409) for mapping + Digilent AD3 ($379) or PicoScope 2206B (€463) for scripted cavitation detection | €800–880 |
+| Field mapping | FUSF open-source scanner or a converted 3D printer + steppers | €100–200 |
+| Cavitation PCD | potted 27 mm piezo + 80 kHz HPF + OPA1656 | €25 |
+| Degassing | boil-and-seal (€0) or VEVOR 1.5–3 gal + 3.5 CFM pump ($130) + stirrer | €0–130 |
+| DO meter | DFRobot Gravity SEN0237-A ($169) or Milwaukee MW600 ($250) | $169–250 |
+| Thermal | outer bath + Inkbird ISV-100W ($126) + PT1000/MAX31865 ($30) | $156 |
+| Negative/positive controls | Al foil + luminol + a €40 cleaner as positive control | €60 |
+| Standard | BS EN IEC 63001 (cavitation noise in ultrasonic baths) | ~€200 |
+| **Total** | | **≈ €1 900–2 600** |
+
+Note the shape of this BOM: **the acoustic source is ~2 % of it.** Everything else is metrology — which is the correct proportion for a project whose entire scientific value rests on knowing the delivered pressure.
+
+## 4.2 Priority order of experiments 🔧
+1. **Impedance sweep** of each transducer on the NanoVNA (before buying any amplifier).
+2. **Drive at a known voltage, measure pressure with a calibrated hydrophone at 7–10 cm** → settle **Pa vs kPa** definitively. Cross-check against the Tijore 1 kPa → 11 nm interferometer table if you can borrow a vibrometer.
+3. **Map the field** over the sample plane on a ≤1 cm grid; publish mean/SD/min/max. Their own map spans ~9×.
+4. **Cavitation negative controls** (foil, luminol, PCD spectra) at the working pressure, and the positive control in a cheap cleaner.
+5. Only then do biology: senescent-cell growth at 33 kHz vs 39 kHz, power ladder 2.2/3.8/4/5.2/6.4/7.2/8/10 (k)Pa, duty ladder 1.25/1.5/1.75 s, exactly as in Figure S1C–F.
+6. Log water temperature and DO at start and end of every run; record the drive waveform (harmonics matter, per the patent).
+
+## 4.3 Open questions that no accessible source answers
+| # | Question | Why it matters | Best route |
+|---|---|---|---|
+| 1 | **Pa or kPa?** | 10⁶ in intensity | direct measurement; or email the authors (Kureel is now at UT Health San Antonio / Barshop; Margadant and Kenney at Mechanobiologics) |
+| 2 | Was the MCT meter ever **self-calibrated to an absolute reference**, or were the numbers "unitless"? | decides whether "4 kPa" is a pressure at all | ask the authors; the meter's own datasheet flags the requirement |
+| 3 | Which **transducer/generator/amplifier** did the UTMB rig actually use? | exact replication | never published; the Singapore-lineage rig (ring PZT4 + cone) and the IISc rig (APC + PiezoDrive PDU 210) are the two documented designs |
+| 4 | Peak, RMS or time-averaged total pressure? | factor ~1.4–3 | the MCT reads a **time-averaged total** over 1–60 s, which is closest to RMS-including-harmonics |
+| 5 | What are the "**10–12 transducers on articulated arms**" of the human bath? | architecture C | not in any accessible source; the immersion patent teaches 1–1000 transducers on bottom/side walls and on a robotic arm/gantry |
+| 6 | Why is **NCT06562374 suspended**? | safety/regulatory signal | ClinicalTrials.gov gives no reason; check UTMB IRB records or ask |
+| 7 | Does the effect need **32.248 kHz specifically**, or any 30–40 kHz? | whole design | the papers test only 33 vs 39 vs 120 kHz; the patent claims 30–100 kHz and even suggests 10–20 kHz square-wave harmonics would do |
+| 8 | Is the 1.5 s duty optimum real? | the sharpest unexplained parameter | their own data show ±0.25 s changes the result; it is the cheapest thing to re-test |
+
+## 4.4 Files kept in the scratchpad (`lfu/`)
+`PMC12151899.xml/.txt` (Aging Cell), `acel/ACEL-24-e70008-s001.docx` + `.txt` + `media/word/media/image5.png` (Figure S1A schematic, rendered on white as `w_image5.png`) and `image6.png` (field map), `PMC11883105.xml/.txt` + `tij/BTM2-10-e10737-s002.pdf` + `page7.png`/`page10.png` (tank photo, block diagram), `PMC8459596`, `PMC12445081`, `PMC13315667`, `PMC13087965` (IISc rigs), `ajp_pmc.xml/.txt` (AJP-Endo author manuscript), `brx_v1..v4.pdf/.txt` (all four bioRxiv versions), `pat_sen.html/.txt` (US20240001155A1), `app20220203138.pdf` (scanned USPTO image), `NCT06562374.json`, `hct.pdf` (Onda HCT/MCT datasheet), plus the helper scripts `x2t.py` and `kw.py`.

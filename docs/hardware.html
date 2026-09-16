@@ -34,6 +34,7 @@
 <li><a href="#calibration">Calibration: the shared bottleneck</a></li>
 <li><a href="#electrical">Electrical safety for human immersion</a></li>
 <li><a href="#acceptance">The acceptance test</a></li>
+<li><a href="#costs">What it actually costs</a></li>
 <li><a href="#adoption">From the first build to many builds</a></li>
 </ol></div>
 
@@ -113,8 +114,20 @@ Our answer: build to <strong>4–8 kPa peak</strong>, because the physics and th
 <li>Frequency is whatever the vendor built (33, 35, 37, 40 kHz), and 40 kHz is explicitly worse in the source paper.</li>
 </ul></div>
 </div>
-<h4>Hardware</h4>
-<p class="small">Bath with a near-33 kHz nominal frequency and, ideally, variable power plus sweep; an opto-isolated relay or solid-state switch on the generator's enable or remote input; aquarium heater plus PID thermostat; two independent thermometers; DIY or calibrated hydrophone; an oscilloscope; acoustic absorber to line the tank.</p>
+<div class="note risk"><strong>The arithmetic that kills this architecture as a source.</strong> A 140 W bath over a 240×140 mm floor produces roughly <strong>78–93 kPa</strong>. To reach 8 kPa you need <strong>−20.6 dB</strong>; to reach 4 kPa, <strong>−26.6 dB</strong>. Power dials are labelled in electrical power and pressure goes as its square root, so 10% — the best dial on the market — is only <strong>−10 dB</strong>. You stay 6–16 dB too hot, and blind without a hydrophone. Worse: if a given bath implements "%" as a burst chop rather than true amplitude control, the pressure <em>during</em> each burst is still 80+ kPa, so you are running a cavitating field at low duty rather than a 4 kPa field. Only Branson states in writing that its control varies amplitude "(not duty cycle)"; one Chinese vendor states outright that it uses pulse-width control. Note also that lab baths are mains-modulated at 100/120 Hz and most have non-defeatable ±1 kHz sweep.</div>
+<h4>What you can actually buy</h4>
+<p class="small"><strong>No EU or US vendor sells 32.2–33 kHz off the shelf.</strong> 33 kHz is a mass-produced Asian frequency — it is the resonance of the standard 60 W bolted Langevin with a ~48 mm face. Western labs cluster at 35 kHz (Bandelin), 37 kHz (Elma) and 40 kHz (Branson); Crest has 30 kHz push-pull; Guyson offers custom frequencies on request.</p>
+<div class="tw"><table>
+<thead><tr><th>Option</th><th>Frequency</th><th>Control</th><th>Price</th><th>Verdict</th></tr></thead>
+<tbody>
+<tr><td><strong>Yunyisonic YL0205-33</strong> (4.8 L, 240×135×150 mm) or YL0614-33 (14 L, 200 mm deep)</td><td><strong>33 kHz</strong></td><td>0–100% power, sweep, pulse, degas, heater</td><td><strong>$199 / $341</strong></td><td>Best frequency match. Use it as a <em>tank + bonded transducer + heater</em> and replace the generator.</td></tr>
+<tr><td>Bandelin Super RK 103 H (4.0 L, 150 mm deep)</td><td>35 kHz</td><td>none; sweep permanently on</td><td>€1,319</td><td>Perfect geometry, zero control. Buy one as the <strong>positive control for cavitation tests</strong>, not as the source.</td></tr>
+<tr><td>Elma Elmasonic P 60 H</td><td>37 / 80 kHz</td><td>30–100% in steps, defeatable sweep, degas</td><td>≈€1,900</td><td>Best control set of any lab bath, wrong frequency, no external interface.</td></tr>
+<tr><td>Crest POWERSONIC GT/GTI</td><td>30 kHz push-pull</td><td><strong>Dry-contact enable, 4–10 V power setpoint, 0–10 V readback, 100% duty</strong></td><td>quote</td><td>The best-documented remote interface anywhere — the only one that makes clean 1.5 s gating easy.</td></tr>
+<tr><td>OKS 33 kHz immersible plate + QXDY generator</td><td>33 kHz</td><td>generator claims PLC integration</td><td>$650 + $238</td><td>300 W minimum ≈ 400× the target; interface electrically undocumented.</td></tr>
+</tbody></table></div>
+<h4>Hardware to add</h4>
+<p class="small">An opto-isolated relay or solid-state switch on the generator's enable/remote input (never switch the mains — the microcontroller reboots every 3 s); aquarium heater plus PID thermostat; two independent thermometers; hydrophone; oscilloscope; acoustic absorber lining.</p>
 <h4>Software</h4>
 <p class="small">A small ESP32/RP2040 firmware: pulse timing, session timer, temperature interlock, CSV session log over USB or Wi-Fi. No power control — that stays on the bath's own panel, and its setting becomes part of the calibration record.</p>
 <p><strong>Verdict:</strong> good first bench, not a good reference instrument. Use it to learn the calibration workflow while B is being built.</p>
@@ -163,8 +176,22 @@ Our answer: build to <strong>4–8 kPa peak</strong>, because the physics and th
 <li>Waterproofing a transducer properly (potting, cable gland, strain relief) is an underestimated job.</li>
 </ul></div>
 </div>
-<h4>Hardware</h4>
-<p class="small">33 kHz Langevin transducer (28/30/35/40 kHz variants for comparison); MOSFET half or full bridge with a gate driver, or a class-D audio module used above its usual band; series inductor and/or transformer matching; 24–48 V supply; current-sense and voltage-divider feedback; RP2040/STM32/ESP32 controller; a tank from 4 L beaker up to a foot bath, lined with absorber; heater and PID; DIY hydrophone.</p>
+<h4>What to buy — verified parts and prices</h4>
+<div class="tw"><table>
+<thead><tr><th>Part</th><th>Key specs</th><th>Price</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td>⭐ <strong>Langevin BJC-3360T-48HS</strong> (Beijing Ultrasonic)</td><td><strong>33 ±1 kHz</strong>, 60 W, <strong>48 mm face</strong>, C₀ 3.8 nF, |Z| 10–20 Ω, PZT-8</td><td><strong>$8.50</strong></td><td>A stock 33 kHz transducer exists and costs less than lunch. Buy 5–10 and bin them by measured resonance.</td></tr>
+<tr><td>PZT4 rings 25×10×4 and 16×8×4 mm</td><td>The exact rings named in the group's cancer paper</td><td>$22 / $20 per pack</td><td>For a fidelity build of the original stack. Note the 33 kHz comes from the <em>bolted column</em>, not the rings.</td></tr>
+<tr><td>Series matching inductor</td><td><strong>6.4 mH</strong> for C₀ = 3.8 nF at 32.248 kHz; ferrite pot or gapped E-core, not iron powder</td><td>~€10</td><td>Gives Q-multiplication: a 24–48 V bus produces 135–275 V across the piezo <strong>with no high-voltage supply</strong>, and cuts third-harmonic content from 33% to ~0.6%.</td></tr>
+<tr><td>⭐ NanoVNA-H4</td><td>S21 series-through resonance measurement</td><td>€50–90</td><td><strong>Measure |Z| vs f before buying anything else</strong> — that single measurement decides between the €150 and the €1,600 tier.</td></tr>
+<tr><td>⭐ Siglent SDG1032X + PiezoDrive PDm200</td><td>1 µHz resolution, true N-cycle burst; ±200 V, 300 mA, power bandwidth 63 kHz</td><td>€300 + €305</td><td>Natively covers 135–275 V at 33 kHz with correct hardware gating. The citable choice.</td></tr>
+<tr><td>Budget path: FeelTech FY6900 + LM3886 class-AB kit + 1:8 ferrite toroid</td><td>Class-AB avoids the class-D output filter entirely</td><td>€70 + €20 + €8</td><td>Class-D (TPA3116) does pass 33 kHz, but a piezo load makes the output filter ring badly; use a Zobel or a 4–8 Ω shunt.</td></tr>
+<tr><td>Reference-identical: PiezoDrive PDUS210-400</td><td>What the Bangalore lab uses; 20–200 kHz, resonance tracking, USB API</td><td>$4,141</td><td>Only if you want to <em>be</em> the reference rig.</td></tr>
+<tr><td>Potting: Loctite EA E-30CL, or epoxy + neutral-cure silicone skin</td><td>Acoustic matching is a non-issue at 33 kHz (λ/4 would be a 19 mm slab); <strong>mass loading matters</strong> — pot first, then measure resonance</td><td>~$30</td><td>Avoid acetoxy silicone (acetic acid attacks aluminium and electrodes). Best cable answer: <strong>no connector in the water</strong>.</td></tr>
+</tbody></table></div>
+<div class="note info"><strong>Two design insights worth the whole page.</strong> First, the 48 mm face of the stock transducer is already about the "~5 cm" aperture the papers' aluminium cone was built to create — so <strong>you can probably skip the cone</strong>, which would otherwise detune the stack by kilohertz. Second, the biggest threat to a constant dose is <strong>thermal drift</strong>: a Langevin in water has a bandwidth of only 65–320 Hz and drifts −5 to −20 Hz/°C, so a 5 °C rise moves you most of a bandwidth off resonance. An open-loop fixed-frequency drive will not hold pressure for 30 minutes. Track resonance from live current and phase, or monitor with the hydrophone throughout.</div>
+<h4>Rest of the build</h4>
+<p class="small">RP2040/STM32/ESP32 controller (integer PWM division lands within ±3 Hz of 32.248 kHz, which is well inside the transducer bandwidth); gate driver UCC27714 or IR2184, whose shutdown pin doubles as the hardware 1.5 s gate; low-voltage MOSFETs on a 24–48 V bus — <strong>there is no reason to put 300–400 V on a bench for a 42 mW experiment</strong>; tank from a 4 L beaker to a foot bath with absorber lining; heater and PID in an <em>outer</em> bath, so no moving water in the acoustic path.</p>
 <h4>Software</h4>
 <p class="small">Firmware: DDS or PWM frequency synthesis, optional sweep, precise gating, resonance tracking, amplitude regulation against the calibration table, thermal and cavitation interlocks, CSV logging. Host tools in Python: field-mapping over a 3-axis gantry, spectrum analysis for cavitation, calibration-file generation, and export of a session log in the schema used by biohack.it.</p>
 <p><strong>Verdict:</strong> this is the build that makes the project reproducible, and it is what the builder kit will document.</p>
@@ -220,7 +247,38 @@ Our answer: build to <strong>4–8 kPa peak</strong>, because the physics and th
 <h4>Hardware</h4>
 <p class="small">8–16 potted transducers on arms or walls; one B-stage driver per channel, galvanically isolated, with per-channel current monitoring; a SELV supply where possible, otherwise a medical-grade isolation transformer; RCD at 10 mA plus an insulation-monitoring device; a neutral-generator array topology; an all-plastic tub with no earthed metal in the water; redundant temperature sensors; emergency stop; a single-board computer coordinating the channel MCUs.</p>
 <h4>Software</h4>
-<p class="small">Channel scheduler (group sequencing, phase and sweep), interlocks and watchdogs, leakage and temperature monitoring with automatic shutdown, per-position calibration tables, full session logging, and an operator checklist enforced by the UI before a session can start.</p>
+<p class="small">Channel scheduler (group sequencing, phase and sweep), interlocks and watchdogs, leakage and temperature monitoring with automatic shutdown, per-position calibration tables, full session logging, and an operator checklist enforced by the UI before a session can start. A <strong>separate interlock microcontroller</strong> that can only <em>cut</em> power, so that a bug in the drive host cannot defeat the safety layer.</p>
+<h4>The acoustics of a tub are different from a beaker</h4>
+<ul>
+<li>A 250 L tub has <strong>~11,000 modes below 33 kHz</strong> — about one per hertz. It is a <strong>diffuse, statistical field</strong>, not a modal one: you cannot tune the standing waves out, you can only average over them. In such a field ~2% of the volume exceeds twice the nominal pressure.</li>
+<li>Decorrelation length is about λ/2 ≈ 2.3 cm, so <strong>asking the subject to shift position every couple of minutes is a free and effective averaging mechanism</strong>.</li>
+<li>De-synchronise deliberately: give each channel a small frequency offset (7–40 Hz), re-draw phases every 10–20 ms, place transducers aperiodically. Twelve incoherent sources plus sweeping can cut the spatial spread of time-averaged intensity from ~100% to a few per cent — but this must be verified by mapping, not assumed. Water circulation does <em>not</em> homogenise an acoustic field.</li>
+<li><strong>The body is nearly transparent at 33 kHz</strong> (about 0.3 dB through a torso). This is whole-body exposure, not surface exposure, and the only strong internal reflectors are gas bodies — lung and bowel. Note that the mouse protocol immersed only the lower half of the animal.</li>
+<li>An <strong>acrylic</strong> tub is preferable to steel or glass: the plastic absorbs, which damps the field — and you have drive power to spare.</li>
+<li><strong>You cannot properly degas 250 litres.</strong> Vacuum needs a sealed vessel, boiling is absurd, and ultrasonic degassing works by cavitating. The honest options are a membrane contactor on a recirculation loop (€600–2,000, ~8 h) or filling hot at 50–55 °C and letting it cool to 36 °C, which leaves the water undersaturated. Since the entire cavitation safety case rests on the absence of nuclei, <strong>this is a first-order unresolved problem, not a detail</strong>.</li>
+<li>Drain and refill every session: for a couple of euros of water it solves sanitation, dissolved gas, conductivity and corrosion at once. Do not use ozone (it aerates) and prefer no halogen sanitiser (it raises conductivity and pits stainless).</li>
+<li>Best thermal answer: <strong>no in-tub heater at all</strong> — fill blended from the domestic hot water. A covered 250 L tub drifts only 1–2 °C in 30 minutes, and this deletes the largest electrical hazard in the system.</li>
+</ul>
+<h4>Rough bill of materials, 12 channels</h4>
+<div class="tw"><table>
+<thead><tr><th>Category</th><th>Low</th><th>High</th></tr></thead>
+<tbody>
+<tr><td>Acrylic tub 200–300 L, frame, plumbing</td><td>€400</td><td>€1,500</td></tr>
+<tr><td>12 bare Langevin stacks (33 kHz is not a catalogue frequency — expect to characterise and bin)</td><td>€150</td><td>€400</td></tr>
+<tr><td>Potting, silicone-jacketed cable, glands, housings (two-barrier construction)</td><td>€150</td><td>€500</td></tr>
+<tr><td>Mounting arms, aperiodic placement</td><td>€250</td><td>€700</td></tr>
+<tr><td>Drive electronics (microcontroller + gate drivers, or multichannel audio interface + wideband amps)</td><td>€100</td><td>€1,800</td></tr>
+<tr><td>Independent safety microcontroller, contactors, E-stops, sensors</td><td>€150</td><td>€400</td></tr>
+<tr><td>Certified 2 × MOPP medical AC/DC module, 12 V SELV bus</td><td>€60</td><td>€250</td></tr>
+<tr><td>Isolation transformer, 10 mA Type B RCD, <strong>insulation monitor</strong>, bonding</td><td>€400</td><td>€1,500</td></tr>
+<tr><td><strong>Metrology</strong>: hydrophone flat at 33 kHz, preamp, positioner</td><td>€500</td><td>€6,000</td></tr>
+<tr><td>Pump, filter, two PT1000 sensors + mechanical thermostat, external heat exchanger</td><td>€250</td><td>€800</td></tr>
+<tr><td>Membrane degasser (optional but see above)</td><td>€0</td><td>€2,000</td></tr>
+<tr><td>IEC standards to buy and read</td><td>€300</td><td>€900</td></tr>
+<tr><th>Minimal viable</th><th>≈€2,800</th><th></th></tr>
+<tr><th>Defensible</th><th></th><th>≈€15,000</th></tr>
+</tbody></table></div>
+<p><strong>The cost distribution is the real finding:</strong> transducers and drive electronics are about 15% of a defensible build. <strong>Metrology and electrical safety dominate, and they are exactly the parts nobody can skip</strong> — a build with €500 of transducers and no calibrated hydrophone cannot tell 4 kPa from 400 kPa.</p>
 <p><strong>Verdict:</strong> last, not first. It requires A or B to be verified, an independent electrical check, and a written safety case.</p>
 
 <h2 id="power">Power budget: this is a watts machine, not a kilowatt machine</h2>
@@ -269,6 +327,23 @@ Our answer: build to <strong>4–8 kPa peak</strong>, because the physics and th
 <li><strong>Map, don't spot-check.</strong> A converted 3-D printer makes a perfectly good 3-axis traverse for a field map on a 1 cm grid.</li>
 <li><strong>Publish the map</strong> with every build, alongside the drive settings that produced it. A build without a published map does not contribute biological data.</li>
 </ol>
+<h3>Which hydrophone, and the counter-intuitive rule</h3>
+<div class="tw"><table>
+<thead><tr><th>Hydrophone</th><th>Sensitivity</th><th>Output at 4 kPa</th><th>Verdict</th></tr></thead>
+<tbody>
+<tr><td>B&amp;K 8103 · Teledyne RESON TC4013</td><td>28 µV/Pa</td><td>113 mV</td><td>⭐ reference choice</td></tr>
+<tr><td><strong>Aquarian AS-1 / S1n</strong></td><td>40 µV/Pa</td><td>159 mV</td><td>⭐ best value — <strong>$379–413</strong>, but not individually calibrated</td></tr>
+<tr><td>Cetacean CR3</td><td>45 µV/Pa</td><td>179 mV</td><td>⭐ factory spot-calibrated per unit</td></tr>
+<tr><td>RESON TC4038</td><td>4 µV/Pa</td><td>16 mV</td><td>❌ trap — its range starts at 50 kHz</td></tr>
+<tr><td>Medical needle hydrophones (Onda HNR, Precision Acoustics)</td><td>~0.13 µV/Pa</td><td>0.5 mV</td><td>❌ no valid calibration at 33 kHz, and acoustically wrong: λ is 46 mm, so shaft diffraction dominates</td></tr>
+<tr><td>Any preamplified or "smart" hydrophone (B&amp;K 8106, TC4014/4032, icListen, Aquarian H2a/H2d)</td><td>—</td><td>clips</td><td>❌ built for ocean ambient noise; they saturate 1–2 orders of magnitude below our level</td></tr>
+</tbody></table></div>
+<div class="note ok"><strong>Three rules that save money.</strong> <strong>1.</strong> Buy <em>passive</em>, not "smart" — the entire preamplified market clips at 1–2.5 kPa. <strong>2.</strong> A passive hydrophone straight into a 1 MΩ oscilloscope input gives 113–450 mV; <strong>no preamplifier is needed or wanted</strong>. <strong>3.</strong> Medical hydrophones genuinely do not work here, for acoustic reasons rather than electrical ones.</div>
+<p><strong>Where a 33 kHz calibration actually exists.</strong> Queried against the international database of recognised calibration capabilities, <strong>only two national labs in the world hold one at 32 kHz</strong>: NPL in the UK (2 kHz–500 kHz, 0.5 dB) and VNIIFTRI in Russia. PTB, NIST, INRiM and the rest all start at 0.5–1 MHz because they are medical-ultrasound oriented. Commercially, Onda calibrates from 30 Hz upward. <strong>The practical path is one calibrated passive reference, then comparison-calibrate DIY units in your own tank.</strong> An uncalibrated DIY hydrophone carries ±3–6 dB of uncertainty — and since our target window (4 → 8 kPa) is only 6 dB wide, that is not good enough on its own.</p>
+<p><strong>Reading it.</strong> A 12-bit bench scope (Siglent SDS804X HD, ≈€409) for field mapping, plus a scriptable USB instrument (Digilent Analog Discovery 3, $379, or PicoScope 2206B, €463) for automated cavitation snapshots. Avoid 8-bit scopes for cavitation work, and never use a 48 kS/s DAQ — 32.2 kHz would alias to 15.8 kHz.</p>
+<p><strong>Degassing, cheaply.</strong> Henry's law means you only need about 0.2 atm, and water vapour sets the floor, so a $136 vacuum chamber with a single-stage pump is entirely sufficient — a two-stage pump buys nothing. Boiling for 5 minutes and cooling <em>sealed</em> also reaches under 2 mg/L for free. Target <strong>dissolved oxygen ≤ 2 mg/L</strong> against about 7 mg/L at saturation, and measure it at the start <em>and end</em> of every run with a €170–250 meter, because it rises again during the session.</p>
+<p><strong>Cavitation detection</strong> costs almost nothing: a bare 27 mm piezo disc potted in epoxy (€1–5) as a passive detector, a high-pass filter or notch at 32 kHz <em>before</em> the amplifier (the fundamental is 40–70 dB above what you are looking for), then watch the subharmonic at 16.1 kHz, the ultraharmonics, and broadband noise. Cheap qualitative controls — aluminium-foil erosion, luminol sonochemiluminescence, iodide dosimetry — should all be <strong>negative</strong> at 4–8 kPa, and you can prove the test works by running them positive in a €40 cleaner.</p>
+
 <div class="note info"><strong>Use the right class of hydrophone.</strong> A medical needle hydrophone is calibrated from about 250 kHz upward and would deliver ~0.2 mV at 4 kPa — the wrong instrument entirely. An underwater-acoustics hydrophone (around 28 µV/Pa, the B&amp;K 8103 / RESON TC4013 class) gives ~113 mV at 4 kPa, which is easy to read on any oscilloscope, and matches the millivolt scale of the original field map. Cheaper hydroacoustic models with published sensitivity in the tens of kHz are the realistic DIY route.</div>
 
 <h2 id="electrical">Electrical safety for human immersion</h2>
@@ -327,6 +402,18 @@ Protection has to come from <strong>galvanic isolation and construction</strong>
 <li data-id="T8"><strong>Repeatability</strong>: the same measurement repeated on another day within ±10%.</li>
 </ol>
 
+<h2 id="costs">What it actually costs</h2>
+<div class="tw"><table>
+<thead><tr><th>Build</th><th>Contents</th><th>Cost</th></tr></thead>
+<tbody>
+<tr><td><strong>Budget bench</strong></td><td>FeelTech FY6900 generator + class-AB amplifier kit + linear supply + hand-wound 1:8 ferrite toroid + series inductor</td><td><strong>≈€150</strong></td></tr>
+<tr><td>⭐ <strong>Recommended bench</strong></td><td>Siglent SDG1032X + PiezoDrive PDm200 + cabling — correct hardware gating, 135–275 V natively, no high-voltage bench hazard, citable in a methods section</td><td><strong>≈€640</strong></td></tr>
+<tr><td>Lab-grade</td><td>Generator + used Krohn-Hite 7500 amplifier + high-voltage probe + dummy load</td><td>≈€1,600</td></tr>
+<tr><td>Reference-identical</td><td>Generator + PiezoDrive PDUS210-400 + APC Langevin — literally the Bangalore rig</td><td>≈€4,500</td></tr>
+<tr><td colspan="3"><strong>Whole system including transducer, VNA, potting, hydrophone and scope: ≈$310 minimum · ≈$2,600 mid · ≈$15,400 lab-grade</strong> (the last dominated by a professional cavitation meter). The human-scale tub is a separate €2,800–15,000.</td></tr>
+</tbody></table></div>
+<p class="small">Prices captured 2026-09-16 from live vendor pages where possible; several marketplaces block automated access and those entries are flagged in the <a href="https://github.com/hackingbiology/ultrasound-low-frequency/blob/main/docs/research/05-hardware-and-sources.md" target="_blank" rel="noopener">research note</a>. Add Italian import VAT and shipping for the Chinese parts.</p>
+
 <h2 id="adoption">From the first build to many builds</h2>
 <p>The point of the project is the hundredth builder, not the first one. Design rules that follow from that:</p>
 <div class="grid g2">
@@ -345,8 +432,6 @@ Protection has to come from <strong>galvanic isolation and construction</strong>
 <li><strong>Negative results published</strong>: failed builds and bad calibrations are as informative as good ones.</li>
 </ul></div>
 </div>
-
-<div class="note warn"><strong>Component tables, prices and supplier links</strong> (bath models, Langevin transducers, driver options, hydrophones, degassing and mapping rigs) are being verified and will be published here as a bill of materials with alternates for each architecture.</div>
 </main>
 <footer class="site"><div class="in">
 <span>A <a href="https://hackingbiology.com" target="_blank" rel="noopener">HackingBiology</a> project · companion to <a href="https://biohack.it" target="_blank" rel="noopener">biohack.it</a></span>
