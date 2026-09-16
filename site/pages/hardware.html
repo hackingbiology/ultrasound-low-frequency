@@ -17,6 +17,7 @@ description: Three hardware architectures for an open low-frequency ultrasound d
 <li><a href="#power">Power budget: this is a watts machine</a></li>
 <li><a href="#acoustic-safety">Acoustic safety: the real limits at 33 kHz</a></li>
 <li><a href="#calibration">Calibration: the shared bottleneck</a></li>
+<li><a href="#electrical">Electrical safety for human immersion</a></li>
 <li><a href="#acceptance">The acceptance test</a></li>
 <li><a href="#adoption">From the first build to many builds</a></li>
 </ol></div>
@@ -115,7 +116,7 @@ Our answer: build to <strong>4–8 kPa peak</strong>, because the physics and th
 <li>Per-channel amplitude control allows a calibration table per body position.</li>
 </ul></div>
 <div class="con"><h4>Cons</h4><ul>
-<li><strong>Electrical safety dominates everything.</strong> Hundreds of volts of drive near an immersed human body; a single potting failure is potentially lethal.</li>
+<li><strong>Electrical safety dominates everything</strong>, and <strong>no RCD actually protects the bather</strong> — see the <a href="#electrical">electrical safety section</a>. Protection must come from isolation and construction.</li>
 <li>Mapping a field around a body is genuinely hard: the body absorbs and reflects, so the field with a person in it differs from the empty-tub map.</li>
 <li>Cost and complexity multiply by the channel count; every tub is bespoke, so reproducibility drops.</li>
 <li>Hygiene and degassing of a large water volume are unsolved practical problems.</li>
@@ -177,6 +178,47 @@ Our answer: build to <strong>4–8 kPa peak</strong>, because the physics and th
 </ol>
 <div class="note info"><strong>Use the right class of hydrophone.</strong> A medical needle hydrophone is calibrated from about 250 kHz upward and would deliver ~0.2 mV at 4 kPa — the wrong instrument entirely. An underwater-acoustics hydrophone (around 28 µV/Pa, the B&amp;K 8103 / RESON TC4013 class) gives ~113 mV at 4 kPa, which is easy to read on any oscilloscope, and matches the millivolt scale of the original field map. Cheaper hydroacoustic models with published sensitivity in the tens of kHz are the realistic DIY route.</div>
 
+<h2 id="electrical">Electrical safety for human immersion</h2>
+<p>We went looking for the standard that governs a bathtub with an immersed person and a dozen energised 33 kHz transducers in the water. <strong>There isn't one.</strong> The device falls between three standards, and each one excludes it for a different reason:</p>
+<div class="tw"><table>
+<thead><tr><th>Standard</th><th>What it covers</th><th>Why it does not cover us</th></tr></thead>
+<tbody>
+<tr><td><strong>IEC 60601-2-5</strong> — ultrasonic physiotherapy</td><td>The nearest particular standard. Treatment head IPX7, radiating surface ≤ 41 °C, effective intensity ≤ 3 W/cm² even in a fault, beam non-uniformity ≤ 8, timer ≤ 30 min, ±20% power accuracy.</td><td>Its scope is "a <em>single</em> plane unfocused circular transducer per treatment head, producing <em>static</em> beams", and every conformity test routes through IEC 61689, whose range is <strong>0.5–5 MHz</strong>. We are at 33 kHz with 8–16 heads — a factor of 15 below the measurement floor, and outside the geometry.</td></tr>
+<tr><td><strong>IEC 60335-2-60</strong> — whirlpool baths and spas</td><td>Class II or III construction, IPX5, water ≤ 50 °C at the inlet, non-self-resetting thermal cut-outs, 30 mA RCD in the installation instructions.</td><td>It <strong>explicitly excludes appliances intended for medical purposes</strong>. And its answer to our core question is blunt: clause 22.35 says parts accessible to a user <em>in the bath</em> "shall only be supplied at safety extra-low voltage not exceeding <strong>12 V</strong>".</td></tr>
+<tr><td><strong>IEC 60364-7-701 / -702</strong> — installation zones for baths and pools</td><td>Zone 0 (inside the basin): maximum <strong>12 V a.c. or 30 V d.c. SELV</strong>, IPX7/IPX8, safety source physically outside the wet zones, supplementary equipotential bonding of every reachable conductive part, 30 mA RCD.</td><td>It applies to the installation, not to our appliance — but it is the clearest statement of what the electrical world considers acceptable in water, and it is what an expert would measure us against.</td></tr>
+</tbody></table></div>
+
+<div class="note risk">
+<strong>The finding that changes the design: no residual-current device protects a person in the water.</strong>
+<ul>
+<li>A 30 mA RCD is sized for dry-skin contact. In water the let-go threshold is around <strong>5 mA</strong>, and currents well below 30 mA can incapacitate someone — which is the mechanism of electric-shock drowning. It may also take up to 300 ms to operate.</li>
+<li><strong>No RCD type, including Type B, is characterised above 1 kHz.</strong> A 33 kHz leakage component is outside the tested detection range of every device on the market. A switching amplifier can also produce d.c. leakage that magnetically blinds Type A and Type AC devices entirely.</li>
+<li>The shock-threshold data in IEC 60479-1 is valid from 15–100 Hz, with body-impedance data only to 20 kHz. <strong>At 33 kHz there are no numbers to design against.</strong></li>
+<li>Immersion removes the skin barrier over the whole body surface, so the protective series impedance everyone's intuition relies on is simply not there. Fresh water is <em>worse</em> than salt water here, because it does not shunt current around the body.</li>
+</ul>
+Protection has to come from <strong>galvanic isolation and construction</strong>, with insulation monitoring as the fault detector — not from tripping on residual current.
+</div>
+
+<h3>The architecture this forces</h3>
+<ol class="steps">
+<li><strong>Floating supply, 2 × MOPP from mains.</strong> At 250 V working voltage that means 4 kV a.c. withstand, 8 mm creepage and 5 mm clearance, with the safety source outside the wet zones. Nothing in the water bonded to protective earth, so a first insulation fault creates no return path — the medical IT-system model.</li>
+<li><strong>SELV in the water, and step up inside the potted head.</strong> The installation rules cap in-water parts at 12 V a.c. / 30 V d.c., but a Langevin transducer wants 100–275 V. The resolution is to carry <strong>SELV along the cable</strong> and put the step-up transformer or resonant matching network <em>inside</em> the sealed, potted transducer assembly, so that the only high voltage in the tub is behind two layers of insulation and has no path to the water.</li>
+<li><strong>Neutral-generator topology</strong>, from the immersion patent: arrays whose feed voltages sum to zero, built with alternating coil direction or inverted piezo crystals, so even an insulation failure presents no net voltage to the water.</li>
+<li><strong>Insulation monitoring, not RCD tripping.</strong> Continuous measurement of insulation resistance to the water, alarming on degradation (the hospital Group 2 model), plus a Type B RCD upstream of the isolating transformer as a backstop for the mains-side wiring only.</li>
+<li><strong>IPX7/IPX8 potting with bend protection at the cable entry.</strong> With 8–16 immersed heads you have 8–16 independent barriers, glands and flexing cables in warm, soapy, chloride-laden water; the failure rate is multiplied, and the 33 kHz drive is itself a fatigue mechanism at the potting interface. This is a wear-out problem, not a one-shot one.</li>
+<li><strong>Supplementary equipotential bonding</strong> of every conductive part the bather can reach: 2.5 mm² sheathed or 4 mm² unsheathed copper.</li>
+</ol>
+
+<h3>Thermal limits, which are stricter than people expect</h3>
+<ul>
+<li><strong>Water ≤ 40 °C</strong> (the consumer hot-tub ceiling), with 37.8 °C considered comfortably safe. Above body temperature the failure mode is drowsiness, then unconsciousness, then drowning.</li>
+<li><strong>Heater inlet ≤ 50 °C</strong>, and <strong>transducer radiating surface ≤ 41 °C</strong> after a 15-minute continuous immersed run at rated power.</li>
+<li><strong>Two independent layers</strong>: a control thermostat plus a separate, <strong>non-self-resetting</strong> thermal cut-out that removes power from heater and transducers independently of the controller. Two sensors with disagreement detection; a failed sensor must read as over-temperature, not as cold.</li>
+<li><strong>Hard session timer</strong> regardless of temperature, and <strong>pregnancy is an absolute exclusion</strong> (hyperthermia above ~38 °C in early pregnancy carries a documented miscarriage risk, before any ultrasound question).</li>
+<li>Bulk water temperature is not a proxy for tissue temperature near a transducer face.</li>
+</ul>
+<p class="small">Sources and clause-by-clause detail in <a href="https://github.com/hackingbiology/ultrasound-low-frequency/blob/main/docs/research/06-electrical-safety.md" target="_blank" rel="noopener">research note 06</a>. Several figures there are flagged as unverified; none of this is a substitute for a qualified electrical engineer signing off a real build.</p>
+
 <h2 id="acceptance">The acceptance test</h2>
 <p>The same test for every architecture and every builder. It is the definition of "this build counts".</p>
 <ol class="q">
@@ -188,7 +230,7 @@ Our answer: build to <strong>4–8 kPa peak</strong>, because the physics and th
 <li data-id="T5"><strong>Pulse timing</strong> 1.5 s ± 20 ms, verified on both the electrical gate and the acoustic envelope.</li>
 <li data-id="T6"><strong>Thermal</strong>: water held at 32–35 °C ± 0.5 °C for the whole session; transducer face temperature logged.</li>
 <li data-id="T6b"><strong>For human immersion</strong>: field mapped with a body-equivalent phantom in place, not in an empty tank; head out of water; hearing protection; a written acknowledgement that the exposure exceeds the ACGIH waterborne limit.</li>
-<li data-id="T7"><strong>Electrical</strong>: insulation and leakage-current measurement passed; RCD tested; for architecture C, an independent qualified check.</li>
+<li data-id="T7"><strong>Electrical</strong>: insulation resistance to the water measured and logged; leakage current measured; floating-supply integrity verified; for architecture C, SELV in the water, an insulation monitor, and an independent check by a qualified engineer.</li>
 <li data-id="T8"><strong>Repeatability</strong>: the same measurement repeated on another day within ±10%.</li>
 </ol>
 

@@ -86,7 +86,10 @@
 <h3>2 · Electrical risk <span class="b r">immediate and lethal</span></h3>
 <ul>
 <li>You are putting a <strong>high-voltage-driven transducer into water that a human body is immersed in</strong>. Langevin transducers are typically driven at 100–300 V. A potting failure, a cracked ceramic, a chafed cable or a condensation path can put that into the bath.</li>
-<li>Minimum requirements for any human-immersion build: isolation transformer, residual-current device (10 mA or better), double-insulated and potted transducers, no mains-referenced metal in the water, leakage-current measurement before every session, and a second person present.</li>
+<li><strong>A residual-current device will not save you here.</strong> In water the let-go threshold is around 5 mA, so a 30 mA RCD tolerates currents that can already incapacitate you; and no RCD type is characterised above 1 kHz, so 33 kHz leakage is outside what any of them is tested to detect. This is the mechanism behind electric-shock drowning, and fresh water is worse than salt water for it.</li>
+<li>What actually protects you is <strong>galvanic isolation plus construction</strong>: a floating supply with two means of patient protection from mains, SELV along the cable with any step-up transformer sealed <em>inside</em> the potted transducer, insulation monitoring instead of residual-current tripping, IPX7/IPX8 potting, and bonding of every reachable conductive part.</li>
+<li>Every installation standard that deals with a person in water converges on <strong>12 V a.c. or 30 V d.c. maximum</strong> for anything they can touch. A Langevin transducer wants 100–275 V. That tension is the central engineering problem of the whole-body version, and it has an answer, but it has to be designed for rather than assumed.</li>
+<li>Also: a second person present, a hard session timer, and a non-self-resetting thermal cut-out independent of the controller.</li>
 <li>Bench work with cells or a foot bath is a much lower-risk starting point, and is where we start.</li>
 </ul>
 
