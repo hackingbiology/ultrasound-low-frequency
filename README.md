@@ -28,7 +28,7 @@ site/pages/      page fragments with front matter; files starting with _ are inc
 site/build.py    static builder: python site/build.py
 ```
 
-Research notes: [01 source analysis](docs/research/01-source-analysis.md) · [02 review of a prior ChatGPT analysis](docs/research/02-chatgpt-analysis-review.md) · [03 IP analysis](docs/research/03-ip-analysis.md) · [04 biomarkers and Italian lab availability](docs/research/04-biomarkers-italy.md) (Italian).
+Research notes: [01 source analysis](docs/research/01-source-analysis.md) · [02 review of a prior ChatGPT analysis](docs/research/02-chatgpt-analysis-review.md) · [03 IP analysis](docs/research/03-ip-analysis.md) · [04 biomarkers and Italian lab availability](docs/research/04-biomarkers-italy.md) (Italian) · [05 hardware and primary sources](docs/research/05-hardware-and-sources.md) · [06 electrical safety](docs/research/06-electrical-safety.md). Outreach draft: [enquiry to Mechanobiologics and UT](docs/outreach/mechanobiologics-enquiry.md).
 
 ## License
 
