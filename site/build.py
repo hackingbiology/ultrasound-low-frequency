@@ -71,6 +71,8 @@ def parse(text):
 def main():
     built = datetime.date.today().isoformat()
     for src in sorted(PAGES.glob("*.html")):
+        if src.name.startswith("_"):  # fragments, included by hand
+            continue
         meta, body = parse(src.read_text(encoding="utf-8"))
         nav = "".join(
             f'<a href="{href}"{" aria-current=\"page\"" if href == src.name else ""}>{label}</a>'

@@ -1,0 +1,90 @@
+<!--
+title: Diagrams (fragment, not built)
+description: Reusable SVG block diagrams for the hardware page.
+-->
+<!-- DIAGRAM A: adapted commercial bath -->
+<figure class="diag" id="diag-a">
+<svg viewBox="0 0 880 330" role="img" aria-label="Block diagram of architecture A: a commercial ultrasonic bath with an external gating controller and hydrophone verification">
+  <defs><marker id="ah" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon class="arrowhead" points="0 0, 9 3.5, 0 7"/></marker></defs>
+  <text class="h" x="8" y="18">A · Adapted commercial bath</text>
+
+  <rect class="bx" x="8" y="40" width="150" height="58" rx="6"/><text x="20" y="64">Mains + RCD 10 mA</text><text class="s" x="20" y="82">isolation transformer</text>
+  <line class="ln" x1="158" y1="69" x2="196" y2="69" marker-end="url(#ah)"/>
+  <rect class="bx a" x="196" y="30" width="180" height="120" rx="6"/><text x="210" y="54">Commercial 33 kHz</text><text x="210" y="74">ultrasonic bath</text><text class="s" x="210" y="94">variable power 10–100%</text><text class="s" x="210" y="110">sweep / PLL, degas mode</text><text class="s" x="210" y="126">stock generator</text>
+  <line class="ln" x1="286" y1="150" x2="286" y2="186" marker-end="url(#ah)"/>
+  <rect class="water" x="196" y="186" width="180" height="96" rx="6"/><text x="210" y="210">Tank + degassed water</text><text class="s" x="210" y="228">32–35 °C, thermostat</text><text class="s" x="210" y="246">sample / limb on mesh</text><text class="s" x="210" y="264">7–10 cm above face</text>
+
+  <rect class="bx t" x="430" y="30" width="180" height="120" rx="6"/><text x="444" y="54">Gating controller</text><text class="s" x="444" y="74">ESP32 / RP2040</text><text class="s" x="444" y="92">relay or opto on the</text><text class="s" x="444" y="108">generator ENABLE line</text><text class="s" x="444" y="126">1.5 s on / 1.5 s off, timer, log</text>
+  <line class="ln t d" x1="430" y1="90" x2="378" y2="90" marker-end="url(#ah)"/>
+  <text class="s" x="384" y="82">gate</text>
+
+  <rect class="bx u" x="430" y="186" width="180" height="96" rx="6"/><text x="444" y="210">Hydrophone + scope</text><text class="s" x="444" y="228">DIY PZT or Aquarian</text><text class="s" x="444" y="246">pressure, spectrum,</text><text class="s" x="444" y="264">cavitation check</text>
+  <line class="ln" x1="430" y1="234" x2="378" y2="234" marker-end="url(#ah)"/>
+
+  <rect class="bx" x="664" y="100" width="200" height="130" rx="6"/><text x="678" y="124">Session log</text><text class="s" x="678" y="144">start/stop, temperature,</text><text class="s" x="678" y="162">measured pressure,</text><text class="s" x="678" y="180">water state, operator</text><text class="s" x="678" y="200">→ open data file</text><text class="s" x="678" y="218">→ biohack.it protocol</text>
+  <line class="ln t" x1="610" y1="90" x2="700" y2="90" marker-end="url(#ah)"/><line class="ln t" x1="700" y1="90" x2="700" y2="100"/>
+  <line class="ln" x1="610" y1="234" x2="664" y2="200" marker-end="url(#ah)"/>
+</svg>
+<figcaption>A · The stock generator does the power electronics; we add only pulse gating, thermal control and, crucially, acoustic verification. Lowest build effort, least control over the field.</figcaption>
+</figure>
+
+<!-- DIAGRAM B: open driver -->
+<figure class="diag" id="diag-b">
+<svg viewBox="0 0 880 360" role="img" aria-label="Block diagram of architecture B: an open low-power driver chain from microcontroller to Langevin transducer with resonance tracking and hydrophone feedback">
+  <defs><marker id="ah2" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon class="arrowhead" points="0 0, 9 3.5, 0 7"/></marker></defs>
+  <text class="h" x="8" y="18">B · Open driver + Langevin transducer</text>
+
+  <rect class="bx t" x="8" y="40" width="140" height="92" rx="6"/><text x="20" y="64">MCU</text><text class="s" x="20" y="84">RP2040 / STM32</text><text class="s" x="20" y="100">DDS or PWM 32.2 kHz</text><text class="s" x="20" y="116">sweep ±0.5 kHz, gating</text>
+  <line class="ln" x1="148" y1="86" x2="186" y2="86" marker-end="url(#ah2)"/>
+  <rect class="bx" x="186" y="40" width="140" height="92" rx="6"/><text x="198" y="64">Gate driver</text><text class="s" x="198" y="84">IR2184 / UCC27201</text><text class="s" x="198" y="100">dead-time control</text>
+  <line class="ln" x1="326" y1="86" x2="364" y2="86" marker-end="url(#ah2)"/>
+  <rect class="bx" x="364" y="40" width="150" height="92" rx="6"/><text x="376" y="64">Half/full bridge</text><text class="s" x="376" y="84">MOSFETs, 24–48 V rail</text><text class="s" x="376" y="100">only a few watts needed</text><text class="s" x="376" y="116">(class-D module option)</text>
+  <line class="ln" x1="514" y1="86" x2="552" y2="86" marker-end="url(#ah2)"/>
+  <rect class="bx" x="552" y="40" width="150" height="92" rx="6"/><text x="564" y="64">Matching network</text><text class="s" x="564" y="84">series L + transformer</text><text class="s" x="564" y="100">tunes out C₀ of the PZT</text>
+  <line class="ln" x1="702" y1="86" x2="740" y2="86" marker-end="url(#ah2)"/>
+  <rect class="bx a" x="740" y="40" width="130" height="92" rx="6"/><text x="752" y="64">Langevin</text><text class="s" x="752" y="84">33 kHz bolt-clamped</text><text class="s" x="752" y="100">potted / submersible</text><text class="s" x="752" y="116">≈ €10–60</text>
+
+  <rect class="water" x="552" y="180" width="318" height="120" rx="6"/><text x="566" y="204">Tank: 4 L beaker → foot bath</text><text class="s" x="566" y="224">degassed water, 32–35 °C</text><text class="s" x="566" y="242">target 7–10 cm above the face</text><text class="s" x="566" y="260">absorber lining to damp reflections</text><text class="s" x="566" y="280">acceptance test: 4–8 kPa ±25%</text>
+  <line class="ln" x1="805" y1="132" x2="805" y2="180" marker-end="url(#ah2)"/>
+
+  <rect class="bx u" x="330" y="180" width="190" height="120" rx="6"/><text x="344" y="204">Measurement</text><text class="s" x="344" y="224">V and I sense → impedance</text><text class="s" x="344" y="242">resonance tracking (PLL)</text><text class="s" x="344" y="260">hydrophone → kPa</text><text class="s" x="344" y="278">spectrum → cavitation</text>
+  <line class="ln" x1="552" y1="240" x2="520" y2="240" marker-end="url(#ah2)"/>
+  <line class="ln t d" x1="330" y1="222" x2="78" y2="222"/><line class="ln t d" x1="78" y1="222" x2="78" y2="132" marker-end="url(#ah2)"/>
+  <text class="s" x="120" y="216">closed loop: amplitude &amp; frequency correction</text>
+
+  <rect class="bx" x="8" y="180" width="200" height="120" rx="6"/><text x="20" y="204">Firmware + host</text><text class="s" x="20" y="224">MicroPython / C, USB CLI</text><text class="s" x="20" y="242">session recipe as a file</text><text class="s" x="20" y="260">CSV log + calibration table</text><text class="s" x="20" y="278">open schematics (KiCad)</text>
+</svg>
+<figcaption>B · Everything is ours and everything is documented: exact pulse timing, sweep, resonance tracking, and a calibration table linking drive amplitude to measured kPa. This is the architecture that a second builder can reproduce most faithfully.</figcaption>
+</figure>
+
+<!-- DIAGRAM C: array tub -->
+<figure class="diag" id="diag-c">
+<svg viewBox="0 0 880 380" role="img" aria-label="Block diagram of architecture C: a multi-channel transducer array around a bathtub with safety systems">
+  <defs><marker id="ah3" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon class="arrowhead" points="0 0, 9 3.5, 0 7"/></marker></defs>
+  <text class="h" x="8" y="18">C · Multi-channel array tub (human immersion)</text>
+
+  <rect class="bx r" x="8" y="40" width="210" height="130" rx="6"/><text x="20" y="64">Electrical safety layer</text><text class="s" x="20" y="84">medical isolation transformer</text><text class="s" x="20" y="102">RCD 10 mA + IMD</text><text class="s" x="20" y="120">all-plastic tub, no earthed metal</text><text class="s" x="20" y="138">leakage test before each session</text><text class="s" x="20" y="156">emergency stop within reach</text>
+
+  <rect class="bx t" x="250" y="40" width="190" height="130" rx="6"/><text x="262" y="64">Controller</text><text class="s" x="262" y="84">SBC + N×MCU channels</text><text class="s" x="262" y="102">per-channel amplitude</text><text class="s" x="262" y="120">phase / sequencing groups</text><text class="s" x="262" y="138">sweep 32.2 ± 0.5 kHz</text><text class="s" x="262" y="156">watchdog, interlocks</text>
+  <line class="ln" x1="218" y1="105" x2="250" y2="105" marker-end="url(#ah3)"/>
+  <line class="ln" x1="440" y1="105" x2="472" y2="105" marker-end="url(#ah3)"/>
+  <rect class="bx" x="472" y="40" width="170" height="130" rx="6"/><text x="484" y="64">8–16 driver channels</text><text class="s" x="484" y="84">one B-stage per channel</text><text class="s" x="484" y="102">galvanically isolated</text><text class="s" x="484" y="120">current monitoring per ch.</text><text class="s" x="484" y="138">≈ 1–5 W each</text>
+
+  <rect class="water" x="250" y="210" width="392" height="150" rx="10"/>
+  <text x="264" y="234">Bathtub · degassed water 32–35 °C</text>
+  <text class="s" x="264" y="252">subject seated, head out of water</text>
+  <text class="s" x="264" y="270">field map per body position → channel table</text>
+  <g>
+    <rect class="bx a" x="272" y="290" width="46" height="26" rx="4"/><rect class="bx a" x="330" y="290" width="46" height="26" rx="4"/><rect class="bx a" x="388" y="290" width="46" height="26" rx="4"/><rect class="bx a" x="446" y="290" width="46" height="26" rx="4"/><rect class="bx a" x="504" y="290" width="46" height="26" rx="4"/><rect class="bx a" x="562" y="290" width="46" height="26" rx="4"/>
+    <text class="s" x="284" y="307">T1</text><text class="s" x="342" y="307">T2</text><text class="s" x="400" y="307">T3</text><text class="s" x="458" y="307">T4</text><text class="s" x="516" y="307">T5</text><text class="s" x="574" y="307">Tn</text>
+    <text class="s" x="272" y="338">potted transducers on arms / walls, individually driven and sequenced</text>
+  </g>
+  <line class="ln" x1="557" y1="170" x2="557" y2="210" marker-end="url(#ah3)"/>
+
+  <rect class="bx u" x="674" y="40" width="196" height="130" rx="6"/><text x="686" y="64">Monitoring</text><text class="s" x="686" y="84">water temperature ×2</text><text class="s" x="686" y="102">leakage current, live</text><text class="s" x="686" y="120">cavitation sensor</text><text class="s" x="686" y="138">session timer + log</text><text class="s" x="686" y="156">operator present, always</text>
+  <line class="ln" x1="674" y1="105" x2="642" y2="105" marker-end="url(#ah3)"/>
+  <rect class="bx" x="674" y="210" width="196" height="150" rx="6"/><text x="686" y="234">Field calibration rig</text><text class="s" x="686" y="254">3-axis gantry (3-D printer)</text><text class="s" x="686" y="272">hydrophone traverse</text><text class="s" x="686" y="290">map before first human use</text><text class="s" x="686" y="308">repeat if anything changes</text><text class="s" x="686" y="326">publish the map with</text><text class="s" x="686" y="344">every build</text>
+  <line class="ln" x1="674" y1="285" x2="642" y2="285" marker-end="url(#ah3)"/>
+</svg>
+<figcaption>C · Many weak, individually controlled sources beat one strong one: it flattens the field and lowers the pressure anywhere near a transducer. The hard parts are electrical safety in water and mapping a field around a human body.</figcaption>
+</figure>
