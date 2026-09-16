@@ -68,12 +68,22 @@ def parse(text):
     return meta, text.strip()
 
 
+def include(body):
+    """Expand <!--include: _fragment.html --> directives (front matter stripped)."""
+    def sub(m):
+        frag = PAGES / m.group(1)
+        _, text = parse(frag.read_text(encoding="utf-8"))
+        return text
+    return re.sub(r"<!--\s*include:\s*(\S+?)\s*-->", sub, body)
+
+
 def main():
     built = datetime.date.today().isoformat()
     for src in sorted(PAGES.glob("*.html")):
         if src.name.startswith("_"):  # fragments, included by hand
             continue
         meta, body = parse(src.read_text(encoding="utf-8"))
+        body = include(body)
         nav = "".join(
             f'<a href="{href}"{" aria-current=\"page\"" if href == src.name else ""}>{label}</a>'
             for href, label in NAV

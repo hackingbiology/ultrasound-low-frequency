@@ -1,0 +1,47 @@
+<!--
+title: Crosswalk fragment (not built)
+description: Comparison table between what UT / Mechanobiologics measured and what we can measure ourselves.
+-->
+<h2 id="crosswalk">What they measured vs what we can measure</h2>
+<p>The single most useful table on this site. For every endpoint used in the original work, it says <strong>where it was measured</strong> (cells, mice, humans, or only asserted in a patent) and <strong>whether a DIY self-experimenter can measure the same thing</strong>, with what.</p>
+<p class="small">Legend: <span class="b g">yes</span> routinely doable · <span class="b a">partly</span> proxy or specialist lab · <span class="b r">no</span> needs tissue, autopsy or a research facility. Sources: Aging Cell 2025 [S1], mouse data [S1], NCT07168525 [S8], NCT06562374 [S7], patent application US20240001155A1 [S3].</p>
+
+<div class="tw"><table>
+<thead><tr>
+<th>Endpoint</th><th>In vitro (cells)</th><th>Mice</th><th>Human trials (UT)</th><th>Patent claims/examples</th><th>Can we measure it?</th><th>How, for a biohacker</th>
+</tr></thead>
+<tbody>
+
+<tr><th colspan="7" style="background:var(--teal-bg);color:var(--teal)">Core senescence biology</th></tr>
+<tr><td>Cell-cycle re-entry (EdU, divisions, population doublings)</td><td>✅ primary readout</td><td>—</td><td>—</td><td>claimed</td><td><span class="b r">no</span></td><td>Requires cultured cells. Only via a partner lab, on donated cells.</td></tr>
+<tr><td>SA-β-galactosidase</td><td>✅ &gt;90% → reduced</td><td>✅ kidney/pancreas 70% → 10–20%</td><td>"senescence in blood by IHC/biochemistry"</td><td>claimed</td><td><span class="b a">partly</span></td><td>Flow cytometry on PBMCs with a fluorogenic β-gal probe (research kit, partner lab). Not a clinical test.</td></tr>
+<tr><td>p16<sup>INK4a</sup> / p21</td><td>✅ reduced</td><td>✅ reduced in tissue</td><td>part of blood senescence panel</td><td>claimed</td><td><span class="b a">partly</span></td><td>p16 mRNA by RT-qPCR in sorted CD3+ T cells; needs a lab that will run it. Not orderable in a routine Italian lab.</td></tr>
+<tr><td>SASP secretion (IL-6, IL-8, IL-10, IL-15, TNF-α, IFN-γ, VEGF, MIP-1α)</td><td>✅ blocked</td><td>indirect</td><td>part of blood panel</td><td>claimed "reduces SASP"</td><td><span class="b g">yes</span></td><td><strong>The best DIY handle.</strong> Plasma multiplex or single ELISAs; hs-CRP and IL-6 are orderable locally. See the panel below.</td></tr>
+<tr><td>Telomere length</td><td>✅ increased</td><td>—</td><td>—</td><td>claimed</td><td><span class="b a">partly</span></td><td>qPCR or flow-FISH from leukocytes via mail-in providers; noisy, interpret with care.</td></tr>
+<tr><td>DNA methylation (5mC), epigenetic age</td><td>✅ restored</td><td>—</td><td>✅ "immune aging via epigenetic analysis"</td><td>—</td><td><span class="b g">yes</span></td><td>Mail-in epigenetic clocks (pace-of-aging and immune-cell deconvolution). Watch technical noise.</td></tr>
+<tr><td>H3K9me3, γH2AX, nuclear p53</td><td>✅ normalised</td><td>—</td><td>—</td><td>claimed</td><td><span class="b r">no</span></td><td>Microscopy on cells; γH2AX in lymphocytes is possible in research labs only.</td></tr>
+<tr><td>ROS / mitochondrial ROS</td><td>✅ reduced</td><td>—</td><td>—</td><td>claimed mitochondrial fission ↑</td><td><span class="b a">partly</span></td><td>Only indirect: urinary 8-oxo-dG, F2-isoprostanes, oxidised LDL. Weak evidence value.</td></tr>
+<tr><td>Transcriptome (RNA-seq)</td><td>✅ 50 up / 140 down</td><td>✅ muscle transcriptome [S6]</td><td>✅ RNA-seq on blood</td><td>—</td><td><span class="b a">partly</span></td><td>Whole-blood RNA-seq is purchasable but expensive; interpretation needs expertise.</td></tr>
+
+<tr><th colspan="7" style="background:var(--teal-bg);color:var(--teal)">Organ and tissue effects</th></tr>
+<tr><td>Senescent burden in kidney/pancreas</td><td>—</td><td>✅ histology</td><td>—</td><td>claimed for many organs</td><td><span class="b r">no</span></td><td>Requires biopsy or autopsy. Blood proxies only.</td></tr>
+<tr><td>Skin (accessible tissue)</td><td>—</td><td>fur quality</td><td>—</td><td>hair-loss example</td><td><span class="b a">partly</span></td><td>Standardised photos, elasticity/hydration probes; a skin punch biopsy only with a clinician.</td></tr>
+<tr><td>Insulin sensitivity</td><td>—</td><td>✅ reversed [S6]</td><td>—</td><td>type-2 diabetes example (−75%, anecdote)</td><td><span class="b g">yes</span></td><td>Fasting glucose and insulin → HOMA-IR, HbA1c, and a continuous glucose monitor.</td></tr>
+<tr><td>Body composition</td><td>—</td><td>weight maintained</td><td>✅ DEXA lean/fat mass</td><td>—</td><td><span class="b g">yes</span></td><td>DEXA is available privately in Italy; bioimpedance as a cheap, noisier substitute.</td></tr>
+
+<tr><th colspan="7" style="background:var(--teal-bg);color:var(--teal)">Function and performance</th></tr>
+<tr><td>Muscle strength</td><td>—</td><td>inverted cling</td><td>✅ knee extension (Biodex, primary)</td><td>"improves physical performance"</td><td><span class="b g">yes</span></td><td>Hand grip dynamometer, 30-second chair stand, isometric knee extension with a strap gauge.</td></tr>
+<tr><td>Endurance / activity</td><td>—</td><td>✅ wheel running 7–10×, treadmill</td><td>✅ 6-minute walk, TUG, SPPB</td><td>claimed</td><td><span class="b g">yes</span></td><td>6MWT, TUG, SPPB at home; plus daily step count and heart-rate variability from a wearable.</td></tr>
+<tr><td>Cognition</td><td>—</td><td>—</td><td>✅ NIH Toolbox face–name memory</td><td>neurodegeneration claims</td><td><span class="b g">yes</span></td><td>Validated free batteries (e.g. NIH Toolbox-like tests, Cambridge-style tasks); expect practice effects.</td></tr>
+<tr><td>Pain / joint symptoms</td><td>—</td><td>—</td><td>✅ surveys (OA trial)</td><td>osteoarthritis example (−70%, anecdote)</td><td><span class="b g">yes</span></td><td>WOMAC/KOOS questionnaires; highly placebo-sensitive, so only meaningful against a sham phase.</td></tr>
+<tr><td>Lifespan</td><td>—</td><td>✅ (not significant per group)</td><td>—</td><td>claimed</td><td><span class="b r">no</span></td><td>Not measurable by an individual. Pace-of-aging clocks are the nearest proxy.</td></tr>
+
+<tr><th colspan="7" style="background:var(--teal-bg);color:var(--teal)">Safety</th></tr>
+<tr><td>Tumours</td><td>not tested on oncogene-induced senescence</td><td>autopsy: none found (n small)</td><td>not reported</td><td>not addressed</td><td><span class="b a">partly</span></td><td>Age-appropriate cancer screening before and during; blood cannot rule out cancer. See <a href="#safety">safety monitoring</a>.</td></tr>
+<tr><td>Adverse events</td><td>—</td><td>—</td><td>✅ primary endpoint in the OA trial (suspended)</td><td>—</td><td><span class="b g">yes</span></td><td>A structured session diary: skin, dizziness, fatigue, pain, sleep, plus blood pressure before and after.</td></tr>
+<tr><td>Exposure dose actually delivered</td><td>✅ hydrophone</td><td>✅ hydrophone</td><td>not published</td><td>ranges only</td><td><span class="b g">yes</span></td><td><strong>We can do better than the published work here</strong>: every session logged with a measured pressure field. See <a href="hardware.html">hardware</a>.</td></tr>
+</tbody></table></div>
+
+<div class="note info">
+<strong>What this table tells us.</strong> Three things stand out. First, <strong>the mechanism itself (cell-cycle re-entry) is invisible from blood</strong>: we can only see its consequences, above all the SASP. Second, <strong>the human trial's own primary endpoint is functional, not molecular</strong> — muscle strength and walking — so a biohacker measuring grip strength and a 6-minute walk is measuring the same class of thing as UT Health San Antonio. Third, <strong>nobody has published the delivered dose for humans</strong>, which is the one column where an open project can beat the original.
+</div>

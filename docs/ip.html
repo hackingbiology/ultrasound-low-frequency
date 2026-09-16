@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Intellectual property · LFU Open Hardware</title>
+<meta name="description" content="Which patents exist on low-frequency ultrasound senescence reversal, what they actually cover, and what a non-commercial DIY project in Italy can and cannot do.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/site.css">
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<header class="top"><div class="in">
+<a class="brand" href="index.html"><img src="assets/favicon.svg" alt=""><span>LFU <b>Open</b> Hardware</span></a>
+<nav class="main" aria-label="Sections"><a href="index.html">Overview</a><a href="evidence.html">Evidence</a><a href="hardware.html">Hardware</a><a href="open-questions.html">Open questions</a><a href="biological-feedback.html">Biological feedback</a><a href="diy-biohacking.html">DIY biohacking</a><a href="ip.html" aria-current="page">IP rights</a></nav>
+<button class="theme-btn" type="button" onclick="(function(){var d=document.documentElement,c=d.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'),n=c==='dark'?'light':'dark';d.dataset.theme=n;try{localStorage.setItem('theme',n)}catch(e){}})()" aria-label="Toggle theme">◐</button>
+</div></header>
+<main>
+<section class="page-head">
+  <div class="kicker">Freedom to operate</div>
+  <h1>Intellectual property: what is covered, and what a DIY project may do</h1>
+  <p class="lead">One patent is granted, and it is about killing tumour cells in the United States. Everything about senescence is still an application, nothing is granted anywhere, and the European cases have a structural problem. Here is the detail, and what follows from it for a non-commercial build in Italy.</p>
+</section>
+
+<div class="note warn"><strong>Not legal advice.</strong> This is a documentary reconstruction from public patent databases, written with AI assistance and not by a qualified patent attorney. Anything involving money, hardware leaving your hands, or another person needs an Italian/EU IP lawyer and, for human use, a medical-device regulatory advisor.</div>
+
+<h2 id="landscape">The patent landscape</h2>
+<div class="tw"><table>
+<thead><tr><th>Document</th><th>Title / subject</th><th>Owner</th><th>Where</th><th>Status (Sept 2026)</th></tr></thead>
+<tbody>
+<tr><td><strong>US 12,714,885 B2</strong><br><span class="small">appl. 17/515,025; pub. US 2022/0047894</span></td><td>Systems and Methods for Immersion Mechanotherapy — <strong>tumour cells</strong></td><td>Mechanobiologics, Inc.</td><td><strong>US only</strong></td><td><span class="b r">GRANTED</span> 25 Aug 2026, 38 claims, term ≈ Jan 2042 (PTA +635 d)</td></tr>
+<tr><td>WO 2020/223359 · WO 2020/223242</td><td>Immersion mechanotherapy · cancer treatment</td><td>Mechanobiologics</td><td>PCT</td><td><span class="b g">ceased</span> — <strong>never entered the European phase</strong>; US cancer case abandoned Feb 2025</td></tr>
+<tr><td>US 2024/0001155 A1<br><span class="small">appl. 18/217,362</span></td><td>Reversal of cellular senescence by LFU</td><td>Mechanobiologics</td><td>US</td><td><span class="b a">pending</span> — non-final rejection mailed 25 Feb 2026</td></tr>
+<tr><td><strong>EP 4 561 696 A1</strong><br><span class="small">appl. EP 23850582.0</span></td><td>Reversal of cellular senescence by LFU (95 claims)</td><td>Mechanobiologics</td><td>EP, <strong>Italy designated</strong></td><td><span class="b a">pending</span>, examination requested Feb 2025, no grant</td></tr>
+<tr><td>US 2024/0399175 A1 · <strong>EP 4 447 814</strong> · JP · AU<br><span class="small">WO 2023/114011</span></td><td>Reversal of senescence by ultrasound irradiation</td><td><strong>Board of Regents, University of Texas System</strong> (Sheetz, Kureel, Rasmussen, Maroto)</td><td>US / EP <strong>(Italy)</strong> / JP / AU</td><td><span class="b a">pending</span>; US final rejection Dec 2025; EP supplementary search report Apr 2026</td></tr>
+<tr><td>US 2021/0244972 (KIST)</td><td>Device for removing senescent cells with ultrasound</td><td>Korea Inst. of Science &amp; Technology</td><td>US/KR</td><td><span class="b g">abandoned</span> — useful <a href="#priorart">prior art</a></td></tr>
+</tbody></table></div>
+
+<h2 id="granted">The only granted patent, read closely</h2>
+<p>US 12,714,885's three independent claims (1 device, 16 method, 38 device/in-vitro) all require the same thing:</p>
+<div class="note">
+<p>an <strong>immersion element with a liquid medium</strong> + <strong>ultrasound transducers</strong> generating a <strong>sequence of programmed cycles</strong>, with modulation, intensity and frequency configured to apply periodic forces that trigger a <strong>mechanically-induced apoptotic process in tumour cells</strong>, "<em>by periodic stretching of the tumour cells, rather than by heat</em>", without mechanically damaging the cells.</p>
+</div>
+<div class="grid g2">
+<div class="card"><h4>What this means</h4><ul>
+<li><strong>Senescence reversal in normal cells is outside the granted claims.</strong> Every independent claim is purpose-limited to tumour cells and apoptosis.</li>
+<li>Frequency ranges (30–250 kHz, 5–50 kHz), the ≤250 mW/cm² power cap and the ≥2 h duration are <strong>dependent claims only</strong>. Do not try to design around this patent by choosing a frequency — the independents have no frequency limit at all.</li>
+<li>Also dependent: robotic arms, phased arrays, machine-learning treatment plans, sensor-driven controllers, sealed transducers, field-shaping vessel geometry.</li>
+<li>The claims were <strong>narrowed during prosecution</strong>: the 2022 publication said "target cells", the granted version says "tumour cells". That narrowing is what leaves senescence outside.</li>
+</ul></div>
+<div class="card"><h4>The residual argument, US only</h4><ul>
+<li>US apparatus claims are read as <em>capability</em>. The same group's cancer work also used 33 kHz, so an identical rig could be argued to be "configured to" do the tumour thing.</li>
+<li>Counterweights: the claims require the configuration and programming to be aimed at tumour apoptosis, plus "without mechanically damaging" both populations; claim 1 requires immersing a body part of a subject.</li>
+<li><strong>Irrelevant in Italy.</strong> A US patent covers acts in the United States only (35 USC §271(a)).</li>
+<li>Practical consequence: keep cancer out of this project's stated purpose, documentation and firmware features. It costs nothing and removes the argument.</li>
+</ul></div>
+</div>
+
+<h2 id="europe">Europe: nothing granted, and a structural obstacle</h2>
+<ul>
+<li>The immersion-mechanotherapy family <strong>never entered the European phase</strong>. Its content — immersion vessel, transducer arrays, programmed cycles, 5–50 / 30–250 kHz, water medium, published 2020 — is therefore <strong>free to use in Europe and is prior art</strong>.</li>
+<li>Both senescence families are pending with <strong>Italy among the designated states</strong>. Neither is granted.</li>
+<li><strong>EPC Art. 53(c)</strong> (and Italian CPI art. 45(4)) excludes methods of therapy from patentability. The senescence claims as filed are therapy methods, so they must be rewritten — as in-vitro claims, device claims, or arguably-cosmetic ones — and will end up materially narrower than the US filing. An ultrasound machine cannot gain novelty from a new therapeutic purpose the way a substance can.</li>
+<li>Note for the record: the inventors' own <strong>bioRxiv preprint (8 Dec 2022)</strong> and <strong>WO 2023/114011</strong> (published 8 days before the Mechanobiologics PCT filing) are full prior art in Europe against any claim not entitled to the June 2022 priority. Europe has no grace period.</li>
+<li>The parameter values we care about appear as <em>dependent</em> claims in EP 4 561 696: "<strong>32–33 kHz and about 6–7 kPa</strong>", 30–45 minute sessions, on/off modulated cycles, beam steering and frequency sweeps to homogenise the field, absorbent material, and literally "full body ultrasound spa".</li>
+</ul>
+
+<h2 id="cando">What this project can do in Italy</h2>
+<p>Legal basis: <strong>CPI art. 68(1)(a)</strong> (acts done privately and for non-commercial purposes), <strong>art. 68(1)(a-bis)</strong> (experimental acts relating to the subject-matter of the patented invention — a broad, purpose-based exemption, much wider than the US equivalent), <strong>UPCA art. 27(a)/(b)</strong> with the same carve-outs, and territoriality.</p>
+<div class="grid g2">
+<div class="card" style="border-color:var(--green)"><h3>✅ Allowed</h3><ul>
+<li><strong>Build prototypes</strong> and use them for research and self-experimentation. Nothing is granted in Italy; and if something grants later, the private/experimental exemptions cover exactly this.</li>
+<li><strong>Run in-vitro experiments</strong>, replicate or fail to replicate the published findings, and publish the outcome.</li>
+<li><strong>Publish the full design</strong>: schematics, firmware, BOM, calibration procedure, measured data. Publication is not making, using, offering, selling or importing.</li>
+<li><strong>Use the published patent documents as a technical source.</strong> That is what publication is for.</li>
+<li><strong>Talk, teach and demo</strong> in non-commercial settings.</li>
+</ul></div>
+<div class="card" style="border-color:var(--red)"><h3>❌ Not allowed, or not without counsel</h3><ul>
+<li><strong>Selling kits, PCBs, transducer sets or assembled devices</strong> — even at cost, even "for research use only". A sale ends the private/non-commercial exemption instantly and triggers EU MDR exposure if a medical purpose is implied.</li>
+<li><strong>Offering sessions or treatments to other people</strong>, paid or free, in any wellness or clinical setting. "Full body ultrasound spa" is literally a pending claim.</li>
+<li><strong>Making medical claims</strong> ("reverses aging", "treats osteoarthritis") anywhere: website, README, talk.</li>
+<li><strong>Experimenting on third parties</strong> without an ethics committee, informed consent and MDR clinical-investigation rules.</li>
+<li><strong>Crowdfunding a production run</strong> — that is an offer for sale.</li>
+<li><strong>Shipping hardware to the US</strong>, which would put you inside §271(a)/(c) if the device reads on the granted claims.</li>
+</ul></div>
+</div>
+
+<h2 id="grey">Grey areas we are deliberately staying away from</h2>
+<div class="tw"><table>
+<thead><tr><th>Situation</th><th>Why it is grey</th><th>Our stance</th></tr></thead>
+<tbody>
+<tr><td>Any money flow (donations, "contribution" for a shipped board, an association selling to members)</td><td>Art. 68(1)(a) requires acts that are both private and non-commercial</td><td>No money for hardware, ever. Builders buy their own parts from ordinary suppliers.</td></tr>
+<tr><td>Giving devices away for free</td><td>Not a sale, but it moves the use outside your private sphere</td><td>We publish designs, not devices.</td></tr>
+<tr><td>Instructions read by US users</td><td>Inducement under 35 USC §271(b) needs knowledge of the patent <em>plus</em> specific intent; our repo will show knowledge because we cite it</td><td>Neutral, research-framed documentation; an explicit notice that users outside Italy are responsible for their own compliance; no tumour-treatment instructions; no hardware supplied.</td></tr>
+<tr><td>Institutional or contract research use</td><td>Experimenting <em>on</em> the invention is exempt; using it as a routine tool in funded work is closer to the edge</td><td>Academic partners collaborate on replication and safety studies, not on services.</td></tr>
+<tr><td>Reproducing exactly 32–33 kHz and 6–7 kPa</td><td>Those numbers are recited in pending EP dependent claims</td><td>Fine for non-commercial research, and our published measurements become defensive prior art.</td></tr>
+</tbody></table></div>
+
+<h2 id="priorart">Prior art that protects an open design</h2>
+<ul>
+<li><strong>WO 2020/223359 / WO 2020/223242</strong> (Mechanobiologics' own, 2020): immersion + programmed ultrasound cycles + water + arrays, 5–50 / 30–250 kHz. No European patent from it.</li>
+<li><strong>KIST US 2021/0244972</strong> (2020): ultrasound device for removing senescent cells, abandoned.</li>
+<li><strong>Therapeutic low-frequency ultrasound, 20–100 kHz</strong>: MIST Therapy (FDA 510(k) K050129, ~40 kHz), Söring Sonoca 25 kHz wound debridement — decades of human exposure at these frequencies.</li>
+<li><strong>Ultrasonic cleaning baths</strong> with sweep and degas modes: commodity hardware that is an immersion vessel with piezo transducers and pulsed drive.</li>
+<li>The scientific literature itself: the preprint and the Aging Cell paper.</li>
+</ul>
+<p><strong>Defensive publication.</strong> Everything we design — measured pressures, duty-cycle schedules, tank geometry, absorber design, calibration method — will be published, versioned, tagged and archived with a timestamp (Zenodo DOI plus public git history). That makes it prior art against <em>future</em> filings, including continuations still in prosecution. It protects the commons; it does not grant us freedom to operate against earlier priority dates.</p>
+
+<h2 id="watch">What we monitor, quarterly</h2>
+<ol class="q">
+<li data-id="W1">US 17/515,025 — whether a <strong>continuation</strong> was filed before grant (likely; needs USPTO Patent Center).</li>
+<li data-id="W2">US 18/217,362 — response to the Feb 2026 non-final rejection.</li>
+<li data-id="W3">EP 23850582.0 (EP 4 561 696) — Art. 94(3) communications, amended claims, any intention to grant.</li>
+<li data-id="W4">EP 22908221.9 (EP 4 447 814, UT System) — examination after the Apr 2026 supplementary search report. <strong>This is the family that most directly claims the senescence protocol in Europe.</strong></li>
+</ol>
+<p class="small">If either European case heads toward grant with claims reaching hardware or in-vitro use, this analysis gets re-run before anything changes. Third-party observations under EPC Art. 115 are free and anonymous, and the prior art above is the ammunition.</p>
+
+<h2 id="licence">Licensing of our own work</h2>
+<ul>
+<li>Hardware: <strong>CERN-OHL-S v2</strong> (strongly reciprocal) — proposed, not yet adopted.</li>
+<li>Firmware and tools: <strong>AGPL-3.0</strong>, consistent with biohack.it.</li>
+<li>Documentation and data: <strong>CC BY-SA 4.0</strong>, raw measurement data as open formats.</li>
+<li>Note that open-hardware licences grant rights under the <em>contributors'</em> patents only. They say nothing about third-party patents, which is why this page exists.</li>
+</ul>
+
+<p class="small">Full working notes with claim-by-claim analysis, dates, prosecution events and sources: <a href="research/03-ip-analysis.md">03 — IP analysis</a>.</p>
+</main>
+<footer class="site"><div class="in">
+<span>A <a href="https://hackingbiology.com" target="_blank" rel="noopener">HackingBiology</a> project · companion to <a href="https://biohack.it" target="_blank" rel="noopener">biohack.it</a></span>
+<span><a href="https://github.com/hackingbiology/ultrasound-low-frequency" target="_blank" rel="noopener">Source on GitHub</a> · research notes, not medical advice · built 2026-09-16</span>
+</div></footer>
+</body>
+</html>
