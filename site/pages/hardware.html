@@ -14,6 +14,8 @@ description: Three hardware architectures for an open low-frequency ultrasound d
 <li><a href="#a">A · Adapted commercial bath</a></li>
 <li><a href="#b">B · Open driver + Langevin transducer</a></li>
 <li><a href="#c">C · Multi-channel array tub</a></li>
+<li><a href="#power">Power budget: this is a watts machine</a></li>
+<li><a href="#acoustic-safety">Acoustic safety: the real limits at 33 kHz</a></li>
 <li><a href="#calibration">Calibration: the shared bottleneck</a></li>
 <li><a href="#acceptance">The acceptance test</a></li>
 <li><a href="#adoption">From the first build to many builds</a></li>
@@ -33,7 +35,13 @@ description: Three hardware architectures for an open low-frequency ultrasound d
 <tr><td>Water</td><td>Degassed; 32–35 °C</td><td>±0.5 °C</td><td>Dissolved-oxygen meter and two independent thermometers</td></tr>
 <tr><td>Target position</td><td>7–10 cm from the transducer face, in the far field</td><td>±1 cm</td><td>Fixed jig, documented per build</td></tr>
 </tbody></table></div>
-<div class="note info"><strong>Unresolved, and it matters.</strong> No source states whether the published pressure is peak, peak-to-peak or RMS — a factor-of-2 in intensity. We therefore report both and ask the question directly (<a href="open-questions.html#acoustic">A1</a>). Until it is answered, aim at the middle of the 4–8 kPa band.</div>
+<div class="note warn"><strong>Unresolved, and it matters more than we first thought.</strong> Three separate ambiguities sit on top of each other:
+<ul>
+<li><strong>Pa or kPa?</strong> The preprint, the figure axes and the osteoarthritis trial say Pa; the journal version says kPa. That is a factor of 1000.</li>
+<li><strong>Peak, peak-to-peak or RMS?</strong> No source says.</li>
+<li><strong>Measured with what?</strong> The instrument named in the paper, the Onda MCT-2000, is a <em>cavitation meter</em> that reports a time-averaged total pressure over 1–60 seconds, and whose kPa scale requires a self-calibration to an absolute reference that the paper never mentions. Their own field map is labelled in millivolts.</li>
+</ul>
+Our answer: build to <strong>4–8 kPa peak</strong>, because the physics and the sister lab's interferometry both support it, but <strong>instrument the rig so that a 1000× lower true value would still be detectable</strong>, and report our dose in SI units with the measurement convention stated. See questions <a href="open-questions.html#acoustic">A1–A3</a>.</div>
 
 <h2 id="compare">The three architectures compared</h2>
 <div class="tw"><table>
@@ -114,11 +122,49 @@ description: Three hardware architectures for an open low-frequency ultrasound d
 <li>It is also the configuration closest to the pending patent claims (the "full body ultrasound spa"), so it must stay strictly private and non-commercial. See <a href="ip.html">IP rights</a>.</li>
 </ul></div>
 </div>
+<div class="note info"><strong>Two ideas worth stealing from the immersion patent.</strong> First, a <strong>"neutral generator"</strong>: arrays whose net feed voltages sum to zero, built with alternating coil direction or inverted piezo crystals, so that even an insulation failure presents no net voltage to the water. Second, <strong>passive field shaping</strong>: an expanding-cone or Fresnel-profiled interior wall plus foam or sponge absorbers with scattering kernels, to kill standing waves without electronics. Both are in a published application, and the immersion family was never patented in Europe. Combined with a SELV supply, the neutral-generator idea is the most promising route to a human-scale build that is actually safe.</div>
 <h4>Hardware</h4>
-<p class="small">8–16 potted transducers on arms or walls; one B-stage driver per channel, galvanically isolated, with per-channel current monitoring; a medical-grade isolation transformer; RCD at 10 mA plus an insulation-monitoring device; an all-plastic tub with no earthed metal in the water; redundant temperature sensors; emergency stop; a single-board computer coordinating the channel MCUs.</p>
+<p class="small">8–16 potted transducers on arms or walls; one B-stage driver per channel, galvanically isolated, with per-channel current monitoring; a SELV supply where possible, otherwise a medical-grade isolation transformer; RCD at 10 mA plus an insulation-monitoring device; a neutral-generator array topology; an all-plastic tub with no earthed metal in the water; redundant temperature sensors; emergency stop; a single-board computer coordinating the channel MCUs.</p>
 <h4>Software</h4>
 <p class="small">Channel scheduler (group sequencing, phase and sweep), interlocks and watchdogs, leakage and temperature monitoring with automatic shutdown, per-position calibration tables, full session logging, and an operator checklist enforced by the UI before a session can start.</p>
 <p><strong>Verdict:</strong> last, not first. It requires A or B to be verified, an independent electrical check, and a written safety case.</p>
+
+<h2 id="power">Power budget: this is a watts machine, not a kilowatt machine</h2>
+<p>The single most liberating number in this project. Working from plane-wave intensity and the vessel cross-sections:</p>
+<div class="tw"><table>
+<thead><tr><th>Configuration</th><th>Acoustic power needed</th><th>Electrical power, realistically</th></tr></thead>
+<tbody>
+<tr><td>4 L beaker at 4–8 kPa (cells, mice)</td><td>~10–400 mW</td><td><strong>0.1–3 W</strong></td></tr>
+<tr><td>Bathtub, 200–250 L, whole body at 4 kPa</td><td>0.5–30 W (reverberant vs plane-wave bracket)</td><td><strong>2–150 W total</strong>, i.e. 0.2–12 W per channel across 12 channels</td></tr>
+<tr><td>A comparable ultrasonic cleaner, for scale</td><td>—</td><td>2,000–7,000 W</td></tr>
+</tbody></table></div>
+<p>Consequences that shape every architecture:</p>
+<ul>
+<li>A <strong>SELV design becomes feasible</strong> (≤30 V DC), which is the single biggest safety win available for a device that puts electricity near an immersed person.</li>
+<li>Acoustic heating is irrelevant: about <strong>0.004 °C</strong> over a whole session in a full tub. The water heater, not the ultrasound, is the thermal system.</li>
+<li>The drive is <strong>mostly reactive</strong>: a piezo ring of a few nanofarads at 33 kHz and 200 V peak-to-peak draws tens of milliamps, a couple of volt-amperes. A small piezo driver is the right class of part, not an RF power amplifier.</li>
+<li>The published "135–275 V" is consistent with exactly this: a modest, high-voltage, low-current drive.</li>
+</ul>
+<div class="note info"><strong>There is effectively no beam.</strong> At 33 kHz the Rayleigh distance of a 5 cm aperture is about 1.4 cm and the aperture is barely one wavelength across, so the source radiates almost isotropically. A 4 L beaker at 33 kHz is a <strong>modal cavity</strong>, not a beam path — which is exactly why the original field map varies 9× across the sample plane. <strong>Vessel geometry, water level and target position are first-class experimental variables.</strong> Copying "9–10 cm" without copying the vessel does not reproduce the field.</div>
+
+<h2 id="acoustic-safety">Acoustic safety: the real limits at 33 kHz</h2>
+<p>Most of the reassuring numbers people reach for are defined for megahertz diagnostic ultrasound and do not apply here. What the physics and the standards actually say:</p>
+<div class="grid g2">
+<div class="card" style="border-color:var(--green)"><h4>Genuinely reassuring</h4><ul>
+<li><strong>Inertial cavitation is not a credible hazard at 4–8 kPa.</strong> The measured threshold in air-saturated water at ~33 kHz is about 130 kPa, and the quasi-static floor is ~95 kPa. That is a margin of 13–32× in pressure.</li>
+<li>Time-averaged intensity (0.3–1.7 mW/cm²) is hundreds to thousands of times below every diagnostic and physiotherapy ceiling.</li>
+<li>Hands have been put into 20–40 kHz cleaning baths at 1–6 W/cm² for decades, producing pain but almost no documented lesions.</li>
+<li>Thermally, the ultrasound is negligible.</li>
+</ul></div>
+<div class="card" style="border-color:var(--red)"><h4>Genuinely concerning</h4><ul>
+<li><strong>The mechanical index is meaningless here.</strong> It was derived for 0.5–10 MHz and is known to be inaccurate below ~500 kHz. Quoting "MI 0.02" as a safety argument is invalid.</li>
+<li><strong>The only quantitative limit that applies to a human coupled into a 20–100 kHz field in water is the ACGIH waterborne ceiling: 177 dB re 1 µPa ≈ 1.0 kPa peak.</strong> A 4–8 kPa exposure is <strong>12–18 dB above it</strong>. It is a hearing-protection limit, not a tissue-damage limit — but it is the only one there is.</li>
+<li><strong>Tinnitus is the live risk</strong>, not tissue damage: the limit's own evidence base is long-term tinnitus from waterborne ultrasound, and in a 36 kHz contact-ultrasound trial tinnitus was the most frequent adverse effect.</li>
+<li><strong>Stable cavitation is plausibly above threshold.</strong> The rectified-diffusion threshold for bubbles near resonance (~80–115 µm at 33 kHz) in air-saturated water is only a few kPa. Warm water plus skin, hair and 30 minutes is exactly how such bubbles appear and grow.</li>
+<li>Standing waves can locally double or triple the nominal pressure, eating into the cavitation margin.</li>
+</ul></div>
+</div>
+<div class="note risk"><strong>What follows, and it is not optional.</strong> Degas the water and <em>measure</em> dissolved oxygen. Sweep the frequency to break up standing waves. Map the field with a body-equivalent phantom in place, not in an empty tank, and report peaks rather than averages. Run passive cavitation detection (subharmonic and broadband noise) as a live interlock. <strong>Keep the head out of the water and use hearing protection.</strong> And state plainly, in writing, that the exposure sits above the only applicable human water-coupled limit, that no standard covers it, and that there is no human data.</div>
 
 <h2 id="calibration">Calibration: the shared bottleneck</h2>
 <p>A professional needle-hydrophone system of the type used in the original work costs more than everything else in this project put together. The way out is not to skip calibration, but to share it.</p>
@@ -129,7 +175,7 @@ description: Three hardware architectures for an open low-frequency ultrasound d
 <li><strong>Map, don't spot-check.</strong> A converted 3-D printer makes a perfectly good 3-axis traverse for a field map on a 1 cm grid.</li>
 <li><strong>Publish the map</strong> with every build, alongside the drive settings that produced it. A build without a published map does not contribute biological data.</li>
 </ol>
-<p class="small">Cheaper commercial options exist at the low end of the hydrophone market with usable sensitivity in the tens of kHz. Candidate models, prices and the DIY design are being collected in the hardware research note.</p>
+<div class="note info"><strong>Use the right class of hydrophone.</strong> A medical needle hydrophone is calibrated from about 250 kHz upward and would deliver ~0.2 mV at 4 kPa — the wrong instrument entirely. An underwater-acoustics hydrophone (around 28 µV/Pa, the B&amp;K 8103 / RESON TC4013 class) gives ~113 mV at 4 kPa, which is easy to read on any oscilloscope, and matches the millivolt scale of the original field map. Cheaper hydroacoustic models with published sensitivity in the tens of kHz are the realistic DIY route.</div>
 
 <h2 id="acceptance">The acceptance test</h2>
 <p>The same test for every architecture and every builder. It is the definition of "this build counts".</p>
@@ -137,9 +183,11 @@ description: Three hardware architectures for an open low-frequency ultrasound d
 <li data-id="T1"><strong>Frequency</strong> within ±0.3 kHz of the declared value, or a sweep within the declared range (FFT of the hydrophone signal).</li>
 <li data-id="T2"><strong>Pressure</strong> at the target plane inside 4–8 kPa, reported as peak with RMS alongside, with the hydrophone's calibration reference and uncertainty stated.</li>
 <li data-id="T3"><strong>Uniformity</strong>: over the target zone, maximum/minimum ≤ 2 on a ≤1 cm grid.</li>
-<li data-id="T4"><strong>No inertial cavitation</strong>: subharmonic and broadband noise below the declared threshold at the working amplitude, including after 30 minutes of operation.</li>
+<li data-id="T4"><strong>No inertial cavitation</strong>: subharmonic and broadband noise below the declared threshold at the working amplitude, including after 30 minutes of operation, measured by the same noise-onset method used in the ultrasonic-cleaning literature.</li>
+<li data-id="T4b"><strong>Dissolved gas</strong>: dissolved oxygen measured and recorded before every session — stable cavitation of resonance-sized bubbles has a threshold of only a few kPa in air-saturated water, so degassing is part of the dose.</li>
 <li data-id="T5"><strong>Pulse timing</strong> 1.5 s ± 20 ms, verified on both the electrical gate and the acoustic envelope.</li>
 <li data-id="T6"><strong>Thermal</strong>: water held at 32–35 °C ± 0.5 °C for the whole session; transducer face temperature logged.</li>
+<li data-id="T6b"><strong>For human immersion</strong>: field mapped with a body-equivalent phantom in place, not in an empty tank; head out of water; hearing protection; a written acknowledgement that the exposure exceeds the ACGIH waterborne limit.</li>
 <li data-id="T7"><strong>Electrical</strong>: insulation and leakage-current measurement passed; RCD tested; for architecture C, an independent qualified check.</li>
 <li data-id="T8"><strong>Repeatability</strong>: the same measurement repeated on another day within ±10%.</li>
 </ol>

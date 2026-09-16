@@ -23,7 +23,9 @@ description: Hardware, acoustic, protocol and biological questions we need answe
 <li data-id="A6"><span class="b a">important</span> Was <strong>cavitation</strong> (stable or inertial) monitored with the MCT-2000? What cavitation levels were present in the cell, mouse and human setups? Is sub-cavitation a requirement?</li>
 <li data-id="A7"><span class="b a">important</span> Why 32.2 kHz specifically? Was it the transducer's resonance, or a biologically optimal value found by scanning? What was the frequency–response curve (33 vs 39 kHz, anything below 30 kHz)?</li>
 <li data-id="A8"><span class="b a">important</span> Duty cycle: <strong>1.5 s or 1.6 s</strong> on/off? Rise/fall time (hard gating or ramped)? Is there a continuous-wave within the "on" period, or sub-pulsing?</li>
-<li data-id="A9"><span class="b">nice</span> Waveform purity: harmonic content and generator output waveform (sine vs square-driven resonant).</li>
+<li data-id="A9"><span class="b">nice</span> Waveform purity: harmonic content and generator output waveform. The patent explicitly contemplates a <strong>rectangular drive</strong> and notes its strong 2×–7× harmonics — do the inventors believe the harmonic content is part of the active agent?</li>
+<li data-id="A10"><span class="b r">critical</span> The Onda <strong>MCT-2000 is a cavitation meter</strong>, not a needle hydrophone. Was the "self-calibration to an absolute reference" performed, so that the kPa scale is real? Over what averaging time was the reading taken? Does "4 kPa" mean the meter's time-averaged total pressure, including harmonics?</li>
+<li data-id="A11"><span class="b r">critical</span> Figure S1B maps the field in <strong>millivolts</strong> with a 9× spread across the sample plane. Where in that distribution does "4 kPa" sit: the centre, the mean, or the peak? What was the sample's position within the map?</li>
 </ol>
 
 <h2 id="hardware">B · Hardware</h2>
@@ -32,10 +34,12 @@ description: Hardware, acoustic, protocol and biological questions we need answe
 <li data-id="B2"><span class="b r">critical</span> <strong>Generator / amplifier</strong>: make and model, or a custom design? What does "varying power input 135–275 V" refer to: RMS drive voltage at the transducer, peak voltage, or supply voltage? What is the corresponding electrical power?</li>
 <li data-id="B3"><span class="b a">important</span> Matching network (series/parallel inductor, transformer)? Is there resonance tracking (PLL) or a fixed frequency?</li>
 <li data-id="B4"><span class="b a">important</span> Mouse and cell tank: exact vessel (4 L glass beaker, wall thickness), water height, transducer mounting (bonded under the glass or immersed?), position of the mesh, and any acoustic absorbers.</li>
-<li data-id="B5"><span class="b a">important</span> Human tub: number of transducers (~10–12 visible on arms in the photos), their placement and orientation, per-channel amplitude/phase control, sequencing, tub material and dimensions, water volume.</li>
+<li data-id="B5"><span class="b a">important</span> Human tub: <strong>how many transducers</strong> (our count of ~10–12 on articulated arms is only our reading of a conference photo, and is corroborated by nothing published), their placement and orientation, per-channel amplitude/phase control, sequencing, tub material and dimensions, water volume.</li>
 <li data-id="B6"><span class="b a">important</span> "Generators encased in epoxy within the baths" (OA trial): which epoxy/potting, electrical insulation design, and cable routing? What electrical safety standard was applied (IEC 60601-1, leakage currents, isolation transformer, RCD)?</li>
 <li data-id="B7"><span class="b">nice</span> Hydrophone calibration chain: MCT-2000 probe model and calibration certificate (frequency range, sensitivity at 33 kHz, uncertainty); how often it was recalibrated.</li>
 <li data-id="B8"><span class="b">nice</span> Would they share CAD drawings, schematics or the field maps of the mouse device, the older non-patented set-ups, or at least a reference measurement protocol?</li>
+<li data-id="B9"><span class="b a">important</span> Is the senescence rig the same family as the cancer rig described in the sister papers — <strong>PZT4 rings with an aluminium cone, epoxy and silicone potted</strong> — or a Langevin transducer like the APC 90-4050 / PiezoDrive PDU 210 set-up used by the Bangalore group?</li>
+<li data-id="B10"><span class="b a">important</span> "Varying power input 135–275 V" on Figure S1A: is that peak-to-peak or RMS at the transducer terminals, and what electrical power does it correspond to?</li>
 </ol>
 
 <h2 id="water">C · Medium &amp; environment</h2>
@@ -63,6 +67,9 @@ description: Hardware, acoustic, protocol and biological questions we need answe
 <li data-id="E4"><span class="b a">important</span> Do the effects persist after stopping, and for how long (mice: rest periods of 2 weeks)? Is continuous treatment needed?</li>
 <li data-id="E5"><span class="b a">important</span> Cancer-model data: the same group reports ultrasound <em>killing</em> tumour cells (mechanotherapy). What are the parameter differences between "rejuvenating" and "tumour-killing" regimes, and how close are they?</li>
 <li data-id="E6"><span class="b">nice</span> Raw data availability (RNA-seq accession, survival data, activity data) for independent re-analysis.</li>
+<li data-id="E7"><span class="b r">critical</span> <strong>Auditory effects</strong>: were audiograms or tinnitus reports collected in the human pilots? The exposure sits above the ACGIH waterborne limit, whose evidence base is long-term tinnitus.</li>
+<li data-id="E8"><span class="b a">important</span> How do they reconcile the largely <strong>negative diabetes paper</strong> (no change in glucose control or physical function in aged mice) with the strong performance effects in the lifespan study?</li>
+<li data-id="E9"><span class="b a">important</span> Has anyone tested whether the sharp 32.2 kHz optimum survives a <strong>change of vessel</strong>? If it is a mode of the 15.2 cm beaker rather than a property of cells, it will not transfer to a bathtub.</li>
 </ol>
 
 <h2 id="ip">F · IP &amp; collaboration</h2>

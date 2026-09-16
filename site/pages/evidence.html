@@ -10,7 +10,7 @@ description: Papers, patents, human trials and consolidated physical parameters 
 
 <div class="toc"><strong>On this page</strong><ol>
 <li><a href="#who">Who and what</a></li><li><a href="#params">Consolidated parameters</a></li><li><a href="#units">Pa vs kPa, peak vs RMS</a></li>
-<li><a href="#bio">Biological claims</a></li><li><a href="#trials">Human trials</a></li><li><a href="#strength">Strength of evidence</a></li><li><a href="#sources">Sources</a></li></ol></div>
+<li><a href="#supplementary">What the supplementary shows</a></li><li><a href="#sisterhardware">The hardware, from sister papers</a></li><li><a href="#bio">Biological claims</a></li><li><a href="#trials">Human trials</a></li><li><a href="#strength">Strength of evidence</a></li><li><a href="#sources">Sources</a></li></ol></div>
 
 <h2 id="who">Who and what</h2>
 <div class="tw"><table>
@@ -34,7 +34,7 @@ description: Papers, patents, human trials and consolidated physical parameters 
 <tr><td>Geometry</td><td>target 7–10 cm above transducer; 4 L glass beaker; cylinder 13 cm h × 15.2 cm Ø; mesh</td><td>9–10 cm; frequency sweep / beam steering vs standing waves</td><td>"generators encased in epoxy within the baths"</td><td>bathtub fitted with device</td><td>transducer at bottom; mice on wire mesh</td></tr>
 <tr><td>Water</td><td>degassed; 35 °C cells, 32–35 °C mice</td><td>degassed, 32–35 °C</td><td>—</td><td>—</td><td>—</td></tr>
 <tr><td>Drive</td><td>not stated</td><td>not stated</td><td>—</td><td>—</td><td><strong>"varying power input 135–275 V"</strong></td></tr>
-<tr><td>Measurement</td><td>ONDA MCT-2000 needle hydrophone</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>Measurement</td><td>"calibrated needle hydrophone (ONDA MCT-2000)" — but the MCT-2000 is a <strong>cavitation meter</strong>, see below</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
 </tbody></table></div>
 
 <h2 id="units">Pa vs kPa, peak vs RMS</h2>
@@ -51,7 +51,37 @@ description: Papers, patents, human trials and consolidated physical parameters 
 <li><strong>Wavelength</strong> at 33 kHz in water ≈ <strong>4.5 cm</strong>. A beaker or bathtub is only a few wavelengths across, so standing waves and hot/cold spots are the main reproducibility risk. The patent itself mentions sweep and beam steering.</li>
 <li><strong>Mechanical index</strong> ≈ 0.02–0.04, far below diagnostic-imaging limits (1.9). The target is sub-cavitation mechanical stimulation, but at 33 kHz gas nuclei in non-degassed water <em>can</em> cavitate, so degassing is part of the dose.</li>
 <li><strong>Energy</strong>: 30 min at a 50% duty cycle gives ~900 s of sonication, about 0.5–4 J/cm². Heating is negligible, and the bath temperature dominates.</li>
+<li><strong>Three independent arguments for kPa.</strong> First, 4 Pa implies particle displacements of ~13 <em>picometres</em> and nanowatt acoustic powers — below ambient noise, and unmeasurable by a meter built to see 10–300 kPa; 4 kPa implies ~13 nm, matching the sister lab's interferometry. Second, the same group's cancer work runs at 39–166 mW/cm², i.e. 34–70 kPa, so a rejuvenation dose at 1/10 of that is plausible while 1/10,000 is not. Third, the millivolt field map matches an underwater hydrophone seeing kilopascals.</li>
+<li><strong>But the authors' own artwork says Pa.</strong> The preprint methods, the figure axes and the trial registration all say Pa; only the final journal version says kPa, with no erratum. This 1000× ambiguity sits at the centre of the replication — question <a href="open-questions.html#acoustic">A1</a>.</li>
 </ul>
+
+<h2 id="supplementary">What the paper's supplementary material actually shows</h2>
+<p>The supplementary bundle of the Aging Cell paper contains the setup schematic, Figure S1A — essentially the same slide shown at TimePie. It settles several questions and opens others.</p>
+<div class="grid g2">
+<div class="card"><h4>Figure S1A — the setup</h4><ul>
+<li>A generic bench generator, a beaker, and a <strong>vacuum flask on a magnetic stirrer</strong> labelled "Vacuum": degassing is by <strong>vacuum plus stirring</strong>, not boiling.</li>
+<li>Two beakers: mice on a mesh at the waterline, and a culture dish near the surface. In both, the transducer at the bottom is drawn as a <strong>truncated-cone potted puck</strong>.</li>
+<li>Printed settings: <strong>varying power input 135–275 V · 32,248 Hz · 1.5 s duty cycle · 30 min (600 pulses) · 7–10 cm above transducer · output power 4–8 Pa</strong>.</li>
+<li>The 135–275 V is the <strong>electrical drive amplitude</strong>, not mains voltage: 275/135 ≈ 2.0, which maps exactly onto the 1× / 1.3× / 2× power groups of the mouse study.</li>
+</ul></div>
+<div class="card"><h4>Figure S1B — the field map</h4><ul>
+<li>The field across the treatment plane was mapped <strong>in millivolts</strong> of meter output, from "&lt;20 mV" to "~180 mV".</li>
+<li>That is a <strong>9× spread across the sample plane</strong>. The quoted "4 kPa" is a point value inside a strongly non-uniform field.</li>
+<li>An underwater-acoustics hydrophone (≈28 µV/Pa) reading 20–180 mV corresponds to roughly <strong>0.7–6.4 kPa</strong> — which independently supports the kPa reading.</li>
+</ul></div>
+</div>
+<p>The optimisation experiments are equally informative. Growth was compared at <strong>33 vs 39 kHz</strong> across pressures labelled 2.2 / 3.8 / 7.2 / 10 "pa", then at 33 kHz across 4 / 5.2 / 6.4 / 8 "pa". Duty cycle was varied by ±0.25 s around 1.5 s, and 1.5/1.5 won. <strong>The optimum is sharp at the ±17% level in duty cycle</strong>, and narrow in both frequency and amplitude — a strong claim for a mechanism nobody has identified, and the most replication-critical detail after pressure.</p>
+<div class="note warn"><strong>The measuring instrument is not what the paper implies.</strong> The ONDA MCT-2000 is a <strong>cavitation meter</strong> used with a cleaning-tank hydrophone probe, not a calibrated needle hydrophone. Its sibling's datasheet describes the output as a <strong>time-averaged total pressure over 1–60 s</strong>, and states that "kPa units require self-calibration to an absolute reference". So the published "4 kPa" is a broadband, time-averaged reading — neither peak nor RMS in the classical sense — and if that self-calibration was never done, the reading is in arbitrary units. That fits the field map being labelled in millivolts. <strong>A replication using a calibrated hydrophone and an oscilloscope will not automatically measure the same quantity.</strong></div>
+
+<h2 id="sisterhardware">The hardware, from the sister papers</h2>
+<p>No version of the senescence paper ever names the transducer, generator or amplifier. The same group's cancer and stem-cell papers do, and they are copyable:</p>
+<div class="tw"><table>
+<thead><tr><th>Branch</th><th>Apparatus</th></tr></thead>
+<tbody>
+<tr><td>Sheetz / Singapore (Tijore et al. 2025, cancer)</td><td><strong>Beijing Ultrasonic PZT4 piezoceramic rings</strong>, 25×10×4 mm and 16×8×4 mm, with an <strong>aluminium cone</strong> to widen the field to about 5 cm and "attenuate the amplitude to form plane waves", <strong>epoxy and silicone-rubber coated</strong>, glued to the tank bottom; generator and amplifier outside; samples 8 cm above; tank in a 37 °C incubator; degassed deionised water.</td></tr>
+<tr><td>Tijore lab, IISc Bangalore (2026)</td><td><strong>APC International Langevin transducer APC 90-4050</strong>, epoxy-bonded to a steel container on a 3-D-printed platform with height adjustment, driven by a <strong>PiezoDrive PDU 210</strong>, calibrated with an <strong>impedance analyser</strong>, pressure measured with a hydrophone into a <strong>Digilent Analog Discovery USB oscilloscope</strong>, vacuum-degassed water. The desired pressure is set by <strong>adjusting the drive voltage</strong>.</td></tr>
+</tbody></table></div>
+<p>That second rig is <strong>directly copyable</strong>, and its papers publish a pressure-to-displacement calibration measured by laser interferometry: 1 kPa → 11 nm, 5 kPa → 65 nm, 10 kPa → 118 nm, 20 kPa → 236 nm of dish-glass displacement. In the same work at 39 kHz, <strong>2–5 kPa promotes stem-cell growth while 10–20 kPa kills</strong> — independent evidence of a narrow window in the low kPa range.</p>
 
 <h2 id="bio">Biological claims</h2>
 <div class="grid g2">
@@ -73,9 +103,12 @@ description: Papers, patents, human trials and consolidated physical parameters 
 <li>Weight and fur maintained, while sham mice lost weight and developed bald spots.</li>
 <li>Lifespan: D2+D3 combined ≈50% alive at 1000 days; <strong>individual groups (n = 7–8) not significant</strong>.</li>
 <li>No tumors at autopsy (small n, very old animals).</li>
-<li>Diabetes paper: insulin resistance and muscle transcriptome changes reversed in aged mice [S6].</li>
+<li><strong>Dose–response is non-monotonic</strong>: the best survivors received the <em>lowest</em> doses, every 2nd or 3rd day. More is not better.</li>
+<li>A third paper reports ~4× lower liver burden after a <em>Salmonella</em> challenge in treated aged mice, with chemokines restored toward young levels [S10].</li>
 </ul></div>
 </div>
+
+<div class="note risk"><strong>The second mouse paper is largely negative, and that matters.</strong> In aged mice made insulin-resistant by diet plus streptozotocin, LFU for 30 min twice a week for 4 weeks (32.248 kHz, 4 kPa, 1.5 s on/off, 37 °C degassed water) <strong>did not improve body composition, blood glucose control or physical function</strong>. What changed was the muscle transcriptome: 260 of 503 diet-induced gene changes were reversed, with the shared signature dominated by immune and B-cell genes plus Socs1/Socs3. The authors conclude that LFU acts on inflammation and immune-cell function in muscle, not on glycaemic control or performance. Any claim that LFU "reverses diabetes" is not supported by the paper that tested it [S6].</div>
 
 <h2 id="trials">Human trials</h2>
 <div class="grid g2">
@@ -107,6 +140,9 @@ description: Papers, patents, human trials and consolidated physical parameters 
 <li>The only human safety pilot was <strong>suspended by its ethics board</strong>. The RCT (n = 20) has not reported.</li>
 <li><strong>The dose is ambiguous</strong> across sources (Pa/kPa, peak/RMS, 1.5/1.6 s, 30/45 min). Nobody outside the group can currently reproduce it. That makes an open, calibrated device a genuine scientific contribution.</li>
 <li>The in-vitro phenotype is <strong>true reversal with proliferation and telomere lengthening</strong>, the category with the highest theoretical oncogenic concern. See <a href="diy-biohacking.html#risks">risks</a>.</li>
+<li><strong>Conflicts are disclosed and material</strong>: several authors are inventors on the patents, and two have financial interests in the company planning to market the devices.</li>
+<li><strong>The scale-up is unvalidated.</strong> Everything published uses a single transducer under a 4 L beaker with half a mouse in the water, or a dish 7–10 cm above the source. A human in 200–300 litres with many sources is a different acoustic problem.</li>
+<li>A deflationary hypothesis nobody has tested: at 33 kHz the wavelength is 4.6 cm and the beaker is 15.2 cm across, so <strong>the "optimum" could be a standing-wave mode of that particular beaker</strong> rather than a property of the cells.</li>
 </ul></div>
 
 <h2 id="sources">Sources</h2>
@@ -119,5 +155,7 @@ description: Papers, patents, human trials and consolidated physical parameters 
 <li>[S6] <a href="https://journals.physiology.org/doi/full/10.1152/ajpendo.00470.2024" target="_blank" rel="noopener">AJP Endocrinol Metab, doi 10.1152/ajpendo.00470.2024</a></li>
 <li>[S7] <a href="https://clinicaltrials.gov/study/NCT06562374" target="_blank" rel="noopener">NCT06562374</a></li>
 <li>[S8] <a href="https://clinicaltrials.gov/study/NCT07168525" target="_blank" rel="noopener">NCT07168525</a> · <a href="https://news.uthscsa.edu/ut-health-san-antonio-team-named-xprize-healthspan-semifinalist/" target="_blank" rel="noopener">UT Health XPRIZE news</a></li>
-<li>[S9] <a href="https://pubmed.ncbi.nlm.nih.gov/40060768/" target="_blank" rel="noopener">Ultrasound-mediated mechanical forces activate selective tumor cell apoptosis (PubMed 40060768)</a></li>
+<li>[S9] <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11883105/" target="_blank" rel="noopener">Tijore et al., Ultrasound-mediated mechanical forces activate selective tumor cell apoptosis, Bioeng Transl Med 2025</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC13087965/" target="_blank" rel="noopener">Saigaonkar et al., ACS Nanosci Au 2026 — the APC Langevin + PiezoDrive rig</a></li>
+<li>[S10] <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12445081/" target="_blank" rel="noopener">Zangoui et al., LFU reduces susceptibility to Salmonella infection in aged mice, J Bacteriol 2025</a></li>
+<li>[S11] <a href="https://www.ondacorp.com/" target="_blank" rel="noopener">Onda Corporation — MCT-series cavitation meters and HCT cleaning-tank hydrophones</a></li>
 </ol>

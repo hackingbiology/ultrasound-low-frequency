@@ -56,7 +56,7 @@
 <tr><td>SASP (inflammatory secretions) suppressed</td><td><span class="b a">in vitro</span></td><td>Potentially measurable: IL-6, TNF-α, hs-CRP, GDF-15 and similar in blood</td></tr>
 <tr><td>Physical performance in old mice 7–10× sham</td><td><span class="b a">mice, small groups</span></td><td>Measurable proxies: grip strength, SPPB, TUG, 6-minute walk, VO₂</td></tr>
 <tr><td>Senescence-marker burden in kidney and pancreas reduced</td><td><span class="b a">mice</span></td><td>Not measurable at home; blood proxies only</td></tr>
-<tr><td>Insulin resistance reversed in aged diabetic mice</td><td><span class="b a">mice</span></td><td>Measurable: fasting glucose/insulin, HOMA-IR, HbA1c, CGM</td></tr>
+<tr><td>Insulin resistance in aged diabetic mice</td><td><span class="b r">tested and failed</span></td><td>The paper that tested this found <strong>no improvement in glucose control, body composition or physical function</strong> — only a muscle transcriptome shift toward less inflammation</td></tr>
 <tr><td>Lifespan extension</td><td><span class="b r">not significant per group</span></td><td>Not testable by an individual</td></tr>
 <tr><td>Osteoarthritis pain ↓ ~70%, diabetes symptoms ↓ ~75% (patent examples, single cases)</td><td><span class="b r">anecdote in a patent</span></td><td>Treat as marketing-grade evidence, not data</td></tr>
 <tr><td>Warm-water immersion itself (the sham arm) improves sleep, mood, blood pressure, recovery</td><td><span class="b g">separately established</span></td><td>A real confounder: you may feel better from the bath, not the ultrasound</td></tr>
@@ -90,16 +90,27 @@
 <li>Bench work with cells or a foot bath is a much lower-risk starting point, and is where we start.</li>
 </ul>
 
-<h3>3 · Acoustic and thermal risk</h3>
+<h3>3 · Hearing — the risk nobody mentions <span class="b r">underrated</span></h3>
 <ul>
-<li><strong>Cavitation.</strong> At 33 kHz, in non-degassed water or near a badly matched transducer, inertial cavitation can appear locally. That is a different, tissue-damaging exposure. Degassing and cavitation monitoring are part of the dose, not optional extras.</li>
+<li>The only quantitative exposure limit that exists for a human coupled into a 20–100 kHz field <em>in water</em> is the ACGIH waterborne ceiling of 177 dB re 1 µPa, which is about <strong>1.0 kPa peak</strong>. The target dose of 4–8 kPa is <strong>12–18 dB above it</strong>.</li>
+<li>That limit is about hearing, not tissue damage, and its evidence base is <strong>long-term tinnitus</strong> after waterborne ultrasound exposure. In a clinical trial of 36 kHz contact ultrasound on skin, tinnitus was the most frequent adverse effect.</li>
+<li>In an immersion bath the skull and cochlea are <strong>directly liquid-coupled</strong> to the source — the exact geometry the limit was written for.</li>
+<li><strong>Mitigation:</strong> head out of the water, hearing protection, short sessions at first, and stop immediately at any ringing, fullness or hearing change. Get a baseline audiogram before starting, and repeat it.</li>
+<li>Note also that Health Canada's guidance on body parts in a kilohertz ultrasonic liquid bath is, in effect, <em>don't</em>. There is no standard that authorises what we are doing.</li>
+</ul>
+
+<h3>4 · Acoustic and thermal risk</h3>
+<ul>
+<li><strong>Inertial cavitation</strong> is unlikely at this level: the threshold in ordinary air-saturated water at 33 kHz is around 130 kPa, roughly 13–32× above the target dose. Good news, with a caveat: standing waves can locally double or triple the pressure, which eats into that margin.</li>
+<li><strong>Stable cavitation is a different story.</strong> For bubbles near acoustic resonance — about 80–115 µm at 33 kHz — the threshold for growth by rectified diffusion in air-saturated water is only a <em>few</em> kPa, i.e. right at our working level. Warm tap water, skin, body hair and thirty minutes is precisely how such bubbles form, grow and migrate to pressure antinodes. Microstreaming around them is both a plausible mechanism of the claimed effect and a plausible hazard. <strong>Degassing is what separates the two</strong>, and it has to be measured, not assumed.</li>
+<li><strong>Forget the mechanical index.</strong> It is defined for megahertz diagnostic ultrasound and is known to be unreliable below ~500 kHz. "MI is only 0.02" is not a safety argument at 33 kHz.</li>
 <li><strong>Hot spots.</strong> With a 4.5 cm wavelength, standing waves can give local pressures several times the nominal value. Without a field map you do not know your dose.</li>
 <li><strong>Hearing and subharmonics.</strong> 33 kHz is inaudible, but non-linearity and gating produce audible subharmonics; prolonged exposure to intense airborne ultrasound is linked to unpleasant effects. Keep the tank covered and the room quiet.</li>
 <li><strong>Heat and circulation.</strong> A 32–35 °C bath for 30–45 min is a cardiovascular load in itself (hypotension when standing up, fainting, dehydration).</li>
 <li><strong>Implants and gas pockets.</strong> Metal implants, joint prostheses, pacemakers, cochlear implants, stents, IUDs, recent surgery, and gas-containing spaces behave unpredictably in an acoustic field. Anyone with these should stay out.</li>
 </ul>
 
-<h3>4 · Biological uncertainties beyond cancer</h3>
+<h3>5 · Biological uncertainties beyond cancer</h3>
 <ul>
 <li>Senescence has useful roles: wound healing, fibrosis resolution, tumour suppression, placental and embryonic processes. Suppressing it everywhere may have costs.</li>
 <li>Effects on stem-cell pools, the immune system and fibrotic tissue are unknown in humans.</li>
@@ -107,7 +118,7 @@
 <li>Interaction with drugs and conditions (immunosuppression, active infection, autoimmune disease) is unstudied.</li>
 </ul>
 
-<h3>5 · Measurement and self-deception</h3>
+<h3>6 · Measurement and self-deception</h3>
 <ul>
 <li>Warm baths feel good. Without a <strong>sham phase</strong> and objective markers, you will conclude that it works.</li>
 <li>Single before/after blood values are noise: inflammatory markers swing with sleep, infection, exercise and time of day. Multiple baselines are mandatory. See <a href="biological-feedback.html#design">study design</a>.</li>
