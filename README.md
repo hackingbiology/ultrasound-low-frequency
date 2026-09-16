@@ -1,21 +1,35 @@
 # ultrasound-low-frequency
 
-Open-hardware, open-source, **reproducibility-first** low-frequency ultrasound (LFU) device for research on cellular senescence. It is a [HackingBiology](https://hackingbiology.com) project, companion to [biohack.it](https://biohack.it).
+**Site: https://hackingbiology.github.io/ultrasound-low-frequency/**
 
-The goal is to rebuild, as cheaply as possible and with a published dose calibration, the class of device described by the University of Texas mechanobiology work (Sheetz lab / Mechanobiologics): about 33 kHz, 4–8 kPa, pulsed 1.5 s on/off, 30 min per session, delivered by immersion in warm degassed water. We then measure senescence-related biomarkers before and after.
+Open-hardware, open-source, **reproducibility-first** low-frequency ultrasound (LFU) device for DIY biohacking research on cellular senescence — and a protocol to measure its biological effects on yourself. A [HackingBiology](https://hackingbiology.com) project, companion to [biohack.it](https://biohack.it).
 
-> **Research hardware. Not a medical device.** No therapeutic claim is made. See `docs/research/01-source-analysis.md` §5 for evidence strength, IP and regulatory notes.
+The goal is to rebuild, as cheaply and as reproducibly as possible, the class of device described in University of Texas mechanobiology research (Sheetz lab / Mechanobiologics): about 33 kHz, 4–8 kPa, pulsed 1.5 s on/off, 30 min per session, delivered by immersion in warm degassed water — with a published calibration so that other people can build their own and know they are delivering the same dose.
 
-## Tracks
+> **Research hardware. Not a medical device. Nothing is sold.** No therapeutic claim is made. The evidence is preclinical and comes from a single lab, and the long-term safety of reversing cellular senescence in humans is unknown — including its oncogenic risk. See the [DIY biohacking](https://hackingbiology.github.io/ultrasound-low-frequency/diy-biohacking.html) and [IP](https://hackingbiology.github.io/ultrasound-low-frequency/ip.html) pages.
 
-- **A — Device**: reverse-spec → architecture → bench prototype → acoustic calibration → safety envelope → reproducibility kit.
-- **B — Measurement**: before/after protocol with blood/urine markers from a local lab, plus functional endpoints aligned with the UT trials.
+## Sections of the site
 
-## Documents
+| Page | Contents |
+|---|---|
+| [Overview](https://hackingbiology.github.io/ultrasound-low-frequency/) | Goals, roadmap, the path from the first build to many self-built kits |
+| [Evidence](https://hackingbiology.github.io/ultrasound-low-frequency/evidence.html) | Papers, trials, consolidated parameters, source conflicts |
+| [Hardware](https://hackingbiology.github.io/ultrasound-low-frequency/hardware.html) | Three architectures with pros/cons and block diagrams, dose definition, acceptance test |
+| [Open questions](https://hackingbiology.github.io/ultrasound-low-frequency/open-questions.html) | What we need from Mechanobiologics / UT to reproduce the exposure |
+| [Analyze biological feedback](https://hackingbiology.github.io/ultrasound-low-frequency/biological-feedback.html) | Crosswalk of what they measured vs what we can; markers, kits, Italian labs, n-of-1 design |
+| [DIY biohacking](https://hackingbiology.github.io/ultrasound-low-frequency/diy-biohacking.html) | Potential benefits, potential risks, exclusions, house rules |
+| [IP rights](https://hackingbiology.github.io/ultrasound-low-frequency/ip.html) | Patent landscape, claim analysis, what a non-commercial DIY project may and may not do |
 
-- [01 — Source analysis](docs/research/01-source-analysis.md): papers, patents, trials, and consolidated parameters.
-- [02 — Review of prior ChatGPT analysis](docs/research/02-chatgpt-analysis-review.md): oncogenic risk, senolytics context, commercial hardware options, corrections.
+## Repository layout
+
+```
+docs/            published site (GitHub Pages, /docs on main) + docs/research/*.md working notes
+site/pages/      page fragments with front matter; files starting with _ are includes
+site/build.py    static builder: python site/build.py
+```
+
+Research notes: [01 source analysis](docs/research/01-source-analysis.md) · [02 review of a prior ChatGPT analysis](docs/research/02-chatgpt-analysis-review.md) · [03 IP analysis](docs/research/03-ip-analysis.md) · [04 biomarkers and Italian lab availability](docs/research/04-biomarkers-italy.md) (Italian).
 
 ## License
 
-To be decided (proposed: CERN-OHL-S-2.0 for hardware, AGPL-3.0 for firmware/software, CC BY-SA 4.0 for docs).
+To be decided (proposed: CERN-OHL-S-2.0 for hardware, AGPL-3.0 for firmware/software, CC BY-SA 4.0 for docs and data).
