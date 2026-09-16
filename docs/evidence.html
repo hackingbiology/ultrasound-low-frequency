@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Evidence · LFU Open Hardware</title>
+<meta name="description" content="Papers, patents, human trials and consolidated physical parameters of the UT / Mechanobiologics low-frequency ultrasound work, with source conflicts shown.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/site.css">
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<header class="top"><div class="in">
+<a class="brand" href="index.html"><img src="assets/favicon.svg" alt=""><span>LFU <b>Open</b> Hardware</span></a>
+<nav class="main" aria-label="Sections"><a href="index.html">Overview</a><a href="evidence.html" aria-current="page">Evidence</a><a href="hardware.html">Hardware</a><a href="open-questions.html">Open questions</a><a href="biological-feedback.html">Biological feedback</a><a href="diy-biohacking.html">DIY biohacking</a><a href="ip.html">IP rights</a></nav>
+<button class="theme-btn" type="button" onclick="(function(){var d=document.documentElement,c=d.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'),n=c==='dark'?'light':'dark';d.dataset.theme=n;try{localStorage.setItem('theme',n)}catch(e){}})()" aria-label="Toggle theme">◐</button>
+</div></header>
+<main>
+<section class="page-head">
+  <div class="kicker">Evidence base</div>
+  <h1>What has actually been shown, and with which parameters</h1>
+  <p class="lead">Every number carries its source. Where sources disagree, we show the conflict instead of quietly picking one value.</p>
+</section>
+
+<div class="toc"><strong>On this page</strong><ol>
+<li><a href="#who">Who and what</a></li><li><a href="#params">Consolidated parameters</a></li><li><a href="#units">Pa vs kPa, peak vs RMS</a></li>
+<li><a href="#bio">Biological claims</a></li><li><a href="#trials">Human trials</a></li><li><a href="#strength">Strength of evidence</a></li><li><a href="#sources">Sources</a></li></ol></div>
+
+<h2 id="who">Who and what</h2>
+<div class="tw"><table>
+<tbody>
+<tr><th>Origin</th><td>Michael P. Sheetz (mechanobiology), University of Texas Medical Branch, Galveston. Sheetz has since died.</td></tr>
+<tr><th>Company</th><td><strong>Mechanobiologics, Inc.</strong> (Santa Fe, NM): "Health &amp; rejuvenation through ultrasound technology"; mechanical treatments for cancer, aging and injury. Presented at the 7th TimePie Longevity Forum (Shanghai, Sept 2026).</td></tr>
+<tr><th>Key paper</th><td>Kureel SK et al. <em>Rejuvenation of Senescent Cells, In Vitro and In Vivo, by Low-Frequency Ultrasound.</em> Aging Cell 2025, doi:10.1111/acel.70008 [S1]. Preprint: bioRxiv 2022.12.08.519320, v1–v4 [S2].</td></tr>
+<tr><th>Related</th><td>LFU reverses insulin resistance and diabetes-induced muscle transcriptome changes in aged mice, AJP Endocrinol Metab [S6]. Ultrasound-mediated mechanical forces and tumor-cell apoptosis (same group) [S9].</td></tr>
+<tr><th>IP</th><td>US 2024/0001155 A1 · EP 4561696 A1 (pending) · US 12,714,885 "Systems and Methods for Immersion Mechanotherapy" (granted Aug 2026) · 3 more pending. See <a href="ip.html">IP rights</a>.</td></tr>
+</tbody></table></div>
+
+<h2 id="params">Consolidated parameters</h2>
+<div class="tw"><table>
+<thead><tr><th>Parameter</th><th>Aging Cell 2025</th><th>Patent app. US20240001155</th><th>OA trial NCT06562374</th><th>Aging RCT NCT07168525</th><th>TimePie 2026 slide (mice)</th></tr></thead>
+<tbody>
+<tr><td>Frequency</td><td><strong>32.2 kHz</strong> optimal; 33 kHz &gt; 39 kHz</td><td>32.249 kHz; claimed 20–500 kHz</td><td>33 kHz</td><td>"low frequency"</td><td>33 kHz</td></tr>
+<tr><td>Pressure</td><td><strong>4 kPa</strong> (hydrophone); preprint v2: "4 Pa"</td><td>6–7 kPa; pulses 170 Pa–4.5 kPa+; 1–450 mW/cm²; &lt;3 W/cm²</td><td>"4–10 Pascals"</td><td>not stated</td><td><strong>4–8 kPa</strong></td></tr>
+<tr><td>Duty cycle</td><td>1.5 s on / 1.5 s off</td><td>1.5/1.5 s (also 2–60 s)</td><td><strong>1.6 s / 1.6 s</strong></td><td>—</td><td>1.5 s</td></tr>
+<tr><td>Session</td><td>30 min</td><td>2 min–2 h (example 30 min)</td><td>30 min</td><td><strong>45 min</strong></td><td>30 min = 600 pulses</td></tr>
+<tr><td>Schedule</td><td>mice: daily / every 2nd / every 3rd day; 1×, 1.3×, 2× power</td><td>10 sessions in 1 month</td><td>every 2–3 days</td><td><strong>3×/week, 8 weeks</strong></td><td>—</td></tr>
+<tr><td>Geometry</td><td>target 7–10 cm above transducer; 4 L glass beaker; cylinder 13 cm h × 15.2 cm Ø; mesh</td><td>9–10 cm; frequency sweep / beam steering vs standing waves</td><td>"generators encased in epoxy within the baths"</td><td>bathtub fitted with device</td><td>transducer at bottom; mice on wire mesh</td></tr>
+<tr><td>Water</td><td>degassed; 35 °C cells, 32–35 °C mice</td><td>degassed, 32–35 °C</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>Drive</td><td>not stated</td><td>not stated</td><td>—</td><td>—</td><td><strong>"varying power input 135–275 V"</strong></td></tr>
+<tr><td>Measurement</td><td>ONDA MCT-2000 needle hydrophone</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+</tbody></table></div>
+
+<h2 id="units">Pa vs kPa, peak vs RMS</h2>
+<p>Plane-wave intensity in water is I = p²/(ρc) for RMS pressure (or p²/2ρc for peak amplitude), with ρc ≈ 1.5 × 10⁶ Rayl.</p>
+<div class="tw"><table>
+<thead><tr><th>Quoted pressure</th><th>If peak amplitude</th><th>If RMS</th><th>Plausible?</th></tr></thead>
+<tbody>
+<tr><td>4 Pa</td><td>≈ 5 × 10⁻¹⁰ W/cm²</td><td>≈ 1 × 10⁻⁹ W/cm²</td><td><span class="b r">no</span> below ambient noise; almost certainly a unit typo</td></tr>
+<tr><td>4 kPa</td><td>≈ 0.53 mW/cm²</td><td>≈ 1.1 mW/cm²</td><td><span class="b g">yes</span> inside patent's 1–450 mW/cm²</td></tr>
+<tr><td>8 kPa</td><td>≈ 2.1 mW/cm²</td><td>≈ 4.3 mW/cm²</td><td><span class="b g">yes</span></td></tr>
+<tr><td>10 kPa</td><td>≈ 3.3 mW/cm²</td><td>≈ 6.7 mW/cm²</td><td><span class="b g">yes</span></td></tr>
+</tbody></table></div>
+<ul>
+<li><strong>Wavelength</strong> at 33 kHz in water ≈ <strong>4.5 cm</strong>. A beaker or bathtub is only a few wavelengths across, so standing waves and hot/cold spots are the main reproducibility risk. The patent itself mentions sweep and beam steering.</li>
+<li><strong>Mechanical index</strong> ≈ 0.02–0.04, far below diagnostic-imaging limits (1.9). The target is sub-cavitation mechanical stimulation, but at 33 kHz gas nuclei in non-degassed water <em>can</em> cavitate, so degassing is part of the dose.</li>
+<li><strong>Energy</strong>: 30 min at a 50% duty cycle gives ~900 s of sonication, about 0.5–4 J/cm². Heating is negligible, and the bath temperature dominates.</li>
+</ul>
+
+<h2 id="bio">Biological claims</h2>
+<div class="grid g2">
+<div class="card">
+<h3>In vitro (one 30-min session)</h3>
+<ul>
+<li>Senescent cells (&gt;90% SA-β-gal+) <strong>resume growth</strong>: EdU, divisions, population doublings up to passage 24.</li>
+<li>Reversed: SA-β-gal, p16, p21, cell size, 5mC, H3K9me3, γH2AX, nuclear p53, ROS/mitoROS.</li>
+<li><strong>Telomere length increases.</strong></li>
+<li>SASP blocked: IL-6, IL-8, IL-10, IL-15, TNF-α, IFN-γ, VEGF, MIP-1α.</li>
+<li>RNA-seq: 50 genes up ≥2×, 140 down (incl. IGF2, IGFBP2, FGF7, C1QTNF7).</li>
+<li>Proposed mechanism: Ca²⁺ entry → autophagy ↑, mTORC1 ↓, SIRT1 moves from nucleus to cytoplasm, mitochondrial fission ↑.</li>
+</ul></div>
+<div class="card">
+<h3>In vivo (C57BL/6J, 22–25 months at start)</h3>
+<ul>
+<li>SA-β-gal area in kidney/pancreas: ~70% (sham) vs 10–20% (LFU); p16/p21 staining down.</li>
+<li>Wheel running 7–10× sham at 29 and 32 months; treadmill improved in all groups; inverted cling in 3 of 5.</li>
+<li>Weight and fur maintained, while sham mice lost weight and developed bald spots.</li>
+<li>Lifespan: D2+D3 combined ≈50% alive at 1000 days; <strong>individual groups (n = 7–8) not significant</strong>.</li>
+<li>No tumors at autopsy (small n, very old animals).</li>
+<li>Diabetes paper: insulin resistance and muscle transcriptome changes reversed in aged mice [S6].</li>
+</ul></div>
+</div>
+
+<h2 id="trials">Human trials</h2>
+<div class="grid g2">
+<div class="card">
+<h3>NCT07168525 · Healthy aging <span class="b t">recruiting</span></h3>
+<p class="small">UT Health San Antonio (Barshop), PI Blake Rasmussen, XPRIZE collaborator.</p>
+<ul>
+<li>n = 20, age ≥ 70, randomized, participant-blinded sham (tub without ultrasound).</li>
+<li><strong>45 min × 3/week × 8 weeks</strong> in an ultrasound bathtub.</li>
+<li>Primary: knee-extension strength (Biodex).</li>
+<li>Secondary: SPPB, TUG, 6MWT, blood senescence (IHC/biochemistry/RNA-seq), immune aging (epigenetics), cognition (face-name memory), DEXA lean and fat mass.</li>
+<li>Estimated primary completion: Oct 2026.</li>
+</ul></div>
+<div class="card">
+<h3>NCT06562374 · Knee osteoarthritis <span class="b r">suspended by IRB</span></h3>
+<p class="small">UTMB Galveston, PI Thomas Blackwell.</p>
+<ul>
+<li>n = 10 (actual), single arm, open label; "non-significant-risk device".</li>
+<li>33 kHz, "4 or 10 Pa" (sic), 1.6 s on/off, 30 min, every 2–3 days; transducers potted in epoxy within the bath.</li>
+<li>Primary: participant-reported safety; secondary: survey-based joint response.</li>
+<li>Suspended in March 2026. <strong>The reason is not public.</strong></li>
+</ul></div>
+</div>
+
+<h2 id="strength">Strength of evidence: our reading</h2>
+<div class="note warn">
+<ul>
+<li><strong>Single lab</strong> and no independent replication. Small mouse groups, and lifespan is not significant per group.</li>
+<li>The only human safety pilot was <strong>suspended by its ethics board</strong>. The RCT (n = 20) has not reported.</li>
+<li><strong>The dose is ambiguous</strong> across sources (Pa/kPa, peak/RMS, 1.5/1.6 s, 30/45 min). Nobody outside the group can currently reproduce it. That makes an open, calibrated device a genuine scientific contribution.</li>
+<li>The in-vitro phenotype is <strong>true reversal with proliferation and telomere lengthening</strong>, the category with the highest theoretical oncogenic concern. See <a href="diy-biohacking.html#risks">risks</a>.</li>
+</ul></div>
+
+<h2 id="sources">Sources</h2>
+<ol class="small">
+<li id="S1">[S1] Kureel et al., Aging Cell 2025. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12151899/" target="_blank" rel="noopener">PMC12151899</a> · <a href="https://onlinelibrary.wiley.com/doi/10.1111/acel.70008" target="_blank" rel="noopener">Wiley</a></li>
+<li>[S2] bioRxiv 2022.12.08.519320. <a href="https://www.biorxiv.org/content/10.1101/2022.12.08.519320v4.full" target="_blank" rel="noopener">v4</a></li>
+<li>[S3] <a href="https://patents.google.com/patent/US20240001155A1/en" target="_blank" rel="noopener">US20240001155A1</a></li>
+<li>[S4] <a href="https://patents.google.com/patent/EP4561696A1/en" target="_blank" rel="noopener">EP4561696A1</a></li>
+<li>[S5] <a href="https://www.mechanobiologics.com" target="_blank" rel="noopener">mechanobiologics.com</a></li>
+<li>[S6] <a href="https://journals.physiology.org/doi/full/10.1152/ajpendo.00470.2024" target="_blank" rel="noopener">AJP Endocrinol Metab, doi 10.1152/ajpendo.00470.2024</a></li>
+<li>[S7] <a href="https://clinicaltrials.gov/study/NCT06562374" target="_blank" rel="noopener">NCT06562374</a></li>
+<li>[S8] <a href="https://clinicaltrials.gov/study/NCT07168525" target="_blank" rel="noopener">NCT07168525</a> · <a href="https://news.uthscsa.edu/ut-health-san-antonio-team-named-xprize-healthspan-semifinalist/" target="_blank" rel="noopener">UT Health XPRIZE news</a></li>
+<li>[S9] <a href="https://pubmed.ncbi.nlm.nih.gov/40060768/" target="_blank" rel="noopener">Ultrasound-mediated mechanical forces activate selective tumor cell apoptosis (PubMed 40060768)</a></li>
+</ol>
+</main>
+<footer class="site"><div class="in">
+<span>A <a href="https://hackingbiology.com" target="_blank" rel="noopener">HackingBiology</a> project · companion to <a href="https://biohack.it" target="_blank" rel="noopener">biohack.it</a></span>
+<span><a href="https://github.com/hackingbiology/ultrasound-low-frequency" target="_blank" rel="noopener">Source on GitHub</a> · research notes, not medical advice · built 2026-09-16</span>
+</div></footer>
+</body>
+</html>

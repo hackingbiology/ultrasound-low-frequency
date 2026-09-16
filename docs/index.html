@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Overview · LFU Open Hardware</title>
+<meta name="description" content="Open-hardware DIY biohacking project to design, build and self-test a low-frequency ultrasound (LFU) device replicating the UT / Mechanobiologics senescence research.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/site.css">
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<header class="top"><div class="in">
+<a class="brand" href="index.html"><img src="assets/favicon.svg" alt=""><span>LFU <b>Open</b> Hardware</span></a>
+<nav class="main" aria-label="Sections"><a href="index.html" aria-current="page">Overview</a><a href="evidence.html">Evidence</a><a href="hardware.html">Hardware</a><a href="open-questions.html">Open questions</a><a href="biological-feedback.html">Biological feedback</a><a href="diy-biohacking.html">DIY biohacking</a><a href="ip.html">IP rights</a></nav>
+<button class="theme-btn" type="button" onclick="(function(){var d=document.documentElement,c=d.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'),n=c==='dark'?'light':'dark';d.dataset.theme=n;try{localStorage.setItem('theme',n)}catch(e){}})()" aria-label="Toggle theme">◐</button>
+</div></header>
+<main>
+<section class="page-head">
+  <div class="kicker">HackingBiology · open hardware · DIY biohacking</div>
+  <h1>Low-frequency ultrasound, built by biohackers and measured with blood tests</h1>
+  <p class="lead">An open, reproducible, self-buildable version of the ~33&nbsp;kHz immersion-ultrasound device from University of Texas mechanobiology research. The goal is a device that other people can build and calibrate themselves, and then use to measure its biological effects on their own bodies.</p>
+  <p class="meta">Living research notes · started 2026-09-16 · <a href="https://github.com/hackingbiology/ultrasound-low-frequency" target="_blank" rel="noopener">GitHub</a></p>
+</section>
+
+<div class="note warn">
+  <strong>What this is and is not.</strong>
+  <ul>
+    <li><strong>It is</strong> a non-commercial DIY biohacking project. We document how to design, build, calibrate and self-test a research device, and we share the data openly.</li>
+    <li><strong>It is not</strong> a medical device, a treatment or a product. It makes no therapeutic claim, and nothing is sold.</li>
+    <li>The evidence so far is preclinical: cells and mice from a single lab. The long-term safety of "reversing" senescence in humans is unknown. Read <a href="diy-biohacking.html">DIY biohacking: benefits &amp; risks</a> before anything else.</li>
+  </ul>
+</div>
+
+<h2>The idea in one minute</h2>
+<div class="grid g4">
+  <div class="stat"><div class="v">32–33 kHz</div><div class="l">frequency (32.2 kHz optimal in vitro)</div></div>
+  <div class="stat"><div class="v">4–8 kPa</div><div class="l">acoustic pressure at the target</div></div>
+  <div class="stat"><div class="v">1.5 s on / off</div><div class="l">pulsed, 30 min (600 pulses)</div></div>
+  <div class="stat"><div class="v">32–35 °C</div><div class="l">warm, degassed water; immersion</div></div>
+</div>
+<p>In 2022–2025 the late Michael Sheetz's group reported something striking. A weak pulse of low-frequency ultrasound, delivered through water, made senescent human cells start dividing again. Their senescence markers dropped (SA-β-gal, p16/p21, SASP cytokines). Old mice given repeated sessions were far more active, and they had fewer senescence-marker-positive cells in kidney and pancreas. The work is now owned by <strong>Mechanobiologics Inc.</strong> and is being tested in a sham-controlled human "ultrasound bathtub" trial at UT Health San Antonio (XPRIZE Healthspan).</p>
+<p>The physics is surprisingly accessible. The stimulus is about <strong>0.5–4 mW/cm²</strong>, which is thousands of times weaker than an ultrasonic cleaner. The component family is the same as in cleaning baths. <strong>The hard part is not generating 33&nbsp;kHz. It is proving the dose</strong>, meaning a known, uniform, non-cavitating pressure field at the body, measured by someone else's hydrophone and not just by the knob setting.</p>
+
+<h2>Project goals</h2>
+<ol class="steps">
+  <li><strong>Reproduce the dose, not the box.</strong> Write an open, measurable definition of the exposure: frequency, pressure (with its peak/RMS convention), duty cycle, spatial uniformity and cavitation limits. Define an acceptance test that any build must pass.</li>
+  <li><strong>Reference prototype.</strong> Build a first calibrated unit using the <a href="hardware.html">three hardware architectures</a> we are evaluating, with the lowest cost and skill barrier compatible with a verified dose.</li>
+  <li><strong>Make self-built kits easy to adopt.</strong> Publish a bill of materials with alternates, open PCB/firmware/3D files, a step-by-step build guide, a shared calibration workflow (a circulating reference hydrophone plus DIY transfer hydrophones) and a public registry of verified builds.</li>
+  <li><strong>Measure biology, properly.</strong> A self-testing protocol with multiple baselines, a sham phase, and blood and functional markers matched to the UT human trial. See <a href="biological-feedback.html">Analyze biological feedback</a>.</li>
+  <li><strong>Stay safe and legal.</strong> Electrical safety for water immersion, oncogenic-risk awareness, exclusion criteria, and a clear boundary on what a non-commercial DIY project may do under the patents. See <a href="ip.html">IP rights</a>.</li>
+</ol>
+
+<h2>From the first build to many self-built kits</h2>
+<p>Every design decision is judged by one question: <em>can the second, tenth and hundredth builder reproduce the result without us?</em></p>
+<div class="grid g3">
+  <div class="card soft"><h4>1 · Reference build</h4><p class="small">One unit, fully characterised: a 3-D pressure map, a cavitation check, thermal and electrical safety. Every measurement is published as raw data.</p></div>
+  <div class="card soft"><h4>2 · Builder kit</h4><p class="small">Off-the-shelf parts with EU/CN alternates, open PCB (KiCad), MicroPython/C firmware, 3-D-printable fixtures, a build guide and a tool list. No custom machining.</p></div>
+  <div class="card soft"><h4>3 · Verify &amp; register</h4><p class="small">Each new build runs the acceptance test with a calibrated or transfer hydrophone and publishes its calibration file. Only verified builds contribute biological data.</p></div>
+</div>
+
+<h2>Sections</h2>
+<div class="grid g3">
+  <a class="card" href="evidence.html"><h3>Evidence</h3><p class="small">Papers, trials and parameters, with conflicts between sources shown openly (Pa vs kPa, peak vs RMS, 1.5 vs 1.6 s).</p><span class="go">Read →</span></a>
+  <a class="card" href="hardware.html"><h3>Hardware: 3 architectures</h3><p class="small">Adapted lab bath · open driver + Langevin transducer · multi-channel array tub. Pros and cons, block diagrams, hardware and software for each.</p><span class="go">Read →</span></a>
+  <a class="card" href="open-questions.html"><h3>Open questions for Mechanobiologics</h3><p class="small">Everything we need to know to reproduce the exposure faithfully.</p><span class="go">Read →</span></a>
+  <a class="card" href="biological-feedback.html"><h3>Analyze biological feedback</h3><p class="small">Measuring senescence from blood: markers, kits, labs, variability and a before/after protocol.</p><span class="go">Read →</span></a>
+  <a class="card" href="diy-biohacking.html"><h3>DIY biohacking: benefits &amp; risks</h3><p class="small">What might help, what could hurt (including oncogenic risk), and who should not try.</p><span class="go">Read →</span></a>
+  <a class="card" href="ip.html"><h3>Intellectual property</h3><p class="small">Which patents exist, what they cover, and what a non-commercial DIY project can and cannot do.</p><span class="go">Read →</span></a>
+</div>
+
+<h2>Roadmap</h2>
+<div class="tw"><table>
+<thead><tr><th>Phase</th><th>Deliverable</th><th>Exit criterion</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>0 · Reverse-spec</td><td>Source analysis, dose definition v0, open questions</td><td>Parameters consolidated, conflicts listed</td><td><span class="b t">in progress</span></td></tr>
+<tr><td>1 · Calibration first</td><td>DIY hydrophone and a transfer calibration against a reference hydrophone; field-mapping gantry</td><td>Pressure measured with a stated uncertainty (target ±20%)</td><td><span class="b">planned</span></td></tr>
+<tr><td>2 · Bench prototypes</td><td>Architecture A and B built on a 4 L beaker / foot bath</td><td>4–8 kPa uniform to ±25% over the target zone, no inertial cavitation, stable 32–35 °C</td><td><span class="b">planned</span></td></tr>
+<tr><td>3 · Builder kit v1</td><td>BOM, PCB, firmware, guide, acceptance test</td><td>Two independent builders pass the acceptance test</td><td><span class="b">planned</span></td></tr>
+<tr><td>4 · Self-testing protocol</td><td>Baseline + sham + active phases, biomarker panel, data schema for biohack.it</td><td>Protocol reviewed by a physician; first n-of-1 datasets</td><td><span class="b">planned</span></td></tr>
+<tr><td>5 · Array tub (optional)</td><td>Architecture C, full-body immersion</td><td>Safety case, field map, independent electrical check</td><td><span class="b">later</span></td></tr>
+</tbody></table></div>
+
+<p class="small">Research notes behind this site: <a href="research/01-source-analysis.md">01 source analysis</a> · <a href="research/02-chatgpt-analysis-review.md">02 review of prior ChatGPT analysis</a>.</p>
+</main>
+<footer class="site"><div class="in">
+<span>A <a href="https://hackingbiology.com" target="_blank" rel="noopener">HackingBiology</a> project · companion to <a href="https://biohack.it" target="_blank" rel="noopener">biohack.it</a></span>
+<span><a href="https://github.com/hackingbiology/ultrasound-low-frequency" target="_blank" rel="noopener">Source on GitHub</a> · research notes, not medical advice · built 2026-09-16</span>
+</div></footer>
+</body>
+</html>

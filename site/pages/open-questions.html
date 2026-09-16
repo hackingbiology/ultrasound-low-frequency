@@ -1,0 +1,75 @@
+<!--
+title: Open questions for Mechanobiologics
+description: Hardware, acoustic, protocol and biological questions we need answered by Mechanobiologics / UT to reproduce the low-frequency ultrasound exposure faithfully.
+-->
+<section class="page-head">
+  <div class="kicker">Reproducibility checklist</div>
+  <h1>Open questions for Mechanobiologics</h1>
+  <p class="lead">Published papers, patents and trial records leave out what a second lab, or a second builder, needs to reproduce the exposure. These are the questions we would ask the original team. Each has a stable ID so answers can be tracked.</p>
+</section>
+
+<div class="note info">
+<p><strong>How to use this list.</strong> Questions marked <span class="b r">critical</span> block a faithful replication. <span class="b a">important</span> ones change the calibration or the protocol. <span class="b">nice</span> ones improve comparability. When we get an answer, we record it here with its date and source, and update the <a href="hardware.html#dose">dose definition</a>.</p>
+<p>Framing for the contact: we are a non-commercial, open-science DIY project. We want independent replication data and shared safety knowledge, and we have no plan to commercialise. See <a href="ip.html">IP rights</a>.</p>
+</div>
+
+<h2 id="acoustic">A · Acoustic dose definition</h2>
+<ol class="q">
+<li data-id="A1"><span class="b r">critical</span> Is the quoted pressure (4 kPa in Aging Cell; 4–8 kPa on the 2026 slide; 6–7 kPa in the patent; "4–10 Pa" in NCT06562374) <strong>peak, peak-to-peak or RMS</strong>? Is "Pa" in the trial record a typo for kPa?</li>
+<li data-id="A2"><span class="b r">critical</span> Where exactly is it measured: on the beam axis at the target plane, a spatial average over the target zone, or the maximum in the tank? At what distance from the transducer face?</li>
+<li data-id="A3"><span class="b r">critical</span> What is the <strong>spatial uniformity</strong> of the field at the target (a map, or min/max over the zone)? How much do standing waves vary with water level and with the subject's position?</li>
+<li data-id="A4"><span class="b r">critical</span> Is a <strong>frequency sweep / jitter</strong> or beam steering used during treatment (as the patent describes)? If so, what is the sweep range (e.g. 32.2 ± x kHz), rate and waveform?</li>
+<li data-id="A5"><span class="b a">important</span> Which parameter matters biologically: peak pressure, time-averaged intensity, particle displacement or velocity, or acoustic radiation force / streaming? Was a dose–response for pressure (the 1×, 1.3×, 2× power groups) measured in kPa?</li>
+<li data-id="A6"><span class="b a">important</span> Was <strong>cavitation</strong> (stable or inertial) monitored with the MCT-2000? What cavitation levels were present in the cell, mouse and human setups? Is sub-cavitation a requirement?</li>
+<li data-id="A7"><span class="b a">important</span> Why 32.2 kHz specifically? Was it the transducer's resonance, or a biologically optimal value found by scanning? What was the frequency–response curve (33 vs 39 kHz, anything below 30 kHz)?</li>
+<li data-id="A8"><span class="b a">important</span> Duty cycle: <strong>1.5 s or 1.6 s</strong> on/off? Rise/fall time (hard gating or ramped)? Is there a continuous-wave within the "on" period, or sub-pulsing?</li>
+<li data-id="A9"><span class="b">nice</span> Waveform purity: harmonic content and generator output waveform (sine vs square-driven resonant).</li>
+</ol>
+
+<h2 id="hardware">B · Hardware</h2>
+<ol class="q">
+<li data-id="B1"><span class="b r">critical</span> <strong>Transducer</strong> manufacturer and model (Langevin / bolt-clamped? radiating face diameter, horn/plate?), resonant frequency, impedance at resonance, static capacitance, rated power.</li>
+<li data-id="B2"><span class="b r">critical</span> <strong>Generator / amplifier</strong>: make and model, or a custom design? What does "varying power input 135–275 V" refer to: RMS drive voltage at the transducer, peak voltage, or supply voltage? What is the corresponding electrical power?</li>
+<li data-id="B3"><span class="b a">important</span> Matching network (series/parallel inductor, transformer)? Is there resonance tracking (PLL) or a fixed frequency?</li>
+<li data-id="B4"><span class="b a">important</span> Mouse and cell tank: exact vessel (4 L glass beaker, wall thickness), water height, transducer mounting (bonded under the glass or immersed?), position of the mesh, and any acoustic absorbers.</li>
+<li data-id="B5"><span class="b a">important</span> Human tub: number of transducers (~10–12 visible on arms in the photos), their placement and orientation, per-channel amplitude/phase control, sequencing, tub material and dimensions, water volume.</li>
+<li data-id="B6"><span class="b a">important</span> "Generators encased in epoxy within the baths" (OA trial): which epoxy/potting, electrical insulation design, and cable routing? What electrical safety standard was applied (IEC 60601-1, leakage currents, isolation transformer, RCD)?</li>
+<li data-id="B7"><span class="b">nice</span> Hydrophone calibration chain: MCT-2000 probe model and calibration certificate (frequency range, sensitivity at 33 kHz, uncertainty); how often it was recalibrated.</li>
+<li data-id="B8"><span class="b">nice</span> Would they share CAD drawings, schematics or the field maps of the mouse device, the older non-patented set-ups, or at least a reference measurement protocol?</li>
+</ol>
+
+<h2 id="water">C · Medium &amp; environment</h2>
+<ol class="q">
+<li data-id="C1"><span class="b a">important</span> Degassing method and target dissolved-oxygen level (mg/L or % saturation). How long does degassed water stay usable?</li>
+<li data-id="C2"><span class="b a">important</span> Temperature control: heater type, tolerance (32–35 °C), and whether sonication itself changed the temperature.</li>
+<li data-id="C3"><span class="b">nice</span> Water type (tap, deionised, additives, disinfectant such as chlorine), and whether the conductivity matters for safety or coupling.</li>
+<li data-id="C4"><span class="b">nice</span> Hygiene protocol between human sessions (filtration, disinfection) and whether it affects the dissolved gas content.</li>
+</ol>
+
+<h2 id="protocol">D · Exposure protocol</h2>
+<ol class="q">
+<li data-id="D1"><span class="b r">critical</span> Human exposure: which body parts are immersed, what the subject's posture and distance to the transducers are, and whether the head is immersed. How is the dose at tissue estimated, given body attenuation and reflections?</li>
+<li data-id="D2"><span class="b a">important</span> Why 45 min × 3/week in the RCT vs 30 min every 2–3 days in mice? Is there a known minimum effective dose, or an upper limit / saturation? What was the rationale for the mouse D3 (every 3rd day) schedule outperforming daily?</li>
+<li data-id="D3"><span class="b a">important</span> Acute effects: how long after a session do cellular changes (Ca²⁺, autophagy, SASP) peak and fade? When should blood be drawn relative to a session?</li>
+<li data-id="D4"><span class="b a">important</span> Does effectiveness depend on body temperature (warm immersion itself is a stimulus, e.g. heat-shock and sauna-like effects)? How was the sham matched thermally?</li>
+<li data-id="D5"><span class="b">nice</span> Are there contraindications identified so far (implants, pregnancy, cancer, open wounds, epilepsy, pacemakers)?</li>
+</ol>
+
+<h2 id="bio">E · Biology &amp; safety</h2>
+<ol class="q">
+<li data-id="E1"><span class="b r">critical</span> <strong>Oncogenic safety</strong>: has LFU been tested on oncogene-induced (e.g. RAS) or DNA-damage-induced senescent cells? Do those cells re-enter the cell cycle? Did the γH2AX/53BP1 foci or karyotype of re-proliferating cells normalise, or do damaged cells divide?</li>
+<li data-id="E2"><span class="b r">critical</span> Why was the <strong>UTMB osteoarthritis trial suspended by the IRB</strong> (March 2026)? Any adverse events in humans so far?</li>
+<li data-id="E3"><span class="b a">important</span> Which blood biomarkers respond in humans, and in what time frame: SASP proteins, p16 in T cells, epigenetic clocks? What exactly is "senescence in blood via IHC/biochemistry/RNA-seq" in NCT07168525?</li>
+<li data-id="E4"><span class="b a">important</span> Do the effects persist after stopping, and for how long (mice: rest periods of 2 weeks)? Is continuous treatment needed?</li>
+<li data-id="E5"><span class="b a">important</span> Cancer-model data: the same group reports ultrasound <em>killing</em> tumour cells (mechanotherapy). What are the parameter differences between "rejuvenating" and "tumour-killing" regimes, and how close are they?</li>
+<li data-id="E6"><span class="b">nice</span> Raw data availability (RNA-seq accession, survival data, activity data) for independent re-analysis.</li>
+</ol>
+
+<h2 id="ip">F · IP &amp; collaboration</h2>
+<ol class="q">
+<li data-id="F1"><span class="b a">important</span> Would Mechanobiologics tolerate or support a non-commercial, open-science replication (e.g. a research covenant not to sue, or an explicit statement that it is permitted)?</li>
+<li data-id="F2"><span class="b">nice</span> Interest in receiving independent calibration and biomarker data from DIY builders (a data-sharing agreement)?</li>
+<li data-id="F3"><span class="b">nice</span> Which of the "three other pending" applications cover device design versus methods?</li>
+</ol>
+
+<p class="small">Questions derived from the <a href="evidence.html">evidence review</a>, the <a href="hardware.html">hardware analysis</a> and the <a href="biological-feedback.html">biomarker plan</a>. Suggestions are welcome via <a href="https://github.com/hackingbiology/ultrasound-low-frequency/issues" target="_blank" rel="noopener">GitHub issues</a>.</p>
