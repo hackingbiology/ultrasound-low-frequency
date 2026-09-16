@@ -14,6 +14,7 @@ The goal is to rebuild, as cheaply as possible and with a published dose calibra
 ## Documents
 
 - [01 — Source analysis](docs/research/01-source-analysis.md): papers, patents, trials, and consolidated parameters.
+- [02 — Review of prior ChatGPT analysis](docs/research/02-chatgpt-analysis-review.md): oncogenic risk, senolytics context, commercial hardware options, corrections.
 
 ## License
 
