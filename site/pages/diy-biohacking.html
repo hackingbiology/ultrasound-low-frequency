@@ -1,0 +1,125 @@
+<!--
+title: DIY biohacking
+description: Potential benefits and potential risks of self-building and self-testing a low-frequency ultrasound device, including oncogenic risk, electrical safety and who should not try.
+-->
+<section class="page-head">
+  <div class="kicker">Self-experimentation</div>
+  <h1>DIY biohacking: what could help, what could hurt</h1>
+  <p class="lead">A summary of everything identified so far, written for someone deciding whether to build one of these and use it on themselves. It is deliberately blunt about the unknowns.</p>
+</section>
+
+<div class="note risk">
+<strong>Bottom line.</strong> The published effect is <em>reversal</em> of cellular senescence, meaning arrested cells start dividing again and their telomeres lengthen. That is biologically remarkable and, of all rejuvenation strategies, it is the category with the <strong>highest theoretical cancer concern</strong>. There is no human safety data beyond a suspended 10-person pilot and an ongoing 20-person trial that has not reported. Anyone doing this is running an experiment on themselves with an unknown long-term risk, and should say so plainly rather than call it a wellness routine.
+</div>
+
+<h2 id="why">Why this is an attractive DIY target anyway</h2>
+<div class="grid g2">
+<div class="card soft">
+<h3>Technically within reach</h3>
+<ul>
+<li>The stimulus is <strong>weak</strong> (roughly 0.5–4 mW/cm², about a thousand times below therapeutic physiotherapy ultrasound), and the components are the same family as ultrasonic cleaners.</li>
+<li>No drug, no injection, no import of a controlled substance. Nothing to swallow, and the exposure stops when you switch it off.</li>
+<li>The intervention is <strong>dose-controllable and measurable</strong>: unlike a supplement, you can verify exactly what you delivered, with a hydrophone.</li>
+<li>Parameters are published well enough to aim at, and the gaps are listed in <a href="open-questions.html">open questions</a>.</li>
+</ul></div>
+<div class="card soft">
+<h3>Scientifically useful</h3>
+<ul>
+<li><strong>Nobody has independently replicated this.</strong> A calibrated open device plus shared data is a real contribution, whatever the result.</li>
+<li>The commercial path (patents, clinics, "longevity spa" pricing) will likely make access expensive. An open design keeps the knowledge public.</li>
+<li>Cheap, well-characterised hardware also enables the <em>safety</em> experiments nobody is publishing: does LFU also wake up damaged or oncogene-arrested cells?</li>
+<li>It fits the <a href="https://biohack.it" target="_blank" rel="noopener">biohack.it</a> model: structured protocol plus biomarkers, published openly.</li>
+</ul></div>
+</div>
+
+<h2 id="benefits">Potential benefits reported so far</h2>
+<p class="small">All of these come from cells and mice from one group, plus anecdotal human examples inside a patent application. None is established in humans.</p>
+<div class="tw"><table>
+<thead><tr><th>Claim</th><th>Evidence level</th><th>What it would mean for a self-experimenter</th></tr></thead>
+<tbody>
+<tr><td>Senescent cells resume proliferation; senescence markers normalise</td><td><span class="b a">in vitro, one lab</span></td><td>The core mechanism, but not directly measurable in yourself</td></tr>
+<tr><td>SASP (inflammatory secretions) suppressed</td><td><span class="b a">in vitro</span></td><td>Potentially measurable: IL-6, TNF-α, hs-CRP, GDF-15 and similar in blood</td></tr>
+<tr><td>Physical performance in old mice 7–10× sham</td><td><span class="b a">mice, small groups</span></td><td>Measurable proxies: grip strength, SPPB, TUG, 6-minute walk, VO₂</td></tr>
+<tr><td>Senescence-marker burden in kidney and pancreas reduced</td><td><span class="b a">mice</span></td><td>Not measurable at home; blood proxies only</td></tr>
+<tr><td>Insulin resistance reversed in aged diabetic mice</td><td><span class="b a">mice</span></td><td>Measurable: fasting glucose/insulin, HOMA-IR, HbA1c, CGM</td></tr>
+<tr><td>Lifespan extension</td><td><span class="b r">not significant per group</span></td><td>Not testable by an individual</td></tr>
+<tr><td>Osteoarthritis pain ↓ ~70%, diabetes symptoms ↓ ~75% (patent examples, single cases)</td><td><span class="b r">anecdote in a patent</span></td><td>Treat as marketing-grade evidence, not data</td></tr>
+<tr><td>Warm-water immersion itself (the sham arm) improves sleep, mood, blood pressure, recovery</td><td><span class="b g">separately established</span></td><td>A real confounder: you may feel better from the bath, not the ultrasound</td></tr>
+</tbody></table></div>
+
+<h2 id="risks">Potential risks</h2>
+
+<h3>1 · Oncogenic risk <span class="b r">the serious one</span></h3>
+<p>Senescence is, in part, a tumour-suppression mechanism: a cell with DNA damage or an activated oncogene is locked out of the cell cycle by p53–p21 and p16–RB. An intervention that <em>releases</em> that arrest, without repairing the underlying genome, removes a safety barrier. The published in-vitro phenotype includes cell-cycle re-entry, reduced γH2AX and nuclear p53, and longer telomeres — exactly the profile that raises the concern.</p>
+<div class="grid g2">
+<div class="card"><h4>Arguments that it may be lower risk</h4><ul>
+<li>The stimulus is weak, transient and mechanical, not genetic reprogramming.</li>
+<li>The proposed pathway (Ca²⁺ → autophagy up, mTORC1 down) overlaps with well-known geroprotective mechanisms.</li>
+<li>No tumours were found at autopsy in the treated mice.</li>
+<li>Persistent senescent cells are themselves pro-tumourigenic via the SASP, so leaving them alone is not risk-free either.</li>
+</ul></div>
+<div class="card"><h4>Arguments that the risk is real and untested</h4><ul>
+<li>The mouse groups were tiny (6–8) and the animals were already very old. Tumour latency in humans is years to decades.</li>
+<li>Nobody has tested LFU on <strong>oncogene-induced</strong> or <strong>DNA-damage-induced</strong> senescent cells, the dangerous kinds.</li>
+<li>Whether cells that resume dividing still carry their DNA damage is unknown, and whether their checkpoints still work is unknown.</li>
+<li>The same group reports ultrasound <em>killing</em> tumour cells with related parameters; the boundary between regimes is not characterised.</li>
+<li>Telomere lengthening is a two-edged sword: it is also a step most cancers need.</li>
+</ul></div>
+</div>
+<p><strong>Our position:</strong> the in-vitro oncogenic-safety experiment is part of this project, not an afterthought, and nobody should treat whole-body immersion as routine before it exists. See the plan in <a href="biological-feedback.html#safety">biological feedback → safety monitoring</a> and question E1 in <a href="open-questions.html#bio">open questions</a>.</p>
+
+<h3>2 · Electrical risk <span class="b r">immediate and lethal</span></h3>
+<ul>
+<li>You are putting a <strong>high-voltage-driven transducer into water that a human body is immersed in</strong>. Langevin transducers are typically driven at 100–300 V. A potting failure, a cracked ceramic, a chafed cable or a condensation path can put that into the bath.</li>
+<li>Minimum requirements for any human-immersion build: isolation transformer, residual-current device (10 mA or better), double-insulated and potted transducers, no mains-referenced metal in the water, leakage-current measurement before every session, and a second person present.</li>
+<li>Bench work with cells or a foot bath is a much lower-risk starting point, and is where we start.</li>
+</ul>
+
+<h3>3 · Acoustic and thermal risk</h3>
+<ul>
+<li><strong>Cavitation.</strong> At 33 kHz, in non-degassed water or near a badly matched transducer, inertial cavitation can appear locally. That is a different, tissue-damaging exposure. Degassing and cavitation monitoring are part of the dose, not optional extras.</li>
+<li><strong>Hot spots.</strong> With a 4.5 cm wavelength, standing waves can give local pressures several times the nominal value. Without a field map you do not know your dose.</li>
+<li><strong>Hearing and subharmonics.</strong> 33 kHz is inaudible, but non-linearity and gating produce audible subharmonics; prolonged exposure to intense airborne ultrasound is linked to unpleasant effects. Keep the tank covered and the room quiet.</li>
+<li><strong>Heat and circulation.</strong> A 32–35 °C bath for 30–45 min is a cardiovascular load in itself (hypotension when standing up, fainting, dehydration).</li>
+<li><strong>Implants and gas pockets.</strong> Metal implants, joint prostheses, pacemakers, cochlear implants, stents, IUDs, recent surgery, and gas-containing spaces behave unpredictably in an acoustic field. Anyone with these should stay out.</li>
+</ul>
+
+<h3>4 · Biological uncertainties beyond cancer</h3>
+<ul>
+<li>Senescence has useful roles: wound healing, fibrosis resolution, tumour suppression, placental and embryonic processes. Suppressing it everywhere may have costs.</li>
+<li>Effects on stem-cell pools, the immune system and fibrotic tissue are unknown in humans.</li>
+<li>Pregnancy: ultrasound exposure of a fetus outside diagnostic settings is not acceptable. Absolute exclusion.</li>
+<li>Interaction with drugs and conditions (immunosuppression, active infection, autoimmune disease) is unstudied.</li>
+</ul>
+
+<h3>5 · Measurement and self-deception</h3>
+<ul>
+<li>Warm baths feel good. Without a <strong>sham phase</strong> and objective markers, you will conclude that it works.</li>
+<li>Single before/after blood values are noise: inflammatory markers swing with sleep, infection, exercise and time of day. Multiple baselines are mandatory. See <a href="biological-feedback.html#design">study design</a>.</li>
+<li>Epigenetic clocks have substantial technical variability; a small "age reversal" may be measurement noise.</li>
+</ul>
+
+<h2 id="who-not">Who should not do this</h2>
+<div class="note risk">
+<p>Based on the UT trial criteria plus our own risk reading. This is a starting list to review with a physician, not a medical clearance.</p>
+<ul>
+<li><strong>Any history of cancer, current cancer, or known precancerous lesions or monoclonal conditions (e.g. MGUS).</strong></li>
+<li>Pregnancy or breastfeeding.</li>
+<li>Implanted electronic devices (pacemaker, ICD, neurostimulator, cochlear implant, insulin pump), or metal/joint implants in the immersed region.</li>
+<li>Open wounds, active skin infection, rashes, poor lower-limb wound healing; incontinence (hygiene of shared water).</li>
+<li>Unstable cardiovascular disease, uncontrolled hypertension, recent myocardial infarction or stroke, orthostatic intolerance, epilepsy.</li>
+<li>Immunosuppression, active infection, or colonisation with multidrug-resistant organisms.</li>
+<li>Anyone who cannot get out of the bath unaided, or who would be alone during a session.</li>
+</ul>
+</div>
+
+<h2 id="rules">House rules for this project</h2>
+<ol class="steps">
+<li><strong>Bench before body.</strong> Cells and calibration first, a limb bath second, whole-body immersion last, and only with an electrical safety case.</li>
+<li><strong>No unverified dose, no session.</strong> A build that has not passed the acceptance test produces data that are not worth having.</li>
+<li><strong>Sham-controlled and pre-registered.</strong> Declare the protocol and the endpoints before starting; run a sham phase; publish the result whichever way it goes.</li>
+<li><strong>Baseline first, and enough of it.</strong> At least 2–3 baseline blood draws and functional tests before the first session.</li>
+<li><strong>Medical partner.</strong> Blood tests interpreted with a clinician; exclusion criteria reviewed; a stop rule written in advance.</li>
+<li><strong>Nothing sold, nothing claimed.</strong> No kits for sale, no treatments, no therapeutic claims, no charging anyone for a session. See <a href="ip.html">IP rights</a>.</li>
+<li><strong>Publish the negatives.</strong> Failed builds, bad calibrations and null results go on the site too.</li>
+</ol>
