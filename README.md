@@ -32,4 +32,7 @@ Research notes: [01 source analysis](docs/research/01-source-analysis.md) · [02
 
 ## License
 
-To be decided (proposed: CERN-OHL-S-2.0 for hardware, AGPL-3.0 for firmware/software, CC BY-SA 4.0 for docs and data).
+Multi-licensed by content type — see [LICENSE.md](LICENSE.md):
+**CERN-OHL-S-2.0** (hardware) · **AGPL-3.0-only** (software/firmware) · **CC BY-SA 4.0** (documentation and data).
+
+These licences grant no rights under third-party patents; see [the IP page](https://hackingbiology.github.io/ultrasound-low-frequency/ip.html).
