@@ -1,0 +1,24 @@
+<figure class="diag" id="diag-a">
+<svg viewBox="0 0 880 330" role="img" aria-label="Block diagram of architecture A: a commercial ultrasonic bath with an external gating controller and hydrophone verification">
+  <defs><marker id="ah" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon class="arrowhead" points="0 0, 9 3.5, 0 7"/></marker></defs>
+  <text class="h" x="8" y="18">A · Adapted commercial bath</text>
+
+  <rect class="bx" x="8" y="40" width="150" height="58" rx="6"/><text x="20" y="64">Mains + RCD 10 mA</text><text class="s" x="20" y="82">isolation transformer</text>
+  <line class="ln" x1="158" y1="69" x2="196" y2="69" marker-end="url(#ah)"/>
+  <rect class="bx a" x="196" y="30" width="180" height="120" rx="6"/><text x="210" y="54">Commercial 33 kHz</text><text x="210" y="74">ultrasonic bath</text><text class="s" x="210" y="94">variable power 10–100%</text><text class="s" x="210" y="110">sweep / PLL, degas mode</text><text class="s" x="210" y="126">stock generator</text>
+  <line class="ln" x1="286" y1="150" x2="286" y2="186" marker-end="url(#ah)"/>
+  <rect class="water" x="196" y="186" width="180" height="96" rx="6"/><text x="210" y="210">Tank + degassed water</text><text class="s" x="210" y="228">32–35 °C, thermostat</text><text class="s" x="210" y="246">sample / limb on mesh</text><text class="s" x="210" y="264">7–10 cm above face</text>
+
+  <rect class="bx t" x="430" y="30" width="180" height="120" rx="6"/><text x="444" y="54">Gating controller</text><text class="s" x="444" y="74">ESP32 / RP2040</text><text class="s" x="444" y="92">relay or opto on the</text><text class="s" x="444" y="108">generator ENABLE line</text><text class="s" x="444" y="126">1.5 s on / 1.5 s off, timer, log</text>
+  <line class="ln t d" x1="430" y1="90" x2="378" y2="90" marker-end="url(#ah)"/>
+  <text class="s" x="384" y="82">gate</text>
+
+  <rect class="bx u" x="430" y="186" width="180" height="96" rx="6"/><text x="444" y="210">Hydrophone + scope</text><text class="s" x="444" y="228">DIY PZT or Aquarian</text><text class="s" x="444" y="246">pressure, spectrum,</text><text class="s" x="444" y="264">cavitation check</text>
+  <line class="ln" x1="430" y1="234" x2="378" y2="234" marker-end="url(#ah)"/>
+
+  <rect class="bx" x="664" y="100" width="200" height="130" rx="6"/><text x="678" y="124">Session log</text><text class="s" x="678" y="144">start/stop, temperature,</text><text class="s" x="678" y="162">measured pressure,</text><text class="s" x="678" y="180">water state, operator</text><text class="s" x="678" y="200">→ open data file</text><text class="s" x="678" y="218">→ biohack.it protocol</text>
+  <line class="ln t" x1="610" y1="90" x2="700" y2="90" marker-end="url(#ah)"/><line class="ln t" x1="700" y1="90" x2="700" y2="100"/>
+  <line class="ln" x1="610" y1="234" x2="664" y2="200" marker-end="url(#ah)"/>
+</svg>
+<figcaption>A · The stock generator does the power electronics; we add only pulse gating, thermal control and, crucially, acoustic verification. Lowest build effort, least control over the field.</figcaption>
+</figure>

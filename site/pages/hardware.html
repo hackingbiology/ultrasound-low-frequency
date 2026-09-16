@@ -1,0 +1,166 @@
+<!--
+title: Hardware
+description: Three hardware architectures for an open low-frequency ultrasound device, with pros and cons, block diagrams, hardware and software choices, calibration and an acceptance test.
+-->
+<section class="page-head">
+  <div class="kicker">Design</div>
+  <h1>Three ways to build it</h1>
+  <p class="lead">Generating 33&nbsp;kHz is trivial. Proving that a known, uniform, non-cavitating pressure field reaches the target is the whole engineering problem. These three architectures trade cost, control and reproducibility differently — and all three are judged by the same acceptance test.</p>
+</section>
+
+<div class="toc"><strong>On this page</strong><ol>
+<li><a href="#dose">The dose definition we are building to</a></li>
+<li><a href="#compare">The three architectures compared</a></li>
+<li><a href="#a">A · Adapted commercial bath</a></li>
+<li><a href="#b">B · Open driver + Langevin transducer</a></li>
+<li><a href="#c">C · Multi-channel array tub</a></li>
+<li><a href="#calibration">Calibration: the shared bottleneck</a></li>
+<li><a href="#acceptance">The acceptance test</a></li>
+<li><a href="#adoption">From the first build to many builds</a></li>
+</ol></div>
+
+<h2 id="dose">The dose definition we are building to</h2>
+<p>Version 0, derived from the <a href="evidence.html">evidence</a>. Every value has a tolerance and a measurement rule, because a number without a measurement rule is not reproducible.</p>
+<div class="tw"><table>
+<thead><tr><th>Quantity</th><th>Target</th><th>Tolerance</th><th>How it is verified</th></tr></thead>
+<tbody>
+<tr><td>Frequency</td><td>32.2–33 kHz</td><td>±0.3 kHz, or a declared sweep</td><td>Oscilloscope on the hydrophone output, FFT</td></tr>
+<tr><td>Pressure at the target plane</td><td>4–8 kPa</td><td>±25% over the target zone</td><td>Calibrated or transfer hydrophone; <strong>peak amplitude</strong> reported, with RMS alongside</td></tr>
+<tr><td>Spatial uniformity</td><td>max/min ≤ 2 over the target zone</td><td>—</td><td>3-D field map on a grid (≤1 cm steps)</td></tr>
+<tr><td>Cavitation</td><td>No inertial cavitation; stable cavitation logged</td><td>—</td><td>Spectrum: subharmonic (f/2) and broadband noise below a declared threshold</td></tr>
+<tr><td>Pulsing</td><td>1.5 s on / 1.5 s off (1.6 s variant documented)</td><td>±20 ms</td><td>Scope capture of the gate and of the acoustic envelope</td></tr>
+<tr><td>Session</td><td>30 min (600 pulses); 45 min for the human protocol</td><td>±1 min</td><td>Controller log</td></tr>
+<tr><td>Water</td><td>Degassed; 32–35 °C</td><td>±0.5 °C</td><td>Dissolved-oxygen meter and two independent thermometers</td></tr>
+<tr><td>Target position</td><td>7–10 cm from the transducer face, in the far field</td><td>±1 cm</td><td>Fixed jig, documented per build</td></tr>
+</tbody></table></div>
+<div class="note info"><strong>Unresolved, and it matters.</strong> No source states whether the published pressure is peak, peak-to-peak or RMS — a factor-of-2 in intensity. We therefore report both and ask the question directly (<a href="open-questions.html#acoustic">A1</a>). Until it is answered, aim at the middle of the 4–8 kPa band.</div>
+
+<h2 id="compare">The three architectures compared</h2>
+<div class="tw"><table>
+<thead><tr><th>&nbsp;</th><th>A · Adapted commercial bath</th><th>B · Open driver + Langevin</th><th>C · Multi-channel array tub</th></tr></thead>
+<tbody>
+<tr><th>Target</th><td>Cells, small objects, a hand or foot</td><td>Cells, limb bath; the reference instrument</td><td>Whole-body immersion</td></tr>
+<tr><th>Build effort</th><td><span class="b g">low</span> a weekend</td><td><span class="b a">medium</span> electronics skills</td><td><span class="b r">high</span> months, plus a safety case</td></tr>
+<tr><th>Cost class</th><td>Low–medium (bath dominates)</td><td><strong>Lowest per unit</strong></td><td>High</td></tr>
+<tr><th>Dose control</th><td>Poor: the stock generator's power control is opaque</td><td><span class="b g">full</span> exact gating, sweep, amplitude</td><td>Full, per channel</td></tr>
+<tr><th>Reproducibility by others</th><td>Depends on buying the same model</td><td><span class="b g">highest</span> everything is documented and generic</td><td>Low: every tub is different</td></tr>
+<tr><th>Main risk</th><td>Cavitation and hot spots at "low" power</td><td>Getting the matching network and amplitude calibration right</td><td>Electrical safety with a person in the water</td></tr>
+<tr><th>Role in the project</th><td>Fast first experiments and calibration practice</td><td><strong>The reference build and the builder kit</strong></td><td>Later, only after A/B are verified</td></tr>
+</tbody></table></div>
+
+<h2 id="a">A · Adapted commercial bath</h2>
+<!--include: _diag-a.html -->
+<p>Buy a laboratory ultrasonic bath whose nominal frequency is near 33&nbsp;kHz, keep its generator, and add three things: a gating controller on the enable line, thermal control, and acoustic verification.</p>
+<div class="pc">
+<div class="pro"><h4>Pros</h4><ul>
+<li>Fastest route to a working 33 kHz field; nothing to design.</li>
+<li>Built-in degas and sweep modes on better models; tank, heater and lid already engineered.</li>
+<li>Good practice platform for the calibration workflow, which is the real bottleneck.</li>
+<li>Commercially made mains wiring, which is safer than a first-time DIY power stage.</li>
+</ul></div>
+<div class="con"><h4>Cons</h4><ul>
+<li><strong>Built to cavitate.</strong> Cleaning baths are designed to deliver orders of magnitude more than a few kPa; "10% power" is not 10% pressure, and many implement power control by internal burst modulation that fights our 1.5 s gating.</li>
+<li>The field inside a metal tank is dominated by standing waves and is highly non-uniform.</li>
+<li>Opaque electronics: the actual drive waveform, frequency tracking and enable behaviour are undocumented.</li>
+<li>Reproducibility depends on others buying the same model, which may be discontinued.</li>
+<li>Frequency is whatever the vendor built (33, 35, 37, 40 kHz), and 40 kHz is explicitly worse in the source paper.</li>
+</ul></div>
+</div>
+<h4>Hardware</h4>
+<p class="small">Bath with a near-33 kHz nominal frequency and, ideally, variable power plus sweep; an opto-isolated relay or solid-state switch on the generator's enable or remote input; aquarium heater plus PID thermostat; two independent thermometers; DIY or calibrated hydrophone; an oscilloscope; acoustic absorber to line the tank.</p>
+<h4>Software</h4>
+<p class="small">A small ESP32/RP2040 firmware: pulse timing, session timer, temperature interlock, CSV session log over USB or Wi-Fi. No power control — that stays on the bath's own panel, and its setting becomes part of the calibration record.</p>
+<p><strong>Verdict:</strong> good first bench, not a good reference instrument. Use it to learn the calibration workflow while B is being built.</p>
+
+<h2 id="b">B · Open driver + Langevin transducer <span class="b t">recommended reference build</span></h2>
+<!--include: _diag-b.html -->
+<p>A bolt-clamped (Langevin) piezo transducer of the ultrasonic-cleaning family, driven by our own low-power stage under microcontroller control, in a tank we define. The drive electronics are trivial in power terms — reaching 4–8 kPa in a few litres of water needs watts, not hundreds of watts — which is exactly why building our own is easier here than in most ultrasonic projects.</p>
+<div class="pc">
+<div class="pro"><h4>Pros</h4><ul>
+<li><strong>Exact control</strong> of frequency, sweep, amplitude, gating and ramping; the pulse shape is ours and is documented.</li>
+<li>Amplitude can be set low enough to stay well below cavitation, which a cleaner cannot do.</li>
+<li>Closed loop: voltage and current sensing give the transducer's impedance, so resonance can be tracked as the water warms; the hydrophone gives a drive-amplitude → kPa calibration table.</li>
+<li>Cheapest per unit and built from generic parts with multiple suppliers, so a second builder is not tied to one product.</li>
+<li>Fully open: schematics, PCB, firmware and calibration data all publishable.</li>
+</ul></div>
+<div class="con"><h4>Cons</h4><ul>
+<li>Requires electronics skills: impedance matching, dead time, thermal management of the transducer.</li>
+<li>The transducer's resonance drifts with temperature and load; without tracking, amplitude drifts too.</li>
+<li>Mains-derived supply and a wet environment still demand isolation and an RCD.</li>
+<li>Waterproofing a transducer properly (potting, cable gland, strain relief) is an underestimated job.</li>
+</ul></div>
+</div>
+<h4>Hardware</h4>
+<p class="small">33 kHz Langevin transducer (28/30/35/40 kHz variants for comparison); MOSFET half or full bridge with a gate driver, or a class-D audio module used above its usual band; series inductor and/or transformer matching; 24–48 V supply; current-sense and voltage-divider feedback; RP2040/STM32/ESP32 controller; a tank from 4 L beaker up to a foot bath, lined with absorber; heater and PID; DIY hydrophone.</p>
+<h4>Software</h4>
+<p class="small">Firmware: DDS or PWM frequency synthesis, optional sweep, precise gating, resonance tracking, amplitude regulation against the calibration table, thermal and cavitation interlocks, CSV logging. Host tools in Python: field-mapping over a 3-axis gantry, spectrum analysis for cavitation, calibration-file generation, and export of a session log in the schema used by biohack.it.</p>
+<p><strong>Verdict:</strong> this is the build that makes the project reproducible, and it is what the builder kit will document.</p>
+
+<h2 id="c">C · Multi-channel array tub</h2>
+<!--include: _diag-c.html -->
+<p>The human-scale configuration, mirroring the photographs of the UT device: many individually driven transducers around a tub, sequenced and swept, so the field is built from many weak overlapping sources rather than one strong one.</p>
+<div class="pc">
+<div class="pro"><h4>Pros</h4><ul>
+<li>Uniformity: sequencing groups and sweeping frequency breaks up standing waves, which is exactly what the patents describe.</li>
+<li>Low pressure at every individual transducer face, so no region of the bath is anywhere near cavitation.</li>
+<li>It is the only architecture that matches the human protocol (45 min, whole body).</li>
+<li>Per-channel amplitude control allows a calibration table per body position.</li>
+</ul></div>
+<div class="con"><h4>Cons</h4><ul>
+<li><strong>Electrical safety dominates everything.</strong> Hundreds of volts of drive near an immersed human body; a single potting failure is potentially lethal.</li>
+<li>Mapping a field around a body is genuinely hard: the body absorbs and reflects, so the field with a person in it differs from the empty-tub map.</li>
+<li>Cost and complexity multiply by the channel count; every tub is bespoke, so reproducibility drops.</li>
+<li>Hygiene and degassing of a large water volume are unsolved practical problems.</li>
+<li>It is also the configuration closest to the pending patent claims (the "full body ultrasound spa"), so it must stay strictly private and non-commercial. See <a href="ip.html">IP rights</a>.</li>
+</ul></div>
+</div>
+<h4>Hardware</h4>
+<p class="small">8–16 potted transducers on arms or walls; one B-stage driver per channel, galvanically isolated, with per-channel current monitoring; a medical-grade isolation transformer; RCD at 10 mA plus an insulation-monitoring device; an all-plastic tub with no earthed metal in the water; redundant temperature sensors; emergency stop; a single-board computer coordinating the channel MCUs.</p>
+<h4>Software</h4>
+<p class="small">Channel scheduler (group sequencing, phase and sweep), interlocks and watchdogs, leakage and temperature monitoring with automatic shutdown, per-position calibration tables, full session logging, and an operator checklist enforced by the UI before a session can start.</p>
+<p><strong>Verdict:</strong> last, not first. It requires A or B to be verified, an independent electrical check, and a written safety case.</p>
+
+<h2 id="calibration">Calibration: the shared bottleneck</h2>
+<p>A professional needle-hydrophone system of the type used in the original work costs more than everything else in this project put together. The way out is not to skip calibration, but to share it.</p>
+<ol class="steps">
+<li><strong>One reference measurement.</strong> Get access to a calibrated hydrophone at a university acoustics or biomedical-engineering lab (or a metrology institute) for a single session.</li>
+<li><strong>Transfer calibration.</strong> Build a simple PZT hydrophone, measure it side by side with the reference at 33 kHz, and derive its sensitivity in V/Pa with an uncertainty figure.</li>
+<li><strong>Circulate.</strong> Keep one transfer hydrophone as the project's travelling reference; each new builder either borrows it or cross-calibrates their own against it.</li>
+<li><strong>Map, don't spot-check.</strong> A converted 3-D printer makes a perfectly good 3-axis traverse for a field map on a 1 cm grid.</li>
+<li><strong>Publish the map</strong> with every build, alongside the drive settings that produced it. A build without a published map does not contribute biological data.</li>
+</ol>
+<p class="small">Cheaper commercial options exist at the low end of the hydrophone market with usable sensitivity in the tens of kHz. Candidate models, prices and the DIY design are being collected in the hardware research note.</p>
+
+<h2 id="acceptance">The acceptance test</h2>
+<p>The same test for every architecture and every builder. It is the definition of "this build counts".</p>
+<ol class="q">
+<li data-id="T1"><strong>Frequency</strong> within ±0.3 kHz of the declared value, or a sweep within the declared range (FFT of the hydrophone signal).</li>
+<li data-id="T2"><strong>Pressure</strong> at the target plane inside 4–8 kPa, reported as peak with RMS alongside, with the hydrophone's calibration reference and uncertainty stated.</li>
+<li data-id="T3"><strong>Uniformity</strong>: over the target zone, maximum/minimum ≤ 2 on a ≤1 cm grid.</li>
+<li data-id="T4"><strong>No inertial cavitation</strong>: subharmonic and broadband noise below the declared threshold at the working amplitude, including after 30 minutes of operation.</li>
+<li data-id="T5"><strong>Pulse timing</strong> 1.5 s ± 20 ms, verified on both the electrical gate and the acoustic envelope.</li>
+<li data-id="T6"><strong>Thermal</strong>: water held at 32–35 °C ± 0.5 °C for the whole session; transducer face temperature logged.</li>
+<li data-id="T7"><strong>Electrical</strong>: insulation and leakage-current measurement passed; RCD tested; for architecture C, an independent qualified check.</li>
+<li data-id="T8"><strong>Repeatability</strong>: the same measurement repeated on another day within ±10%.</li>
+</ol>
+
+<h2 id="adoption">From the first build to many builds</h2>
+<p>The point of the project is the hundredth builder, not the first one. Design rules that follow from that:</p>
+<div class="grid g2">
+<div class="card soft"><h4>Design rules</h4><ul>
+<li><strong>Generic parts with at least two suppliers</strong>, EU and non-EU, and documented substitutes. No part that only one shop sells.</li>
+<li><strong>No custom machining.</strong> 3-D-printable fixtures and standard containers only.</li>
+<li><strong>One board, through-hole where possible</strong>, so it can be hand-soldered; KiCad sources and Gerbers published.</li>
+<li><strong>Firmware that self-documents</strong>: every session log carries the firmware hash, the calibration file, and the settings used.</li>
+<li><strong>Defaults that fail safe</strong>: amplitude starts at the minimum, interlocks on by default.</li>
+</ul></div>
+<div class="card soft"><h4>Community mechanics</h4><ul>
+<li><strong>Build registry</strong>: each build gets an ID, a published field map, an acceptance-test result and a photo.</li>
+<li><strong>Travelling hydrophone</strong> and a list of labs willing to do reference calibrations.</li>
+<li><strong>Cross-validation</strong>: two builds measured with each other's hydrophones must agree within a stated margin.</li>
+<li><strong>Nothing is sold</strong>: builders buy their own parts. See <a href="ip.html#cando">what a DIY project may do</a>.</li>
+<li><strong>Negative results published</strong>: failed builds and bad calibrations are as informative as good ones.</li>
+</ul></div>
+</div>
+
+<div class="note warn"><strong>Component tables, prices and supplier links</strong> (bath models, Langevin transducers, driver options, hydrophones, degassing and mapping rigs) are being verified and will be published here as a bill of materials with alternates for each architecture.</div>
