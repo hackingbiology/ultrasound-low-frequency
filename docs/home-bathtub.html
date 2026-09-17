@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Using the bathtub you already have · LFU Open Hardware</title>
+<meta name="description" content="Can the low-frequency ultrasound exposure be done in an ordinary home bathtub instead of a purpose-built tub? What the tub actually does, what changes at home, the risks it introduces and a staged, battery-powered retrofit design.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/site.css">
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<header class="top"><div class="in">
+<a class="brand" href="index.html"><img src="assets/favicon.svg" alt=""><span>LFU <b>Open</b> Hardware</span></a>
+<nav class="main" aria-label="Sections"><a href="index.html">Overview</a><a href="evidence.html">Evidence</a><a href="hardware.html">Hardware</a><a href="home-bathtub.html" aria-current="page">Home bathtub</a><a href="open-questions.html">Open questions</a><a href="biological-feedback.html">Biological feedback</a><a href="diy-biohacking.html">DIY biohacking</a><a href="ip.html">IP rights</a></nav>
+<button class="theme-btn" type="button" onclick="(function(){var d=document.documentElement,c=d.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'),n=c==='dark'?'light':'dark';d.dataset.theme=n;try{localStorage.setItem('theme',n)}catch(e){}})()" aria-label="Toggle theme">◐</button>
+</div></header>
+<main>
+<section class="page-head">
+  <div class="kicker">Home use</div>
+  <h1>Using the bathtub you already have</h1>
+  <p class="lead">The University of Texas human device is a purpose-built tub with transducers on arms. Nothing in the physics requires a special tub — but an ordinary home bathtub changes the acoustics, the electrical rules and the risks. This page is the honest version of "can I just do this at home".</p>
+</section>
+
+<div class="note warn"><strong>Short answer.</strong> Yes, a home bathtub <em>can</em> host the exposure, and for a DIY project it is the realistic target — but only as a <strong>retrofit kit</strong> that is battery-powered, removable, mapped for <em>that</em> tub, and used after a foot-bath stage has proved the kit works. What you cannot do is drop a mains-powered ultrasonic cleaner, or a set of commercial immersible transducers, into the family bath.</div>
+
+<div class="toc"><strong>On this page</strong><ol>
+<li><a href="#what">What the tub actually does in this experiment</a></li>
+<li><a href="#purpose-built">Purpose-built tub vs your bathtub</a></li>
+<li><a href="#materials">It depends a lot on what your tub is made of</a></li>
+<li><a href="#risks">Risks a home bathtub introduces</a></li>
+<li><a href="#retrofit">The home retrofit kit</a></li>
+<li><a href="#mapping">Measuring the dose in your own tub</a></li>
+<li><a href="#stages">Staged path: foot bath first</a></li>
+<li><a href="#rules">Rules for home sessions</a></li>
+</ol></div>
+
+<h2 id="what">What the tub actually does in this experiment</h2>
+<p>The tub is not a container that happens to hold water. At 33 kHz, <strong>the water is the delivery system and the tub is part of the instrument</strong>:</p>
+<ul>
+<li><strong>Coupling.</strong> Ultrasound at this frequency barely crosses air — skin in air receives about a millionth of the energy it receives in water. Water is what carries the pressure wave from the transducer into the body. That is why every version of the experiment, from cells to mice to humans, is an immersion.</li>
+<li><strong>The body is nearly transparent.</strong> At 33 kHz the wavelength is 4.6 cm and tissue absorbs only about 0.3 dB across a torso, so whatever is immersed receives the exposure through its whole thickness, not just at the skin.</li>
+<li><strong>The tub shapes the field.</strong> The walls and the water surface reflect the wave. A 150–250 litre bath at 33 kHz holds about eleven thousand overlapping acoustic modes, so the pressure is not a beam from each transducer but a speckled, statistical field whose hot and cold spots depend on the tub's shape, material, water level and on the person in it. Change the tub and you change the dose map — which is why the original team's tub, and every home tub, must be measured rather than assumed.</li>
+<li><strong>Temperature and dissolved gas.</strong> The tub holds the 32–37 °C water and determines how much dissolved gas is present, and dissolved gas is what separates a gentle mechanical stimulus from bubble activity.</li>
+</ul>
+
+<h2 id="purpose-built">Purpose-built tub vs your bathtub</h2>
+<div class="tw"><table>
+<thead><tr><th>Aspect</th><th>Purpose-built (UT-style)</th><th>Your home bathtub</th></tr></thead>
+<tbody>
+<tr><td>Why it exists</td><td>Repeatable geometry across many subjects; transducers on arms positioned around the body; integrated heating, filtration, chlorination</td><td>Already there, free, familiar; a single person's use</td></tr>
+<tr><td>Acoustic field</td><td>Characterised once for a known geometry</td><td>Unknown until you map it; different in every home</td></tr>
+<tr><td>Material</td><td>Chosen for acoustics (the patent mentions cone-shaped walls and foam absorbers)</td><td>Whatever was installed: acrylic, enamelled steel, cast iron</td></tr>
+<tr><td>Electrics</td><td>Designed in; supply outside the wet zone</td><td>Your bathroom is a regulated wet zone with its own bonding and RCD — you add equipment into it</td></tr>
+<tr><td>Heating</td><td>In-tub heater with controls</td><td><strong>Fill from the domestic hot water — a genuine safety advantage</strong>: no heater in or near the water</td></tr>
+<tr><td>Degassing</td><td>Possible with a recirculation membrane</td><td>Not really possible; only the "fill hot, cool down" approximation</td></tr>
+<tr><td>Hygiene</td><td>Filtration and chlorination for shared use</td><td>Drain after every session; transducers cleaned and removed</td></tr>
+<tr><td>Reproducibility across builders</td><td>High for that one device</td><td>Only through a <strong>standard mapping protocol</strong> and a sentinel hydrophone during every session</td></tr>
+</tbody></table></div>
+<p><strong>Conclusion:</strong> a purpose-built tub is not necessary for the physics, but its advantages have to be replaced by procedure — mapping, monitoring, battery power, and removal after use.</p>
+
+<h2 id="materials">It depends a lot on what your tub is made of</h2>
+<div class="grid g3">
+<div class="card" style="border-color:var(--green)"><h3>Acrylic / fibreglass</h3><p class="small">The most common modern tub.</p><ul>
+<li><strong>Acoustically the best</strong>: plastic absorbs at 33 kHz, damping reflections and flattening the field. You need a little more drive power, and you have plenty.</li>
+<li><strong>Electrically the best</strong>: non-conductive, no earth reference in contact with the water.</li>
+<li>Transducers must be <em>in</em> the water; the shell is too lossy to drive through from outside.</li>
+<li>Soft surface: use weighted or rim-clamped holders, never suction on a scratched finish, never drill.</li>
+</ul></div>
+<div class="card" style="border-color:var(--amber)"><h3>Enamelled steel</h3><p class="small">Common in older Italian homes.</p><ul>
+<li>Acoustically <strong>very reverberant</strong>: stronger standing waves, hotter hot spots; absorbers matter more.</li>
+<li>Electrically: the steel shell is often connected to the bathroom's <strong>supplementary equipotential bonding</strong>, i.e. it is at earth potential. With a mains-referenced device, a fault into the water would find a return path through your body to the tub. <strong>A fully floating battery supply removes that path</strong>.</li>
+<li>Interesting option: industrial cleaners bond transducers to the <em>outside</em> of steel tanks, keeping all electricity out of the water. In an installed tub the underside is usually inaccessible and damped by the installation foam, so treat this as experimental.</li>
+</ul></div>
+<div class="card" style="border-color:var(--amber)"><h3>Cast iron</h3><p class="small">Heavy, old, often enamelled.</p><ul>
+<li>Acoustically the most reverberant and thermally the most inertial (it soaks heat from the water).</li>
+<li>Same bonding question as steel: find out whether it is connected to earth before anything else.</li>
+<li>Very hard to modify; in-water transducers only.</li>
+</ul></div>
+</div>
+<p class="small">Hydromassage / whirlpool tubs: <strong>do not run the jets</strong> during a session. Jets inject air — exactly the bubble nuclei we are trying to eliminate — and their pumps and wiring add a second electrical system to the zone.</p>
+
+<h2 id="risks">Risks a home bathtub introduces</h2>
+<p>On top of the <a href="diy-biohacking.html#risks">general risks</a> of the exposure itself, doing it at home adds or amplifies the following.</p>
+
+<h3>1 · Electrical: your bathroom is a regulated wet zone <span class="b r">highest</span></h3>
+<ul>
+<li>Under IEC 60364-7-701 (in Italy, <strong>CEI 64-8 section 701</strong>) the <strong>inside of the tub is zone 0</strong>: only safety extra-low voltage up to <strong>12 V a.c. or 30 V d.c.</strong>, equipment rated IPX7, and the safety source located <strong>outside zones 0–2</strong> (above and around the tub up to 2.25 m high and 0.6 m beyond the rim). An electrician should confirm the zones in your own bathroom.</li>
+<li>Your bathroom's 30 mA RCD does not protect a person in the water from this kind of device: the in-water let-go threshold is around 5 mA, and no RCD is characterised at 33 kHz. See <a href="hardware.html#electrical">electrical safety</a>.</li>
+<li>Home-specific hazards: extension leads on a wet floor, a phone charger or laptop plugged in nearby, a metal tub or taps bonded to earth, splashing onto a driver box on the edge of the tub.</li>
+<li><strong>Mitigation that makes home use viable: run the whole system from a battery</strong> with no charger connected during a session. A floating battery supply has no return path to earth, so a first insulation fault does not create a shock path through the body. Keep the driver box outside zone 2, carry only SELV along the cable, and put any step-up transformer <em>inside</em> the sealed transducer head.</li>
+</ul>
+
+<h3>2 · Being alone in warm water <span class="b r">high</span></h3>
+<ul>
+<li>30–45 minutes at 35–37 °C lowers blood pressure; standing up afterwards can cause fainting. Warm, relaxing immersion can cause drowsiness. Home sessions tend to be solitary; the purpose-built trial always has staff present.</li>
+<li><strong>Someone else must be at home and check in</strong>; a hard timer switches the ultrasound off; get out slowly; never after alcohol, sedatives or a large meal.</li>
+</ul>
+
+<h3>3 · Posture and hearing <span class="b r">high</span></h3>
+<ul>
+<li>People lie back in a bath with their ears under water. In this experiment that directly couples the skull and inner ear to a 33 kHz field that sits above the only applicable human waterborne exposure limit, whose evidence base is <strong>tinnitus</strong>.</li>
+<li><strong>Sit upright, with the water no higher than mid-chest and the ears well clear</strong>; foam earplugs anyway; stop at any ringing or fullness. The mouse protocol, for what it is worth, immersed only the lower half of the animal.</li>
+</ul>
+
+<h3>4 · Unknown and variable dose <span class="b a">medium–high</span></h3>
+<ul>
+<li>Every home tub has a different field. A drive setting that gives 4 kPa in one bathroom may give 2 or 12 in another, and the water level and the body shift the map again.</li>
+<li>Mitigation: a <a href="#mapping">mapping protocol</a> for each tub before first use, a fixed water level marked on the tub, and a <strong>sentinel hydrophone</strong> logging pressure and cavitation noise during every session.</li>
+</ul>
+
+<h3>5 · Bubbles and dissolved gas <span class="b a">medium–high</span></h3>
+<ul>
+<li>Tap water filled through a shower head or a splashing tap is loaded with air; warm water releases it as bubbles on skin and body hair — near the ~100 µm size that resonates at 33 kHz.</li>
+<li>Mitigation: fill hot (50–55 °C) from the domestic supply through a hose laid on the tub floor, cover the tub and let it cool to 36–37 °C (the water ends up undersaturated), no bath foam or oils, shower first, wipe bubbles off the skin and the transducers after getting in. Measure dissolved oxygen if you can. It is an approximation, and it is stated as such.</li>
+</ul>
+
+<h3>6 · Other people in the household <span class="b a">medium</span></h3>
+<ul>
+<li>The same tub is used by partners, children, pets. The kit must be <strong>removed and stored</strong> after each session, with the battery disconnected; nothing stays installed.</li>
+<li>Anyone pregnant must not use the tub with the kit, and should not be in warm-water immersion at these temperatures anyway.</li>
+<li>Transducers and cables are a biofilm surface: clean and dry them after each session.</li>
+</ul>
+
+<h3>7 · Minor practical risks <span class="b">low</span></h3>
+<ul>
+<li>Slipping on a wet floor while handling equipment; water damage from a spilled bath; scratches to the tub finish from holders; heavy lithium batteries near water (use LiFePO₄ chemistry, in a closed box, outside the zones).</li>
+<li>The ultrasound itself will not damage an enamel or acrylic tub at these power levels — it is roughly a thousandth of an ultrasonic cleaner's power density.</li>
+</ul>
+
+<h2 id="retrofit">The home retrofit kit</h2>
+<p>A variant of <a href="hardware.html#c">architecture C</a> designed around an existing tub. Nothing is permanently installed; everything goes in before a session and comes out after.</p>
+<figure class="diag" id="diag-home">
+<svg viewBox="0 0 880 400" role="img" aria-label="Cross-section of a home bathtub retrofit: transducers on the tub floor near the legs, person seated upright with ears out of the water, bathroom zones 0, 1 and 2, and a battery-powered driver box outside zone 2">
+  <defs><marker id="ahh" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon class="arrowhead" points="0 0, 9 3.5, 0 7"/></marker></defs>
+  <text class="h" x="8" y="18">Home bathtub retrofit — cross-section</text>
+
+  <!-- zones -->
+  <rect x="40" y="40" width="470" height="330" fill="none" class="ln d"/>
+  <rect x="20" y="30" width="560" height="340" fill="none" class="ln d"/>
+  <text class="s" x="46" y="56">zone 1 — above the tub, up to 2.25 m</text>
+  <text class="s" x="26" y="386">zone 2 — 0.6 m beyond zone 1</text>
+
+  <!-- tub -->
+  <path class="bx" d="M70 190 L90 350 L480 350 L500 190" fill="none"/>
+  <path class="water" d="M76 240 L90 350 L480 350 L494 240 Z"/>
+  <text class="s" x="96" y="258">zone 0 — only 12 V a.c. / 30 V d.c.</text>
+  <text class="s" x="370" y="258">water to mid-chest max</text>
+
+  <!-- person seated: back at left -->
+  <circle class="bx a" cx="130" cy="150" r="20"/>
+  <text class="s" x="156" y="140">ears out</text>
+  <text class="s" x="156" y="154">of water</text>
+  <rect class="bx a" x="112" y="170" width="36" height="120" rx="12"/>
+  <rect class="bx a" x="140" y="290" width="240" height="30" rx="12"/>
+
+  <!-- transducers on floor, aperiodic -->
+  <rect class="bx t" x="190" y="326" width="30" height="18" rx="4"/>
+  <rect class="bx t" x="262" y="326" width="30" height="18" rx="4"/>
+  <rect class="bx t" x="348" y="326" width="30" height="18" rx="4"/>
+  <rect class="bx t" x="430" y="300" width="30" height="18" rx="4"/>
+  <text class="s" x="190" y="366">potted 33 kHz heads, step-up sealed inside</text>
+
+  <!-- sentinel hydrophone -->
+  <line class="ln" x1="440" y1="200" x2="440" y2="280"/>
+  <circle class="bx u" cx="440" cy="284" r="7"/>
+  <text class="s" x="382" y="214">sentinel</text>
+  <text class="s" x="382" y="228">hydrophone</text>
+
+  <!-- cables up and over rim to box -->
+  <path class="ln t" d="M205 326 C205 200 520 180 640 170"/>
+  <path class="ln t" d="M277 326 C277 220 520 190 640 180"/>
+  <path class="ln t" d="M363 326 C363 240 520 200 640 190"/>
+  <text class="s" x="520" y="160">SELV only</text>
+
+  <!-- driver + battery outside zones -->
+  <rect class="bx t" x="640" y="130" width="230" height="84" rx="6"/>
+  <text x="652" y="152">Driver box</text>
+  <text class="s" x="652" y="170">MCU + low-voltage bridges</text>
+  <text class="s" x="652" y="186">sweep, per-channel offset, 1.5 s gate</text>
+  <text class="s" x="652" y="202">safety MCU: timer, temp, insulation</text>
+
+  <rect class="bx r" x="640" y="232" width="230" height="56" rx="6"/>
+  <text x="652" y="254">12 V LiFePO₄ battery</text>
+  <text class="s" x="652" y="272">floating; charger unplugged</text>
+  <line class="ln" x1="755" y1="232" x2="755" y2="214"/>
+
+  <rect class="bx u" x="640" y="306" width="230" height="56" rx="6"/>
+  <text x="652" y="328">Laptop on battery + USB scope</text>
+  <text class="s" x="652" y="346">logs pressure and cavitation noise</text>
+  <line class="ln" x1="447" y1="284" x2="640" y2="334" marker-end="url(#ahh)"/>
+
+  <!-- e-stop -->
+  <circle class="bx r" cx="530" cy="120" r="14"/>
+  <text class="s" x="494" y="96">E-stop reachable</text>
+  <line class="ln r" x1="544" y1="122" x2="640" y2="160"/>
+</svg>
+<figcaption>Only safety extra-low voltage enters the water; any step-up happens inside the sealed transducer heads. The electronics and the battery sit outside the bathroom zones. The person sits upright with the ears clear of the water. Zone dimensions follow IEC 60364-7-701 / CEI 64-8 section 701 and must be confirmed for each bathroom.</figcaption>
+</figure>
+<div class="tw"><table>
+<thead><tr><th>Element</th><th>Choice</th><th>Why</th><th>Indicative cost</th></tr></thead>
+<tbody>
+<tr><td>Transducers</td><td><strong>4–8 stock 33 kHz Langevin units</strong> (48 mm face), each potted in epoxy with a thin neutral-cure silicone skin; one continuous silicone-jacketed cable, no connector in the water</td><td>A home tub needs only 1–10 W electrical per channel</td><td>€60–120</td></tr>
+<tr><td>Step-up</td><td>Small ferrite transformer and series inductor <strong>sealed inside each transducer head</strong></td><td>Only SELV travels along the cable into the water</td><td>€40–80</td></tr>
+<tr><td>Holders</td><td>Weighted silicone feet on the tub floor, or clamps hooked over the rim; placed <strong>aperiodically</strong> around the legs and hips, away from the head</td><td>No drilling, no suction on the finish, no symmetry that reinforces standing waves</td><td>€30–80</td></tr>
+<tr><td>Power</td><td><strong>12 V LiFePO₄ battery</strong>, 10–20 Ah, charger physically disconnected during sessions</td><td>Floating supply, no path to earth; a 45-minute session at ~50 W uses under 40 Wh</td><td>€80–150</td></tr>
+<tr><td>Driver box</td><td>Microcontroller + one low-voltage bridge per channel, per-channel frequency offset and sweep, 1.5 s gating; closed plastic box on a shelf <strong>outside zone 2</strong></td><td>De-synchronised channels break up standing waves</td><td>€100–200</td></tr>
+<tr><td>Safety controller</td><td>Separate microcontroller that can only cut power: hard session timer, over-temperature, per-channel current, water-leakage check, big E-stop button reachable from the tub</td><td>A software bug cannot defeat it</td><td>€40–80</td></tr>
+<tr><td>Insulation check</td><td>Measure resistance from the floating bus to a small electrode in the water before and during the session; abort on degradation</td><td>A floating system hides the first fault; you must detect it</td><td>€30–300</td></tr>
+<tr><td>Sentinel hydrophone</td><td>Passive hydrophone clipped at a fixed marked position, logging pressure and cavitation noise every session</td><td>Turns an unknown dose into a logged dose</td><td>€380–420</td></tr>
+<tr><td>Reading</td><td>USB oscilloscope / Analog Discovery, run from a laptop <strong>on battery</strong>, outside the zones</td><td>No mains laptop near the tub</td><td>€350–450</td></tr>
+<tr><td>Water</td><td>Two thermometers, dissolved-oxygen meter, marked fill level, cover</td><td>Temperature and dissolved gas are part of the dose</td><td>€50–250</td></tr>
+<tr><th colspan="3">Indicative total, including the measurement kit</th><th>≈ €1,200–2,000</th></tr>
+</tbody></table></div>
+<p class="small">Without the hydrophone and oscilloscope the electronics cost a few hundred euros — but without them nobody can say what dose was delivered, which defeats the purpose of the project. The measurement kit can be shared among builders.</p>
+
+<h2 id="mapping">Measuring the dose in your own tub</h2>
+<p>Mapping a whole bathtub on a 1 cm grid with a gantry is a laboratory job. A home version that is good enough to compare tubs:</p>
+<ol class="steps">
+<li><strong>Fix the geometry.</strong> Mark the water level, the transducer positions and the seating position with tape. Photograph and measure the tub.</li>
+<li><strong>Empty-tub map on a coarse grid.</strong> A 3-D-printed or wooden jig that holds the hydrophone at defined points: a grid of about 5 cm across the leg, hip and lower-back zone, at two or three heights. That is around 60–100 points, each a 2-second recording, scripted from the laptop.</li>
+<li><strong>Report the distribution, not a number</strong>: median, 10th and 90th percentile, maximum, and the ratio between hot and cold spots. Adjust drive amplitude until the median sits in the 4–8 kPa band and the maximum stays below a declared ceiling.</li>
+<li><strong>Loaded check.</strong> With a person in the tub, record at the sentinel position and at 3–4 points around the body. Compare with the empty-tub values at the same points to derive a correction factor for that tub.</li>
+<li><strong>Every session</strong>: the sentinel hydrophone logs pressure and cavitation noise (subharmonic at 16 kHz and broadband) for the whole session. A session where the sentinel drifts outside its expected range is flagged and not counted.</li>
+<li><strong>Publish the map</strong> with the tub description, so builds and tubs can be compared.</li>
+</ol>
+
+<h2 id="stages">Staged path: foot bath first</h2>
+<p>Going straight to the family bathtub is the wrong first step. A limb bath gives almost all of the learning with a fraction of the risk:</p>
+<div class="tw"><table>
+<thead><tr><th>Stage</th><th>Vessel</th><th>What it proves</th><th>Why it is safer</th></tr></thead>
+<tbody>
+<tr><td><strong>0 · Bench</strong></td><td>4 L beaker</td><td>Transducer, driver, gating, calibration, cavitation detection</td><td>No person in the water</td></tr>
+<tr><td><strong>1 · Foot and lower-leg bath</strong></td><td>Plastic foot-spa basin or bucket, 15–25 L, one or two transducers</td><td>The whole home workflow — potting, battery drive, mapping, sentinel logging, session diary — on a real limb</td><td>Small volume that <em>can</em> be properly degassed (boil or vacuum in batches); ears nowhere near the water; you are seated and can step out; far less water to electrify. It is also close to the knee-osteoarthritis trial's target.</td></tr>
+<tr><td><strong>2 · Home bathtub, lower body</strong></td><td>Existing tub, water to the hips or waist, 4–8 transducers</td><td>Larger exposure with the mapped retrofit kit</td><td>Mirrors the mouse protocol (half-immersed); ears well out</td></tr>
+<tr><td><strong>3 · Home bathtub, up to mid-chest</strong></td><td>Same</td><td>Closer to the UT human protocol</td><td>Only after stage 2 has clean electrical, cavitation and hearing records</td></tr>
+</tbody></table></div>
+<p><strong>Whole-head immersion is not a stage.</strong> Nothing in the evidence requires it, and the hearing risk makes it a line not to cross.</p>
+
+<h2 id="rules">Rules for home sessions</h2>
+<ol class="q">
+<li data-id="H1">Battery power only; charger physically disconnected; no mains device within reach of the tub.</li>
+<li data-id="H2">Driver box outside zone 2; only SELV cables enter the water; insulation check passed before the session starts.</li>
+<li data-id="H3">Someone else at home who knows what you are doing and checks in; E-stop reachable from the tub.</li>
+<li data-id="H4">Sit upright, water at most mid-chest, ears out, foam earplugs; stop at any ringing, fullness or dizziness.</li>
+<li data-id="H5">Fill hot through a submerged hose, cool covered to 35–37 °C, no foam or oils, no jets; shower first.</li>
+<li data-id="H6">Sentinel hydrophone logging every session; hard timer; session diary with blood pressure before and after.</li>
+<li data-id="H7">Get out slowly; never after alcohol or sedatives; not when unwell, feverish or with open wounds.</li>
+<li data-id="H8">Drain the tub, clean and dry the transducers, remove and store the whole kit after every session.</li>
+<li data-id="H9">Nobody pregnant, no children, and no one who meets the <a href="diy-biohacking.html#who-not">exclusion criteria</a> uses the tub with the kit.</li>
+<li data-id="H10">Have an electrician confirm the bathroom zones and whether a metal tub is bonded to earth before the first session.</li>
+</ol>
+</main>
+<footer class="site"><div class="in">
+<span>A <a href="https://hackingbiology.com" target="_blank" rel="noopener">HackingBiology</a> project · companion to <a href="https://biohack.it" target="_blank" rel="noopener">biohack.it</a></span>
+<span><a href="https://github.com/hackingbiology/ultrasound-low-frequency" target="_blank" rel="noopener">Source on GitHub</a> · research notes, not medical advice · built 2026-09-17</span>
+</div></footer>
+</body>
+</html>

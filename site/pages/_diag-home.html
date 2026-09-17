@@ -1,0 +1,67 @@
+<figure class="diag" id="diag-home">
+<svg viewBox="0 0 880 400" role="img" aria-label="Cross-section of a home bathtub retrofit: transducers on the tub floor near the legs, person seated upright with ears out of the water, bathroom zones 0, 1 and 2, and a battery-powered driver box outside zone 2">
+  <defs><marker id="ahh" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon class="arrowhead" points="0 0, 9 3.5, 0 7"/></marker></defs>
+  <text class="h" x="8" y="18">Home bathtub retrofit — cross-section</text>
+
+  <!-- zones -->
+  <rect x="40" y="40" width="470" height="330" fill="none" class="ln d"/>
+  <rect x="20" y="30" width="560" height="340" fill="none" class="ln d"/>
+  <text class="s" x="46" y="56">zone 1 — above the tub, up to 2.25 m</text>
+  <text class="s" x="26" y="386">zone 2 — 0.6 m beyond zone 1</text>
+
+  <!-- tub -->
+  <path class="bx" d="M70 190 L90 350 L480 350 L500 190" fill="none"/>
+  <path class="water" d="M76 240 L90 350 L480 350 L494 240 Z"/>
+  <text class="s" x="96" y="258">zone 0 — only 12 V a.c. / 30 V d.c.</text>
+  <text class="s" x="370" y="258">water to mid-chest max</text>
+
+  <!-- person seated: back at left -->
+  <circle class="bx a" cx="130" cy="150" r="20"/>
+  <text class="s" x="156" y="140">ears out</text>
+  <text class="s" x="156" y="154">of water</text>
+  <rect class="bx a" x="112" y="170" width="36" height="120" rx="12"/>
+  <rect class="bx a" x="140" y="290" width="240" height="30" rx="12"/>
+
+  <!-- transducers on floor, aperiodic -->
+  <rect class="bx t" x="190" y="326" width="30" height="18" rx="4"/>
+  <rect class="bx t" x="262" y="326" width="30" height="18" rx="4"/>
+  <rect class="bx t" x="348" y="326" width="30" height="18" rx="4"/>
+  <rect class="bx t" x="430" y="300" width="30" height="18" rx="4"/>
+  <text class="s" x="190" y="366">potted 33 kHz heads, step-up sealed inside</text>
+
+  <!-- sentinel hydrophone -->
+  <line class="ln" x1="440" y1="200" x2="440" y2="280"/>
+  <circle class="bx u" cx="440" cy="284" r="7"/>
+  <text class="s" x="382" y="214">sentinel</text>
+  <text class="s" x="382" y="228">hydrophone</text>
+
+  <!-- cables up and over rim to box -->
+  <path class="ln t" d="M205 326 C205 200 520 180 640 170"/>
+  <path class="ln t" d="M277 326 C277 220 520 190 640 180"/>
+  <path class="ln t" d="M363 326 C363 240 520 200 640 190"/>
+  <text class="s" x="520" y="160">SELV only</text>
+
+  <!-- driver + battery outside zones -->
+  <rect class="bx t" x="640" y="130" width="230" height="84" rx="6"/>
+  <text x="652" y="152">Driver box</text>
+  <text class="s" x="652" y="170">MCU + low-voltage bridges</text>
+  <text class="s" x="652" y="186">sweep, per-channel offset, 1.5 s gate</text>
+  <text class="s" x="652" y="202">safety MCU: timer, temp, insulation</text>
+
+  <rect class="bx r" x="640" y="232" width="230" height="56" rx="6"/>
+  <text x="652" y="254">12 V LiFePO₄ battery</text>
+  <text class="s" x="652" y="272">floating; charger unplugged</text>
+  <line class="ln" x1="755" y1="232" x2="755" y2="214"/>
+
+  <rect class="bx u" x="640" y="306" width="230" height="56" rx="6"/>
+  <text x="652" y="328">Laptop on battery + USB scope</text>
+  <text class="s" x="652" y="346">logs pressure and cavitation noise</text>
+  <line class="ln" x1="447" y1="284" x2="640" y2="334" marker-end="url(#ahh)"/>
+
+  <!-- e-stop -->
+  <circle class="bx r" cx="530" cy="120" r="14"/>
+  <text class="s" x="494" y="96">E-stop reachable</text>
+  <line class="ln r" x1="544" y1="122" x2="640" y2="160"/>
+</svg>
+<figcaption>Only safety extra-low voltage enters the water; any step-up happens inside the sealed transducer heads. The electronics and the battery sit outside the bathroom zones. The person sits upright with the ears clear of the water. Zone dimensions follow IEC 60364-7-701 / CEI 64-8 section 701 and must be confirmed for each bathroom.</figcaption>
+</figure>
