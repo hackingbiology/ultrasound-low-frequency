@@ -13,7 +13,7 @@
 <body>
 <header class="top"><div class="in">
 <a class="brand" href="index.html"><img src="assets/favicon.svg" alt=""><span>LFU <b>Open</b> Hardware</span></a>
-<nav class="main" aria-label="Sections"><a href="index.html">Overview</a><a href="evidence.html">Evidence</a><a href="hardware.html" aria-current="page">Hardware</a><a href="home-bathtub.html">Home bathtub</a><a href="open-questions.html">Open questions</a><a href="biological-feedback.html">Biological feedback</a><a href="diy-biohacking.html">DIY biohacking</a><a href="ip.html">IP rights</a></nav>
+<nav class="main" aria-label="Sections"><a href="index.html">Overview</a><a href="evidence.html">Evidence</a><a href="hardware.html" aria-current="page">Hardware</a><a href="home-bathtub.html">Home bathtub</a><a href="cancer-branch.html">Cancer branch</a><a href="open-questions.html">Open questions</a><a href="biological-feedback.html">Biological feedback</a><a href="diy-biohacking.html">DIY biohacking</a><a href="ip.html">IP rights</a></nav>
 <button class="theme-btn" type="button" onclick="(function(){var d=document.documentElement,c=d.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'),n=c==='dark'?'light':'dark';d.dataset.theme=n;try{localStorage.setItem('theme',n)}catch(e){}})()" aria-label="Toggle theme">◐</button>
 </div></header>
 <main>
@@ -59,6 +59,8 @@
 <li><strong>Measured with what?</strong> The instrument named in the paper, the Onda MCT-2000, is a <em>cavitation meter</em> that reports a time-averaged total pressure over 1–60 seconds, and whose kPa scale requires a self-calibration to an absolute reference that the paper never mentions. Their own field map is labelled in millivolts.</li>
 </ul>
 Our answer: build to <strong>4–8 kPa peak</strong>, because the physics and the sister lab's interferometry both support it, but <strong>instrument the rig so that a 1000× lower true value would still be detectable</strong>, and report our dose in SI units with the measurement convention stated. See questions <a href="open-questions.html#acoustic">A1–A3</a>.</div>
+
+<div class="note warn"><strong>How much headroom is there?</strong> Not much. Normal stem cells are killed in vitro at 10–20 kPa, tumour cells undergo apoptosis at about 34 kPa, and at 70 kPa mouse tumours grew <em>faster</em> than untreated controls. Our 4–8 kPa target is only 12–18 dB below the tumour-apoptosis dose — less than the error of an uncalibrated hydrophone. The full <a href="cancer-branch.html#ladder">dose ladder is here</a>.</div>
 
 <h2 id="compare">The three architectures compared</h2>
 <div class="tw"><table>
@@ -436,7 +438,7 @@ Protection has to come from <strong>galvanic isolation and construction</strong>
 </main>
 <footer class="site"><div class="in">
 <span>A <a href="https://hackingbiology.com" target="_blank" rel="noopener">HackingBiology</a> project · companion to <a href="https://biohack.it" target="_blank" rel="noopener">biohack.it</a></span>
-<span><a href="https://github.com/hackingbiology/ultrasound-low-frequency" target="_blank" rel="noopener">Source on GitHub</a> · research notes, not medical advice · built 2026-09-17</span>
+<span><a href="https://github.com/hackingbiology/ultrasound-low-frequency" target="_blank" rel="noopener">Source on GitHub</a> · research notes, not medical advice · built 2026-10-12</span>
 </div></footer>
 </body>
 </html>

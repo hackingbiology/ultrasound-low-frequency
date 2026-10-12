@@ -45,6 +45,8 @@ description: Three hardware architectures for an open low-frequency ultrasound d
 </ul>
 Our answer: build to <strong>4–8 kPa peak</strong>, because the physics and the sister lab's interferometry both support it, but <strong>instrument the rig so that a 1000× lower true value would still be detectable</strong>, and report our dose in SI units with the measurement convention stated. See questions <a href="open-questions.html#acoustic">A1–A3</a>.</div>
 
+<div class="note warn"><strong>How much headroom is there?</strong> Not much. Normal stem cells are killed in vitro at 10–20 kPa, tumour cells undergo apoptosis at about 34 kPa, and at 70 kPa mouse tumours grew <em>faster</em> than untreated controls. Our 4–8 kPa target is only 12–18 dB below the tumour-apoptosis dose — less than the error of an uncalibrated hydrophone. The full <a href="cancer-branch.html#ladder">dose ladder is here</a>.</div>
+
 <h2 id="compare">The three architectures compared</h2>
 <div class="tw"><table>
 <thead><tr><th>&nbsp;</th><th>A · Adapted commercial bath</th><th>B · Open driver + Langevin</th><th>C · Multi-channel array tub</th></tr></thead>

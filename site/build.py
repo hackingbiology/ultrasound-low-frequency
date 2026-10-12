@@ -21,6 +21,7 @@ NAV = [
     ("evidence.html", "Evidence"),
     ("hardware.html", "Hardware"),
     ("home-bathtub.html", "Home bathtub"),
+    ("cancer-branch.html", "Cancer branch"),
     ("open-questions.html", "Open questions"),
     ("biological-feedback.html", "Biological feedback"),
     ("diy-biohacking.html", "DIY biohacking"),

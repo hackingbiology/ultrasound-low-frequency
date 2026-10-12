@@ -13,7 +13,7 @@
 <body>
 <header class="top"><div class="in">
 <a class="brand" href="index.html"><img src="assets/favicon.svg" alt=""><span>LFU <b>Open</b> Hardware</span></a>
-<nav class="main" aria-label="Sections"><a href="index.html">Overview</a><a href="evidence.html" aria-current="page">Evidence</a><a href="hardware.html">Hardware</a><a href="home-bathtub.html">Home bathtub</a><a href="open-questions.html">Open questions</a><a href="biological-feedback.html">Biological feedback</a><a href="diy-biohacking.html">DIY biohacking</a><a href="ip.html">IP rights</a></nav>
+<nav class="main" aria-label="Sections"><a href="index.html">Overview</a><a href="evidence.html" aria-current="page">Evidence</a><a href="hardware.html">Hardware</a><a href="home-bathtub.html">Home bathtub</a><a href="cancer-branch.html">Cancer branch</a><a href="open-questions.html">Open questions</a><a href="biological-feedback.html">Biological feedback</a><a href="diy-biohacking.html">DIY biohacking</a><a href="ip.html">IP rights</a></nav>
 <button class="theme-btn" type="button" onclick="(function(){var d=document.documentElement,c=d.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'),n=c==='dark'?'light':'dark';d.dataset.theme=n;try{localStorage.setItem('theme',n)}catch(e){}})()" aria-label="Toggle theme">◐</button>
 </div></header>
 <main>
@@ -96,6 +96,7 @@
 <tr><td>Sheetz / Singapore (Tijore et al. 2025, cancer)</td><td><strong>Beijing Ultrasonic PZT4 piezoceramic rings</strong>, 25×10×4 mm and 16×8×4 mm, with an <strong>aluminium cone</strong> to widen the field to about 5 cm and "attenuate the amplitude to form plane waves", <strong>epoxy and silicone-rubber coated</strong>, glued to the tank bottom; generator and amplifier outside; samples 8 cm above; tank in a 37 °C incubator; degassed deionised water.</td></tr>
 <tr><td>Tijore lab, IISc Bangalore (2026)</td><td><strong>APC International Langevin transducer APC 90-4050</strong>, epoxy-bonded to a steel container on a 3-D-printed platform with height adjustment, driven by a <strong>PiezoDrive PDU 210</strong>, calibrated with an <strong>impedance analyser</strong>, pressure measured with a hydrophone into a <strong>Digilent Analog Discovery USB oscilloscope</strong>, vacuum-degassed water. The desired pressure is set by <strong>adjusting the drive voltage</strong>.</td></tr>
 </tbody></table></div>
+<div class="note info">The same hardware family is used by the group's <strong>cancer</strong> work, at 20–70× the intensity, to kill tumour cells rather than rejuvenate senescent ones. That comparison gives us the dose ladder and a biological cross-check on calibration: see <a href="cancer-branch.html">the cancer branch</a>.</div>
 <p>That second rig is <strong>directly copyable</strong>, and its papers publish a pressure-to-displacement calibration measured by laser interferometry: 1 kPa → 11 nm, 5 kPa → 65 nm, 10 kPa → 118 nm, 20 kPa → 236 nm of dish-glass displacement. In the same work at 39 kHz, <strong>2–5 kPa promotes stem-cell growth while 10–20 kPa kills</strong> — independent evidence of a narrow window in the low kPa range.</p>
 
 <h2 id="bio">Biological claims</h2>
@@ -177,7 +178,7 @@
 </main>
 <footer class="site"><div class="in">
 <span>A <a href="https://hackingbiology.com" target="_blank" rel="noopener">HackingBiology</a> project · companion to <a href="https://biohack.it" target="_blank" rel="noopener">biohack.it</a></span>
-<span><a href="https://github.com/hackingbiology/ultrasound-low-frequency" target="_blank" rel="noopener">Source on GitHub</a> · research notes, not medical advice · built 2026-09-17</span>
+<span><a href="https://github.com/hackingbiology/ultrasound-low-frequency" target="_blank" rel="noopener">Source on GitHub</a> · research notes, not medical advice · built 2026-10-12</span>
 </div></footer>
 </body>
 </html>

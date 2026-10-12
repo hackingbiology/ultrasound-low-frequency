@@ -13,7 +13,7 @@
 <body>
 <header class="top"><div class="in">
 <a class="brand" href="index.html"><img src="assets/favicon.svg" alt=""><span>LFU <b>Open</b> Hardware</span></a>
-<nav class="main" aria-label="Sections"><a href="index.html">Overview</a><a href="evidence.html">Evidence</a><a href="hardware.html">Hardware</a><a href="home-bathtub.html">Home bathtub</a><a href="open-questions.html" aria-current="page">Open questions</a><a href="biological-feedback.html">Biological feedback</a><a href="diy-biohacking.html">DIY biohacking</a><a href="ip.html">IP rights</a></nav>
+<nav class="main" aria-label="Sections"><a href="index.html">Overview</a><a href="evidence.html">Evidence</a><a href="hardware.html">Hardware</a><a href="home-bathtub.html">Home bathtub</a><a href="cancer-branch.html">Cancer branch</a><a href="open-questions.html" aria-current="page">Open questions</a><a href="biological-feedback.html">Biological feedback</a><a href="diy-biohacking.html">DIY biohacking</a><a href="ip.html">IP rights</a></nav>
 <button class="theme-btn" type="button" onclick="(function(){var d=document.documentElement,c=d.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'),n=c==='dark'?'light':'dark';d.dataset.theme=n;try{localStorage.setItem('theme',n)}catch(e){}})()" aria-label="Toggle theme">◐</button>
 </div></header>
 <main>
@@ -42,6 +42,7 @@
 <li data-id="A9"><span class="b">nice</span> Waveform purity: harmonic content and generator output waveform. The patent explicitly contemplates a <strong>rectangular drive</strong> and notes its strong 2×–7× harmonics — do the inventors believe the harmonic content is part of the active agent?</li>
 <li data-id="A10"><span class="b r">critical</span> The Onda <strong>MCT-2000 is a cavitation meter</strong>, not a needle hydrophone. Was the "self-calibration to an absolute reference" performed, so that the kPa scale is real? Over what averaging time was the reading taken? Does "4 kPa" mean the meter's time-averaged total pressure, including harmonics?</li>
 <li data-id="A11"><span class="b r">critical</span> Figure S1B maps the field in <strong>millivolts</strong> with a 9× spread across the sample plane. Where in that distribution does "4 kPa" sit: the centre, the mean, or the peak? What was the sample's position within the map?</li>
+<li data-id="A12"><span class="b r">critical</span> Measured on <strong>your own equipment, with one convention</strong>: how far apart are the rejuvenation dose and the tumour-apoptosis dose of Tijore et al.? The published numbers imply only 12–18 dB, which is inside most replication error.</li>
 </ol>
 
 <h2 id="hardware">B · Hardware</h2>
@@ -85,6 +86,8 @@
 <li data-id="E6"><span class="b">nice</span> Raw data availability (RNA-seq accession, survival data, activity data) for independent re-analysis.</li>
 <li data-id="E7"><span class="b r">critical</span> <strong>Auditory effects</strong>: were audiograms or tinnitus reports collected in the human pilots? The exposure sits above the ACGIH waterborne limit, whose evidence base is long-term tinnitus.</li>
 <li data-id="E8"><span class="b a">important</span> How do they reconcile the largely <strong>negative diabetes paper</strong> (no change in glucose control or physical function in aged mice) with the strong performance effects in the lifespan study?</li>
+<li data-id="E10"><span class="b r">critical</span> Has anyone run a <strong>single dose series on one cell population</strong>, from the rejuvenation regime up through the apoptosis regime? And at the rejuvenation dose, are transformed or pre-malignant cells killed, unaffected, or <em>primed</em> (as the 2025 capillary-constriction work on PIEZO1 would suggest)?</li>
+<li data-id="E11"><span class="b a">important</span> In the mouse tumour study the highest power produced <strong>more</strong> tumour growth than untreated controls, and chick-embryo survival fell to 60% after the second exposure. How do you interpret those two results, and what upper bound do they place on human exposure?</li>
 <li data-id="E9"><span class="b a">important</span> Has anyone tested whether the sharp 32.2 kHz optimum survives a <strong>change of vessel</strong>? If it is a mode of the 15.2 cm beaker rather than a property of cells, it will not transfer to a bathtub.</li>
 </ol>
 
@@ -99,7 +102,7 @@
 </main>
 <footer class="site"><div class="in">
 <span>A <a href="https://hackingbiology.com" target="_blank" rel="noopener">HackingBiology</a> project · companion to <a href="https://biohack.it" target="_blank" rel="noopener">biohack.it</a></span>
-<span><a href="https://github.com/hackingbiology/ultrasound-low-frequency" target="_blank" rel="noopener">Source on GitHub</a> · research notes, not medical advice · built 2026-09-17</span>
+<span><a href="https://github.com/hackingbiology/ultrasound-low-frequency" target="_blank" rel="noopener">Source on GitHub</a> · research notes, not medical advice · built 2026-10-12</span>
 </div></footer>
 </body>
 </html>
