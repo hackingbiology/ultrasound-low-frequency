@@ -16,6 +16,8 @@ The goal is to rebuild, as cheaply and as reproducibly as possible, the class of
 | [Evidence](https://hackingbiology.github.io/ultrasound-low-frequency/evidence.html) | Papers, trials, consolidated parameters, source conflicts |
 | [Hardware](https://hackingbiology.github.io/ultrasound-low-frequency/hardware.html) | Three architectures with pros/cons and block diagrams, dose definition, acceptance test |
 | [Open questions](https://hackingbiology.github.io/ultrasound-low-frequency/open-questions.html) | What we need from Mechanobiologics / UT to reproduce the exposure |
+| [Using the bathtub you already have](https://hackingbiology.github.io/ultrasound-low-frequency/home-bathtub.html) | Battery-powered retrofit of an existing home tub: tub materials, home-specific risks, per-tub mapping, staged path from a foot bath |
+| [The cancer branch](https://hackingbiology.github.io/ultrasound-low-frequency/cancer-branch.html) | The same rig at 20–70× the intensity kills tumour cells: the dose ladder, dose normalisation, and why this stays out of scope |
 | [Analyze biological feedback](https://hackingbiology.github.io/ultrasound-low-frequency/biological-feedback.html) | Crosswalk of what they measured vs what we can; markers, kits, Italian labs, n-of-1 design |
 | [DIY biohacking](https://hackingbiology.github.io/ultrasound-low-frequency/diy-biohacking.html) | Potential benefits, potential risks, exclusions, house rules |
 | [IP rights](https://hackingbiology.github.io/ultrasound-low-frequency/ip.html) | Patent landscape, claim analysis, what a non-commercial DIY project may and may not do |
