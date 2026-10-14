@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hand first · LFU Open Hardware</title>
+<meta name="description" content="A localised hand-bath protocol with the other hand as control: the randomised, blinded, sham-controlled n-of-1 design that a whole-body tub can never offer, and the non-invasive measurements that make it readable.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/site.css">
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<header class="top"><div class="in">
+<a class="brand" href="index.html"><img src="assets/favicon.svg" alt=""><span>LFU <b>Open</b> Hardware</span></a>
+<nav class="main" aria-label="Sections"><a href="index.html">Overview</a><a href="evidence.html">Evidence</a><a href="hardware.html">Hardware</a><a href="hand-first.html" aria-current="page">Hand first</a><a href="home-bathtub.html">Home bathtub</a><a href="cancer-branch.html">Cancer branch</a><a href="open-questions.html">Open questions</a><a href="biological-feedback.html">Biological feedback</a><a href="diy-biohacking.html">DIY biohacking</a><a href="ip.html">IP rights</a></nav>
+<button class="theme-btn" type="button" onclick="(function(){var d=document.documentElement,c=d.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'),n=c==='dark'?'light':'dark';d.dataset.theme=n;try{localStorage.setItem('theme',n)}catch(e){}})()" aria-label="Toggle theme">◐</button>
+</div></header>
+<main>
+<section class="page-head">
+  <div class="kicker">Testing path</div>
+  <h1>One hand treated, the other one watching</h1>
+  <p class="lead">Before anyone fills a bathtub, there is a much better experiment available: treat one hand, keep the other as a control, and measure the difference. It is cheaper, far safer, and — because the control lives on the same body — it is scientifically stronger than anything the whole-body version can do.</p>
+</section>
+
+<div class="note ok"><strong>Why this comes first.</strong> Not merely because it is safer, though it is. Because a contralateral control removes almost every confounder that makes n-of-1 self-experimentation unreliable, and because ultrasound at this intensity is imperceptible, which means <strong>you can genuinely blind yourself</strong>.</div>
+
+<div class="toc"><strong>On this page</strong><ol>
+<li><a href="#why">Why a limb beats a tub, scientifically</a></li>
+<li><a href="#design">The study design</a></li>
+<li><a href="#measure">What to measure, and what it costs</a></li>
+<li><a href="#rig">The rig</a></li>
+<li><a href="#protocol">The protocol, week by week</a></li>
+<li><a href="#risks">Risks specific to a hand</a></li>
+<li><a href="#limits">What it can and cannot prove</a></li>
+</ol></div>
+
+<h2 id="why">Why a limb beats a tub, scientifically</h2>
+<div class="grid g2">
+<div class="card soft"><h3>The contralateral control</h3>
+<p>The treated hand and the control hand share a body: the same sleep, diet, infections, stress, season, medication, and the same assay batch on the same day. Every confounder that forced the <a href="biological-feedback.html#noise">blood-marker plan</a> into three baselines and made IL-6 and hs-CRP unusable simply cancels out.</p>
+<p class="small">This is the oldest trick in dermatology and in sports medicine, and it is unavailable to a whole-body protocol by construction.</p></div>
+<div class="card soft"><h3>Real blinding, for free</h3>
+<p>At 4–8 kPa the exposure is inaudible and cannot be felt — which is precisely how the UT Health trial blinds its participants to the sham. Two identical basins at the same temperature, the transducer energised in one, the controller out of sight, and someone else tossing a coin for which side: <strong>you do not know which hand is being treated</strong>.</p>
+<p class="small">Add blinded assessment — photographs and measurements labelled by a third party — and this becomes a randomised, sham-controlled, within-person crossover. That is a real design.</p></div>
+</div>
+<p><strong>And skin is the one tissue you can actually watch.</strong> You will never see the kidney or the pancreas that the mouse study measured. You can see skin every day — and skin is exactly where senolytic trials went looking: in the dasatinib-plus-quercetin diabetic-kidney-disease study, epidermal p16 and p21 fell by 38% and 30%. Mechanobiologics' own wellness claim is "enhancing skin thickness, improving elasticity". So a hand protocol measures precisely what the originators say their device does.</p>
+
+<h2 id="design">The study design</h2>
+<ol class="steps">
+<li><strong>Randomise the side.</strong> Someone else flips the coin and sets up the basins; they keep the allocation. You record which basin is which only by a neutral label.</li>
+<li><strong>Sham that is a real sham.</strong> Both hands sit in identical basins, same water, same temperature, same duration. Only one basin has the transducer driven. The warm-water effect — which is real and would otherwise be mistaken for the treatment — is applied to both sides.</li>
+<li><strong>Baseline in triplicate.</strong> Three measurement sessions before starting, so you know your own measurement error and can compute what change would count as real.</li>
+<li><strong>Treat, then wash out, then cross over.</strong> After the treatment block and a washout, swap sides and repeat. If the effect follows the hand rather than the side, that is far stronger evidence than any single block.</li>
+<li><strong>Blinded assessment.</strong> Photographs and measurements are coded by the third party and analysed without knowing which side is which.</li>
+<li><strong>Pre-register and publish.</strong> Declare the primary endpoint before starting, then publish the result whichever way it falls — and in a format that lets several people's runs be pooled later.</li>
+</ol>
+
+<h2 id="measure">What to measure, and what it costs</h2>
+<p>Non-invasive only, for now. Every measure is taken on both hands in the same session, in the same order.</p>
+<div class="tw"><table>
+<thead><tr><th>Measure</th><th>What it reflects</th><th>How</th><th>Cost</th></tr></thead>
+<tbody>
+<tr><td><strong>Nail growth rate</strong> <span class="b t">primary candidate</span></td><td>Cell proliferation — the closest non-invasive analogue of the paper's core claim</td><td>Mark the nail at the lunula with a fine file, measure the distance with a digital calliper every 2 weeks, same finger both hands. Fingernails grow about 3 mm/month, so 8 weeks gives a readable signal</td><td>~€15</td></tr>
+<tr><td>Standardised photography</td><td>Wrinkles, pigmentation, skin texture</td><td>Fixed stand, fixed distance and lighting, colour and scale card in frame; both hands in the same shot; analysed blind at the end</td><td>~€50</td></tr>
+<tr><td>Grip and pinch strength</td><td>Function, per hand</td><td>Hand dynamometer, three trials per hand per session</td><td>€50–150</td></tr>
+<tr><td>Skin temperature and microcirculation</td><td>Perfusion differences between the two hands</td><td>Thermal camera, same room temperature after 10 min of acclimatisation</td><td>~€250</td></tr>
+<tr><td>Hydration / barrier function</td><td>Epidermal state</td><td>Capacitance probe, transepidermal water loss</td><td>€200–800</td></tr>
+<tr><td>Dermal thickness</td><td>The one endpoint the company itself claims</td><td>High-frequency skin ultrasound — measuring with ultrasound what ultrasound did. Via a clinic if buying is out of scope</td><td>€1–3k or per visit</td></tr>
+<tr><td>Vibration threshold, two-point discrimination</td><td>Nerve function — here as a <strong>safety</strong> measure, not an efficacy one</td><td>Tuning fork, calliper or compass</td><td>~€20</td></tr>
+<tr><td>Joint symptoms, if any finger osteoarthritis is present</td><td>The UTMB trial's own target</td><td>A simple daily score per hand; only interpretable because the other hand is the control</td><td>free</td></tr>
+</tbody></table></div>
+<div class="note info"><strong>Blood is not the endpoint here.</strong> A hand is a tiny fraction of body mass; expecting plasma GDF-15 to move is unrealistic. Draw and freeze samples anyway if you are already set up for it — but the result of this study lives in the hand, not in the serum.</div>
+<p class="small">Paired 3 mm punch biopsies with a dermatologist (p16, p21, SA-β-gal, collagen on treated vs control hand) remain the gold-standard endpoint and the only direct measure of senescent burden. They are deliberately <strong>out of scope for now</strong> and can be added later without changing anything else in the design.</p>
+
+<h2 id="rig">The rig</h2>
+<ul>
+<li><strong>Two identical basins, 5–15 litres.</strong> Plastic, non-conductive. One holds the transducer; the other is identical in every visible respect.</li>
+<li><strong>This is the only volume in the whole project that can genuinely be degassed</strong> — boiling and cooling sealed, or a vacuum chamber in two batches — and degassing is the entire cavitation-safety argument. Measure dissolved oxygen, target ≤2 mg/L.</li>
+<li><strong>Geometry fixed by a jig</strong>: a 3-D-printed or wooden rest that puts the hand at the same height, 7–10 cm above the transducer face, in the same position every session. Mark it.</li>
+<li><strong>Dose</strong>: the standard target, 32–33 kHz, 4–8 kPa measured at the hand position, 1.5 s on / 1.5 s off, 30 minutes. Mapped once with the <a href="hardware.html#calibration">hydrophone</a>, then monitored every session by the sentinel.</li>
+<li><strong>Electrically</strong>: battery-powered, floating, extra-low voltage along the cable, step-up sealed inside the potted head — same rules as the <a href="home-bathtub.html#retrofit">home retrofit</a>, but with your head metres away from the water and a hand you can withdraw in a second.</li>
+<li><strong>Thermal</strong>: both basins at the same temperature, 35–37 °C, logged. A temperature difference between the two sides would ruin the comparison more thoroughly than any acoustic error.</li>
+</ul>
+
+<h2 id="protocol">The protocol, week by week</h2>
+<div class="tw"><table>
+<thead><tr><th>Week</th><th>What happens</th></tr></thead>
+<tbody>
+<tr><td>−4, −2, 0</td><td>Three baseline measurement sessions on both hands. Nail marks applied at week −4 and renewed as they grow out. Rig acceptance test passed and field mapped.</td></tr>
+<tr><td>0</td><td>Randomisation by a third party; both hands start the sessions.</td></tr>
+<tr><td>1–8</td><td>Sessions 3×/week, 30 min, both hands immersed, one side driven. Sentinel hydrophone logs every session; symptom diary per hand.</td></tr>
+<tr><td>4</td><td>Interim measurement session (both hands).</td></tr>
+<tr><td>8</td><td>End of block 1: full measurement session, photographs, nail measurement.</td></tr>
+<tr><td>9–12</td><td>Washout, no sessions. Measurement at week 12 — does any difference persist or fade?</td></tr>
+<tr><td>13–20</td><td>Crossover: sides swapped, same protocol.</td></tr>
+<tr><td>21</td><td>Final measurements; unblinding; everything published, including the null result if that is what it is.</td></tr>
+</tbody></table></div>
+
+<h2 id="risks">Risks specific to a hand</h2>
+<ul>
+<li><strong>Skin maceration</strong> from repeated 30-minute immersions — inspect both hands at every session, dry thoroughly, and pause if the skin is breaking down. Note that this affects both hands equally, which is part of why the control matters.</li>
+<li><strong>Nerves and tendons are superficial in the hand.</strong> Any numbness, tingling, burning or new joint pain on the treated side is a stop signal, not a side effect to push through. The vibration and two-point tests exist to catch this before you notice it.</li>
+<li><strong>Exclude the hand</strong> if it contains implants, plates, screws, or has had recent surgery; exclude anyone with a wound, active infection or skin disease on either hand.</li>
+<li><strong>Electrical</strong>: a hand in the water is far less dangerous than a torso, but it is still a conductive path. Battery power, extra-low voltage, insulation check before each session.</li>
+<li><strong>Hearing</strong>: the risk that dominates the whole-body version largely disappears here, because your head is not coupled to the water. Keep it that way — no leaning over the basin for long periods.</li>
+<li>The general <a href="diy-biohacking.html#risks">risks of the exposure itself</a>, including the oncogenic question, still apply — but to a few hundred grams of tissue instead of a whole body.</li>
+</ul>
+
+<h2 id="limits">What it can and cannot prove</h2>
+<div class="pc">
+<div class="pro"><h4>What it answers</h4><ul>
+<li><strong>Does anything measurable happen at all</strong>, in a real tissue, beyond placebo and beyond warm water?</li>
+<li>Does the effect follow the treated side, and does it reverse after washout and crossover?</li>
+<li>Is our delivered dose reproducible session after session?</li>
+<li>Does the exposure cause any local harm?</li>
+</ul></div>
+<div class="con"><h4>What it does not answer</h4><ul>
+<li>Anything systemic. A hand is a tiny fraction of body mass, and blood markers almost certainly will not move.</li>
+<li>Whether senescent burden fell — that needs tissue, i.e. the biopsies we have deliberately deferred.</li>
+<li>Whether the whole-body protocol is safe; the hearing and electrical questions scale with immersion, not with dose.</li>
+</ul></div>
+</div>
+<p><strong>The asymmetry is what makes it worth doing.</strong> If a blinded, contralateral-controlled hand study shows nothing across two blocks and a crossover, that is a serious negative result about an effect that is claimed to be large — obtained with ten litres of water instead of two hundred, and without anyone being immersed. If it shows something, you have the first independently measured, dose-documented human signal for this intervention, and a design that other builders can repeat exactly.</p>
+</main>
+<footer class="site"><div class="in">
+<span>A <a href="https://hackingbiology.com" target="_blank" rel="noopener">HackingBiology</a> project · companion to <a href="https://biohack.it" target="_blank" rel="noopener">biohack.it</a></span>
+<span><a href="https://github.com/hackingbiology/ultrasound-low-frequency" target="_blank" rel="noopener">Source on GitHub</a> · research notes, not medical advice · built 2026-10-14</span>
+</div></footer>
+</body>
+</html>

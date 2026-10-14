@@ -13,7 +13,7 @@
 <body>
 <header class="top"><div class="in">
 <a class="brand" href="index.html"><img src="assets/favicon.svg" alt=""><span>LFU <b>Open</b> Hardware</span></a>
-<nav class="main" aria-label="Sections"><a href="index.html" aria-current="page">Overview</a><a href="evidence.html">Evidence</a><a href="hardware.html">Hardware</a><a href="home-bathtub.html">Home bathtub</a><a href="cancer-branch.html">Cancer branch</a><a href="open-questions.html">Open questions</a><a href="biological-feedback.html">Biological feedback</a><a href="diy-biohacking.html">DIY biohacking</a><a href="ip.html">IP rights</a></nav>
+<nav class="main" aria-label="Sections"><a href="index.html" aria-current="page">Overview</a><a href="evidence.html">Evidence</a><a href="hardware.html">Hardware</a><a href="hand-first.html">Hand first</a><a href="home-bathtub.html">Home bathtub</a><a href="cancer-branch.html">Cancer branch</a><a href="open-questions.html">Open questions</a><a href="biological-feedback.html">Biological feedback</a><a href="diy-biohacking.html">DIY biohacking</a><a href="ip.html">IP rights</a></nav>
 <button class="theme-btn" type="button" onclick="(function(){var d=document.documentElement,c=d.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'),n=c==='dark'?'light':'dark';d.dataset.theme=n;try{localStorage.setItem('theme',n)}catch(e){}})()" aria-label="Toggle theme">◐</button>
 </div></header>
 <main>
@@ -64,6 +64,7 @@
 <div class="grid g3">
   <a class="card" href="evidence.html"><h3>Evidence</h3><p class="small">Papers, trials and parameters, with conflicts between sources shown openly (Pa vs kPa, peak vs RMS, 1.5 vs 1.6 s).</p><span class="go">Read →</span></a>
   <a class="card" href="hardware.html"><h3>Hardware: 3 architectures</h3><p class="small">Adapted lab bath · open driver + Langevin transducer · multi-channel array tub. Pros and cons, block diagrams, hardware and software for each.</p><span class="go">Read →</span></a>
+  <a class="card" href="hand-first.html"><h3>Hand first</h3><p class="small">Treat one hand, keep the other as control: a randomised, blinded, sham-controlled n-of-1 that a whole-body tub cannot offer. The measurements, the rig, the protocol.</p><span class="go">Read →</span></a>
   <a class="card" href="home-bathtub.html"><h3>Using your own bathtub</h3><p class="small">No purpose-built tub needed — but a battery-powered retrofit kit, a mapping protocol, and a foot-bath stage first. The risks that home use adds.</p><span class="go">Read →</span></a>
   <a class="card" href="cancer-branch.html"><h3>The cancer branch</h3><p class="small">The same lab, the same 33 kHz, 20–70× the intensity — and tumour cells die instead of senescent cells restarting. The dose ladder, and why we keep this out of scope.</p><span class="go">Read →</span></a>
   <a class="card" href="open-questions.html"><h3>Open questions for Mechanobiologics</h3><p class="small">Everything we need to know to reproduce the exposure faithfully.</p><span class="go">Read →</span></a>
@@ -81,6 +82,7 @@
 <tr><td>2 · Bench prototypes</td><td>Architecture A and B built on a 4 L beaker / foot bath</td><td>4–8 kPa uniform to ±25% over the target zone, no inertial cavitation, stable 32–35 °C</td><td><span class="b">planned</span></td></tr>
 <tr><td>2b · Biological cross-check</td><td>With a partner lab: the published tumour/normal cell assay run against our rig as a <a href="cancer-branch.html#use">biological dosimeter</a>, plus the oncogenic-safety arm</td><td>Measured dose agrees with the biology; no priming of transformed cells at the rejuvenation dose</td><td><span class="b">planned</span></td></tr>
 <tr><td>3 · Builder kit v1</td><td>BOM, PCB, firmware, guide, acceptance test</td><td>Two independent builders pass the acceptance test</td><td><span class="b">planned</span></td></tr>
+<tr><td>3a · <a href="hand-first.html">Hand study</a></td><td>Contralateral-controlled, blinded, crossover protocol on one hand with non-invasive endpoints</td><td>A pre-registered result, positive or null, with a documented dose per session</td><td><span class="b t">next up</span></td></tr>
 <tr><td>3b · Home retrofit</td><td><a href="home-bathtub.html">Battery-powered kit for an existing bathtub</a>, mapped per tub, after the foot-bath stage</td><td>Mapped field; insulation and hearing records clean; kit fully removable</td><td><span class="b">planned</span></td></tr>
 <tr><td>4 · Self-testing protocol</td><td>Baseline + sham + active phases, biomarker panel, data schema for biohack.it</td><td>Protocol reviewed by a physician; first n-of-1 datasets</td><td><span class="b">planned</span></td></tr>
 <tr><td>5 · Array tub (optional)</td><td>Architecture C, full-body immersion</td><td>Safety case, field map, independent electrical check</td><td><span class="b">later</span></td></tr>
@@ -90,7 +92,7 @@
 </main>
 <footer class="site"><div class="in">
 <span>A <a href="https://hackingbiology.com" target="_blank" rel="noopener">HackingBiology</a> project · companion to <a href="https://biohack.it" target="_blank" rel="noopener">biohack.it</a></span>
-<span><a href="https://github.com/hackingbiology/ultrasound-low-frequency" target="_blank" rel="noopener">Source on GitHub</a> · research notes, not medical advice · built 2026-10-12</span>
+<span><a href="https://github.com/hackingbiology/ultrasound-low-frequency" target="_blank" rel="noopener">Source on GitHub</a> · research notes, not medical advice · built 2026-10-14</span>
 </div></footer>
 </body>
 </html>
