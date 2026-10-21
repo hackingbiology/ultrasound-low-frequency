@@ -1,0 +1,4 @@
+{
+  "updated": "2026-10-21",
+  "comment": "Date shown in the site footer. Bump it deliberately when publishing a meaningful update; keeping it out of the build makes rebuilds byte-identical so CI can verify docs/ is in sync."
+}

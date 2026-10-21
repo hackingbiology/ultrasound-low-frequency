@@ -1,0 +1,36 @@
+name: site
+
+# Guards the one thing that can silently rot: docs/ is committed output, so it
+# can drift from site/pages/ if someone edits a page and forgets to rebuild.
+# The build is deterministic (the footer date comes from site/meta.json, not
+# from today's date), so a rebuild must produce no diff at all.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-is-in-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Rebuild the site
+        run: python site/build.py
+
+      - name: docs/ must match site/pages/
+        run: |
+          if ! git diff --exit-code --stat docs/; then
+            echo "::error::docs/ is out of sync with site/pages/. Run 'python site/build.py' and commit the result."
+            exit 1
+          fi
+          echo "docs/ is in sync."
+
+      - name: Every page must be reachable and self-consistent
+        run: python tools/check_links.py

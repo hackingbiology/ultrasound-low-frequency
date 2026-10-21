@@ -22,12 +22,30 @@ The goal is to rebuild, as cheaply and as reproducibly as possible, the class of
 | [DIY biohacking](https://hackingbiology.github.io/ultrasound-low-frequency/diy-biohacking.html) | Potential benefits, potential risks, exclusions, house rules |
 | [IP rights](https://hackingbiology.github.io/ultrasound-low-frequency/ip.html) | Patent landscape, claim analysis, what a non-commercial DIY project may and may not do |
 
+## Resuming on another computer
+
+A `git clone` is sufficient — there are no secrets, no database, no server, and no dependencies beyond the Python standard library.
+
+```bash
+git clone https://github.com/hackingbiology/ultrasound-low-frequency.git
+cd ultrasound-low-frequency
+python site/build.py        # rebuilds docs/; must produce zero diff
+python tools/check_links.py # links, anchors, navigation
+```
+
+Then read, in this order: **[CLAUDE.md](CLAUDE.md)** (conventions), **[docs/STATE.md](docs/STATE.md)** (where the project is, decisions taken, what is next), and [docs/memoria-claude/](docs/memoria-claude/) (condensed findings). A CI workflow fails any push where `docs/` has drifted from `site/pages/`.
+
+The only material not in the repository is a folder of third-party conference photographs, kept privately because they are not ours to redistribute; everything they show is reproduced as text and data on the Evidence page, so nothing here depends on them.
+
 ## Repository layout
 
 ```
 docs/            published site (GitHub Pages, /docs on main) + docs/research/*.md working notes
 site/pages/      page fragments with front matter; files starting with _ are includes
 site/build.py    static builder: python site/build.py
+site/meta.json   footer date, bumped by hand so builds stay deterministic
+tools/           check_links.py and other repo checks
+.github/         CI: rebuild and verify docs/ is in sync
 ```
 
 Research notes: [01 source analysis](docs/research/01-source-analysis.md) · [02 review of a prior ChatGPT analysis](docs/research/02-chatgpt-analysis-review.md) · [03 IP analysis](docs/research/03-ip-analysis.md) · [04 biomarkers and Italian lab availability](docs/research/04-biomarkers-italy.md) (Italian) · [05 hardware and primary sources](docs/research/05-hardware-and-sources.md) · [06 electrical safety](docs/research/06-electrical-safety.md). Outreach draft: [enquiry to Mechanobiologics and UT](docs/outreach/mechanobiologics-enquiry.md).

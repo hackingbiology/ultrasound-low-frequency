@@ -1,0 +1,5 @@
+# Nothing generated lives outside docs/, which is committed on purpose.
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db

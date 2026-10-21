@@ -8,13 +8,14 @@ description: One-line description
 Run: python site/build.py
 """
 
-import datetime
+import json
 import pathlib
 import re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 PAGES = ROOT / "site" / "pages"
 OUT = ROOT / "docs"
+META = ROOT / "site" / "meta.json"  # deliberate, hand-bumped date: keeps builds deterministic
 
 NAV = [
     ("index.html", "Overview"),
@@ -81,7 +82,7 @@ def include(body):
 
 
 def main():
-    built = datetime.date.today().isoformat()
+    built = json.loads(META.read_text(encoding="utf-8"))["updated"]
     for src in sorted(PAGES.glob("*.html")):
         if src.name.startswith("_"):  # fragments, included by hand
             continue
