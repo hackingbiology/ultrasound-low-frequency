@@ -44,6 +44,11 @@ The site documents: the evidence and its contradictions, three hardware architec
 - No reply yet from Mechanobiologics or UT Health San Antonio (not yet contacted).
 - Research note 07 for the cancer branch was never written — its verified numbers live directly on the cancer-branch page instead.
 - A few figures in the research notes are flagged unverified; they are marked inline.
+- **Blocked sources are blocked by bot protection, not by IP** (checked 2026-11-24 through a residential-IP tunnel): `register.epo.org` returns 403 with a JavaScript challenge, `patents.justia.com` returns 403, and Google Patents still 404s US 12,714,885. A different exit IP does not help, so do not spend a shared residential line on them. The remaining routes for the docket items (W1–W4) are: EPO OPS with credentials, USPTO Patent Center, or a real browser session — not plain `curl`.
+
+## Environment
+
+The project moved from a Windows laptop to server sd-172212 on 2026-11-17 and survived it unchanged, because a clone is all it needs. It lives at `/home/ubuntu/progetti/ultrasound-low-frequency`, owned by `ubuntu`. Nothing else is required: no services, no cron, no database.
 
 ## How to resume on another computer
 
